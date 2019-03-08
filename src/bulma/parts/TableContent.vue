@@ -30,7 +30,7 @@
         <bottom-controls v-if="hasContent()"/>
         <div class="has-text-centered no-records-found"
             v-if="isEmpty()">
-            {{ __('No records were found') }}
+            {{ i18n('No records were found') }}
         </div>
         <confirmation v-if="state.confirmation"/>
     </div>
@@ -64,7 +64,8 @@ export default {
     },
 
     inject: [
-        'state', 'id', 'hasContent', 'hasFooter', 'isEmpty', 'visibleColumns', 'scopedSlots',
+        'state', 'id', 'hasContent', 'hasFooter', 'isEmpty',
+        'visibleColumns', 'scopedSlots', 'i18n',
     ],
 
     computed: {

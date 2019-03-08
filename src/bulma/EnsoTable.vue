@@ -2,8 +2,8 @@
     <vue-table :path="path"
         v-bind="$attrs"
         v-on="$listeners"
-        :error-handler="handleError"
-        :i18n="__"
+        :error-handler="errorHandler"
+        :i18n="i18n"
         @ready="ready = true"
         ref="table">
         <template v-slot:[slot]="props"
@@ -19,6 +19,8 @@ import VueTable from './VueTable.vue';
 
 export default {
     name: 'EnsoTable',
+
+    inject: ['errorHandler', 'i18n'],
 
     components: { VueTable },
 
