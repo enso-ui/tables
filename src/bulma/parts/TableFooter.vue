@@ -1,0 +1,45 @@
+<template>
+    <tfoot>
+        <tr>
+            <td v-if="state.template.crtNo"/>
+            <td v-if="state.template.selectable"/>
+            <td class="has-text-centered is-bold"
+                v-if="visibleColumn(state.template.columns[0])">
+                {{ i18n("Total") }}
+            </td>
+            <template v-for="i in columns.length - 1">
+                <td class="is-bold"
+                    :class="[{ 'is-money' : columns[i].money }, columnAlignment(columns[i])]"
+                    :key="i"
+                    v-if="visibleColumn(columns[i])">
+                    <span v-if="columns[i].meta.total"> {{
+                            columns[i].money
+                                ? state.body.total[columns[i].name]
+                                : totalFormat(state.body.total[columns[i].name])
+                    }}</span>
+                    <slot :name="`${columns[i].name}_custom_total`"
+                        v-else-if="columns[i].meta.customTotal">
+                        {{ `${columns[i].name}_custom_total` }}
+                    </slot>
+                </td>
+            </template>
+            <td v-if="state.template.actions"/>
+        </tr>
+    </tfoot>
+</template>
+
+<script>
+
+export default {
+    name: 'TableFooter',
+
+    inject: ['state', 'i18n', 'visibleColumns', 'visibleColumn', 'columnAlignment', 'totalFormat'],
+
+    computed: {
+        columns() {
+            return this.visibleColumns();
+        },
+    },
+};
+
+</script>
