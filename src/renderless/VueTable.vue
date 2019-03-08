@@ -175,6 +175,7 @@ export default {
                 this.fetch();
             }).catch((error) => {
                 this.state.meta.loading = false;
+                this.$emit('error', error);
                 this.errorHandler(error);
             });
         },
