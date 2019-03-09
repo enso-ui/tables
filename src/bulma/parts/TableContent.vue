@@ -77,24 +77,15 @@ export default {
 </script>
 
 <style lang="scss">
-    .vue-table {
-        &.is-rounded {
-            border-radius: 0.5em;
-        }
+    .vue-table .table-responsive {
+        width: 100%;
+        overflow-x: auto;
 
-        .table-responsive {
-            position: relative;
-            display: block;
-            width: 100%;
-            min-height: .01%;
-            overflow-x: auto;
+        .table {
+            font-size: 0.95em;
 
-            .table {
-                font-size: 0.95em;
-
-                td, th {
-                    vertical-align: middle;
-                }
+            td, th {
+                vertical-align: middle;
             }
         }
 

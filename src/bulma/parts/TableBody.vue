@@ -26,7 +26,7 @@
                                 {{ rowCrtNo(row) }}
                             </span>
                             <span v-if="hiddenCount"
-                                class="icon is-small hidden-controls"
+                                class="icon is-small hidden-control"
                                 v-on="hiddenEvents(row, index)">
                                 <fa :icon="isExpanded(row) ? 'minus-square' : 'plus-square'"/>
                             </span>
@@ -42,8 +42,8 @@
                             v-if="visibleColumn(column) && !isChild(row)">
                             <table-cell v-bind="cellBindings(row, column, idx)"
                                 v-on="cellEvents(row, column)">
-                                <template v-slot:hidden-controls>
-                                    <span class="icon is-small hidden-controls"
+                                <template v-slot:hidden-control>
+                                    <span class="icon is-small hidden-control"
                                         v-on="hiddenEvents(row, index)"
                                         v-if="cascadesHiddenControls && idx === 0">
                                         <fa :icon="
@@ -138,62 +138,64 @@ export default {
 </script>
 
 <style lang="scss">
-    .vue-table .crt-no {
-        white-space:nowrap;
-        display: flex;
+    .vue-table {
+        .crt-no {
+            white-space:nowrap;
+            display: flex;
 
-        .crt-no-label {
-            margin: auto;
-        }
-    }
-
-    .hidden-controls {
-        cursor: pointer;
-        margin-left: auto;
-        margin-top: 0.1em;
-    }
-
-    td.table-actions {
-        padding: .35em .5em;
-
-        span.action-buttons {
-            display: inline-flex;
-        }
-
-        .button.is-small {
-            &.is-table-button {
-                height: 1.6em;
-                padding: 0.4em;
-                font-size: .9em;
-            }
-
-            &.is-row-button {
-                background: 0;
-                border: none;
-                opacity: 0.6;
-                transition: opacity ease 0.3s;
-
-                &:focus {
-                    box-shadow: unset;
-                }
-
-                &:hover {
-                    opacity: 1;
-                }
+            .crt-no-label {
+                margin: auto;
             }
         }
-    }
 
-    li.child-row:not(:last-child) {
-        border-bottom: 1px solid #efefef;
-    }
+        .hidden-control {
+            cursor: pointer;
+            margin-left: auto;
+            margin-top: 0.1em;
+        }
 
-    li.child-row {
-        padding: 0.5em 0;
-    }
+        td.table-actions {
+            padding: .35em .5em;
 
-    .is-money {
-        white-space: pre;
-        font-family: monospace;
+            span.action-buttons {
+                display: inline-flex;
+            }
+
+            .button.is-small {
+                &.is-table-button {
+                    height: 1.6em;
+                    padding: 0.4em;
+                    font-size: .9em;
+                }
+
+                &.is-row-button {
+                    background: 0;
+                    border: none;
+                    opacity: 0.6;
+                    transition: opacity ease 0.3s;
+
+                    &:focus {
+                        box-shadow: unset;
+                    }
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        li.child-row:not(:last-child) {
+            border-bottom: 1px solid #efefef;
+        }
+
+        li.child-row {
+            padding: 0.5em 0;
+        }
+
+        .is-money {
+            white-space: pre;
+            font-family: monospace;
+        }
     }
 </style>
