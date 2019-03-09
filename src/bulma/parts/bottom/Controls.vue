@@ -26,6 +26,7 @@ export default {
 
 <style lang="scss">
     .vue-table .bottom-controls {
-        border-radius: 0 0 0.5em 0.5em;
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
     }
 </style>
