@@ -96,12 +96,12 @@
                                         :column="item.column"
                                         :value="item.value"
                                         @clicked="clicked(state.body.data[item.index], item.column)">
-                                        <span v-if="item.column.meta.slot"
-                                            :slot="item.column.name">
+                                        <template v-if="item.column.meta.slot"
+                                            v-slot[item.column.name]>
                                             <slot :name="item.column.name"
                                                 :row="state.body.data[item.rowCrtNo]"
                                                 :column="item.column"/>
-                                        </span>
+                                        </template>
                                     </table-cell>
                                 </li>
                             </template>
