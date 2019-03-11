@@ -173,11 +173,7 @@ export default {
                 this.state.ready = true;
                 this.$emit('ready');
                 this.fetch();
-            }).catch((error) => {
-                this.state.meta.loading = false;
-                this.$emit('error', error);
-                this.errorHandler(error);
-            });
+            }).catch(this.errorHandler);
         },
         loadPreferences() {
             const preferences = this.userPreferences();
