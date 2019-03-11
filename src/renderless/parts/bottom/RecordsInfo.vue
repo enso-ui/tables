@@ -31,7 +31,7 @@ export default {
         chunkInfo() {
             return this.hasRecords
                 ? `${this.i18n('From')} ${this.startInfo} ${this.i18n('to')} \
-                ${this.state.meta.start + this.state.body.data.length} \
+                ${this.state.meta.start + this.state.body.data.length - this.state.expanded.length} \
                 ${this.filteredInfo}`
                 : this.i18n('No records were found');
         },

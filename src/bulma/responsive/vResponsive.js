@@ -1,5 +1,5 @@
-import debounce from 'lodash/debounce';
-import ResizeSensor from 'css-element-queries/src/ResizeSensor';
+import { debounce } from 'lodash';
+import { ResizeSensor } from 'css-element-queries';
 import ResponsiveTable from './ResponsiveTable';
 
 let table = null;
