@@ -28,8 +28,8 @@ export default {
         path: {
             type: String,
             default() {
-                return `/api/${this.$route.path}/initTable`
-                    .replace('//', '/');
+                return `/${`api/${this.$route.path}/initTable`
+                    .split('/').filter(v => v).join('/')}`;
             },
         },
     },
