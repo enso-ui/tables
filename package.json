@@ -1,6 +1,6 @@
 {
   "name": "@enso-ui/tables",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Tables",
   "main": "index.js",
   "scripts": {
