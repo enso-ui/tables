@@ -28,7 +28,8 @@ export default {
         path: {
             type: String,
             default() {
-                return `${window.location.origin}/api${this.$route.path}initTable`;
+                return `/api/${this.$route.path}/initTable`
+                    .replace('//', '/');
             },
         },
     },
