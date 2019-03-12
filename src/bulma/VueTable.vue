@@ -30,6 +30,11 @@ export default {
     }),
 
     computed: {
+        body() {
+            return this.ready
+                ? this.$refs.table.state.body
+                : null;
+        },
         scopedSlots() {
             return this.ready
                 ? this.$refs.table.scopedSlots()
