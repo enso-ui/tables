@@ -1,7 +1,6 @@
 <template>
     <dropdown class="column-visibility"
-        manual
-        width="4em">
+        manual>
         <template v-slot:label>
             <span class="icon is-small">
                 <fa icon="eye"/>

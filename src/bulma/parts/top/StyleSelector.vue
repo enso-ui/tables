@@ -2,7 +2,6 @@
     <core-style-selector>
         <template v-slot:default="{ styles, hasStyle, optionEvents }">
             <dropdown class="style-selector"
-                width="4em"
                 manual>
                 <template v-slot:label>
                     <span class="icon is-small">
@@ -42,6 +41,10 @@ export default {
     .vue-table .style-selector {
         .dropdown-item {
             padding: .5em .8em;
+        }
+
+        .button .icon:first-child:not(:last-child) {
+            margin: unset;
         }
     }
 </style>
