@@ -54,22 +54,22 @@ export default {
     methods: {
         clearHighlighted() {
             return this.ready
-                ? this.$refs.table.clearHighlighted
+                ? this.$refs.table.clearHighlighted()
                 : null;
         },
         fetch() {
             return this.ready
-                ? this.$refs.table.fetch
+                ? this.$refs.table.fetch()
                 : null;
         },
         highlight() {
             return this.ready
-                ? this.$refs.table.highlight
+                ? this.$refs.table.highlight()
                 : null;
         },
         highlighted() {
             return this.ready
-                ? this.$refs.table.state.highlighted
+                ? this.$refs.table.state.highlighted()
                 : null;
         },
     },
