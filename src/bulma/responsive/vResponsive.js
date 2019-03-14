@@ -8,7 +8,7 @@ let sensor = null;
 export default {
     inserted: (el, binding, { context }) => {
         table = new ResponsiveTable(el, context);
-        sensor = new ResizeSensor(el, debounce(() => table.fit(), 16));
+        sensor = new ResizeSensor(el, debounce(() => table && table.fit(), 16));
     },
 
     unbind: () => {
