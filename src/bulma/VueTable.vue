@@ -11,25 +11,29 @@
                     <slot :name="slot"
                         v-bind="props"/>
                 </template>
-                <template v-slot:[slot]="props"
-                    v-for="slot in customTotals">
-                    <slot :name="slot"
+                <template v-slot:[customTotal]="props"
+                    v-for="customTotal in customTotals">
+                    <slot :name="customTotal"
                         v-bind="props"/>
                 </template>
             </table-content>
         </template>
     </core-table>
 </template>
+
 <script>
 import CoreTable from '../renderless/VueTable.vue';
 import TableContent from './parts/TableContent.vue';
 
 export default {
     name: 'VueTable',
+
     components: { CoreTable, TableContent },
+
     data: () => ({
         ready: false,
     }),
+
     computed: {
         body() {
             return this.ready
@@ -47,6 +51,7 @@ export default {
                 : [];
         },
     },
+
     methods: {
         clearHighlighted() {
             return this.ready

@@ -134,7 +134,10 @@ export default {
 
     components: { CoreBody, TableCell },
 
-    inject: ['state', 'i18n', 'ajax', 'refreshPageSelected', 'visibleColumn', 'columnAlignment', 'isChild'],
+    inject: [
+        'state', 'i18n', 'ajax', 'refreshPageSelected', 'visibleColumn',
+        'columnAlignment', 'isChild',
+    ],
 };
 </script>
 

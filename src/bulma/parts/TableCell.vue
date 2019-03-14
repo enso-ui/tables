@@ -48,7 +48,6 @@ export default {
 </script>
 
 <style lang="scss">
-
     .is-clickable {
         cursor: pointer;
     }
@@ -60,5 +59,4 @@ export default {
         -webkit-box-shadow: 0 1px 1px rgba(10, 10, 10, 0.2);
         box-shadow: 0 1px 1px rgba(10, 10, 10, 0.2);
     }
-
 </style>

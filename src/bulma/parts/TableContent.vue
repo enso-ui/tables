@@ -10,17 +10,16 @@
                 <table-header ref="header"/>
                 <table-body v-on="$listeners"
                     ref="body">
-                    <template v-slot:[column.name]="props"
-                        v-for="column in state.template.columns">
-                        <slot :name="column.name"
-                            v-bind="props"
-                            v-if="column.meta.slot"/>
+                    <template v-slot:[slot]="props"
+                        v-for="slot in scopedSlots()">
+                        <slot :name="slot"
+                            v-bind="props"/>
                     </template>
                 </table-body>
                 <table-footer v-if="hasFooter()">
-                    <template v-slot:[slot]="props"
-                        v-for="slot in customTotals()">
-                        <slot :name="slot"
+                    <template v-slot:[customTotal]="props"
+                        v-for="customTotal in customTotals()">
+                        <slot :name="customTotal"
                             v-bind="props"/>
                     </template>
                 </table-footer>
@@ -47,9 +46,9 @@ import vResponsive from '../responsive/vResponsive';
 
 export default {
     name: 'TableContent',
-    directives: {
-        responsive: vResponsive,
-    },
+
+    directives: { responsive: vResponsive },
+
     components: {
         TopControls,
         TableHeader,
@@ -59,10 +58,12 @@ export default {
         BottomControls,
         Confirmation,
     },
+
     inject: [
         'state', 'id', 'hasContent', 'hasFooter', 'isEmpty',
-        'visibleColumns', 'customTotals', 'i18n',
+        'visibleColumns', 'scopedSlots', 'customTotals', 'i18n',
     ],
+
     computed: {
         columns() {
             return this.visibleColumns();
@@ -70,6 +71,7 @@ export default {
     },
 };
 </script>
+
 <style lang="scss">
     .vue-table {
         .table-responsive {
