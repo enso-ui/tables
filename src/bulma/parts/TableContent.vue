@@ -19,7 +19,7 @@
                 </table-body>
                 <table-footer v-if="hasFooter()">
                     <template v-slot:[slot]="props"
-                        v-for="slot in scopedSlots()">
+                        v-for="slot in customTotals()">
                         <slot :name="slot"
                             v-bind="props"/>
                     </template>
@@ -35,7 +35,6 @@
         <confirmation v-if="state.confirmation"/>
     </div>
 </template>
-
 <script>
 import Loader from '@enso-ui/loader/bulma';
 import TopControls from './top/Controls.vue';
@@ -48,11 +47,9 @@ import vResponsive from '../responsive/vResponsive';
 
 export default {
     name: 'TableContent',
-
     directives: {
         responsive: vResponsive,
     },
-
     components: {
         TopControls,
         TableHeader,
@@ -62,12 +59,10 @@ export default {
         BottomControls,
         Confirmation,
     },
-
     inject: [
         'state', 'id', 'hasContent', 'hasFooter', 'isEmpty',
-        'visibleColumns', 'scopedSlots', 'i18n',
+        'visibleColumns', 'customTotals', 'i18n',
     ],
-
     computed: {
         columns() {
             return this.visibleColumns();
@@ -75,22 +70,18 @@ export default {
     },
 };
 </script>
-
 <style lang="scss">
     .vue-table {
         .table-responsive {
             width: 100%;
             overflow-x: auto;
-
             .table {
                 font-size: 0.95em;
-
                 td, th {
                     vertical-align: middle;
                 }
             }
         }
-
         .no-records-found {
             padding: 1em;
         }

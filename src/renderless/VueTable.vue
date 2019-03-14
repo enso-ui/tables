@@ -4,7 +4,6 @@ import accounting from 'accounting-js';
 
 export default {
     name: 'CoreTable',
-
     props: {
         errorHandler: {
             type: Function,
@@ -37,7 +36,6 @@ export default {
             required: true,
         },
     },
-
     data: () => ({
         state: {
             apiVersion: null,
@@ -56,7 +54,6 @@ export default {
             meta: {},
         },
     }),
-
     computed: {
         preferencesKey() {
             return `VueTable_${this.id}_preferences`;
@@ -87,7 +84,6 @@ export default {
             };
         },
     },
-
     provide() {
         return {
             action: this.action,
@@ -110,6 +106,7 @@ export default {
             refreshPageSelected: this.refreshPageSelected,
             reset: this.reset,
             scopedSlots: this.scopedSlots,
+            customTotals: this.customTotals,
             state: this.state,
             togglePageSelect: this.togglePageSelect,
             totalFormat: this.totalFormat,
@@ -117,7 +114,6 @@ export default {
             visibleColumns: this.visibleColumns,
         };
     },
-
     watch: {
         filters: {
             handler() {
@@ -156,11 +152,9 @@ export default {
             deep: true,
         },
     },
-
     created() {
         this.init();
     },
-
     methods: {
         init() {
             axios.get(this.path).then(({ data }) => {
@@ -177,15 +171,12 @@ export default {
         },
         loadPreferences() {
             const preferences = this.userPreferences();
-
             if (this.invalidPreferences(preferences)) {
                 this.clearPreferences();
                 return;
             }
-
             this.matchProperties(preferences.meta, this.state.meta);
             this.matchProperties(preferences.template, this.state.template);
-
             preferences.columns.forEach((source) => {
                 const dest = this.state.template.columns
                     .find(({ name }) => name === source.name);
@@ -225,7 +216,6 @@ export default {
             this.state.meta.loading = true;
             this.state.meta.expanded = [];
             this.$emit('fetching');
-
             axios[this.state.template.method.toLowerCase()](
                 this.state.template.readPath,
                 this.readRequest(),
@@ -233,19 +223,15 @@ export default {
                 const body = response.data;
                 this.state.meta.loading = false;
                 this.state.meta.forceInfo = false;
-
                 if (body.data.length === 0 && this.state.meta.start > 0) {
                     this.state.meta.start = 0;
                     this.fetch();
                     return;
                 }
-
                 this.state.body = this.state.meta.money
                     ? this.processMoney(body)
                     : body;
-
                 this.$emit('fetched');
-
                 this.$nextTick(() => this.refreshPageSelected());
             }).catch((error) => {
                 this.state.meta.loading = false;
@@ -277,7 +263,6 @@ export default {
                     fullInfoRecordLimit: this.state.meta.fullInfoRecordLimit,
                 }),
             };
-
             return (method || this.state.template.method) === 'GET'
                 ? { params }
                 : params;
@@ -303,7 +288,6 @@ export default {
                         visible: column.meta.visible,
                     }),
                 });
-
                 return columns;
             }, []);
         },
@@ -313,7 +297,6 @@ export default {
                     delete meta[key];
                 }
             });
-
             return meta;
         },
         processMoney(body) {
@@ -322,25 +305,19 @@ export default {
                 .forEach((column) => {
                     const total = this.state.meta.total
                         && Object.keys(body.total).includes(column.name);
-
                     let money = body.data.map(row => parseFloat(row[column.name]) || 0);
-
                     if (total) {
                         money.push(body.total[column.name]);
                     }
-
                     money = accounting.formatColumn(money, column.money);
-
                     body.data = body.data.map((row, index) => {
                         row[column.name] = money[index];
                         return row;
                     });
-
                     if (total) {
                         body.total[column.name] = money.pop();
                     }
                 });
-
             return body;
         },
         isEmpty() {
@@ -398,7 +375,6 @@ export default {
                     comparisonOperator: this.state.template.comparisonOperator,
                 },
             };
-
             return this.state.template.method === 'GET'
                 ? { params }
                 : params;
@@ -407,7 +383,6 @@ export default {
             axios[method.toLowerCase()](path).then(({ data }) => {
                 this.$toastr.success(data.message);
                 this.fetch();
-
                 if (postEvent) {
                     this.$emit(postEvent);
                 }
@@ -418,11 +393,9 @@ export default {
         },
         action(method, path, postEvent) {
             this.state.meta.loading = true;
-
             axios[method.toLowerCase()](path, this.readRequest(method))
                 .then(() => {
                     this.state.meta.loading = false;
-
                     if (postEvent) {
                         this.$emit(postEvent);
                     }
@@ -442,7 +415,6 @@ export default {
                 if (!this.isChild(row)) {
                     const index = this.state.selected
                         .findIndex(id => id === row.dtRowId);
-
                     if (!this.state.pageSelected) {
                         this.state.selected.splice(index, 1);
                     } else if (index === -1) {
@@ -460,7 +432,6 @@ export default {
         highlight(id) {
             const index = this.state.body.data
                 .findIndex(({ dtRowId }) => dtRowId === id);
-
             if (index >= 0) {
                 this.state.highlighted.push(index);
             }
@@ -471,7 +442,6 @@ export default {
         buttonAction(button, row = null) {
             this.state.action.button = button;
             this.state.action.row = row;
-
             if (button.confirmation) {
                 this.showConfirmation();
             } else {
@@ -483,13 +453,10 @@ export default {
         },
         doButtonAction() {
             const { button, row } = this.state.action;
-
             this.closeConfirmation();
-
             if (button.event) {
                 this.$emit(button.event, row);
             }
-
             switch (button.action) {
             case 'export':
                 this.exportData(button.path);
@@ -517,9 +484,7 @@ export default {
         },
         routeParams(button, row) {
             const params = {};
-
             params[this.state.template.pathSegment] = row.dtRowId;
-
             return button.params
                 ? { ...params, ...button.params }
                 : params;
@@ -537,11 +502,9 @@ export default {
             let x1 = x[0];
             const x2 = x.length > 1 ? `.${x[1]}` : '';
             const rgx = /(\d+)(\d{3})/;
-
             while (rgx.test(x1)) {
                 x1 = x1.replace(rgx, '$1,$2');
             }
-
             return x1 + x2;
         },
         isChild(row) {
@@ -554,8 +517,14 @@ export default {
                     .map(column => column.name)
                 : [];
         },
+        customTotals() {
+            return this.state.ready
+                ? this.state.template.columns
+                    .filter(column => column.meta.customTotal)
+                    .map(column => `${column.name}_custom_total`)
+                : [];
+        },
     },
-
     render() {
         return this.$slots.default;
     },

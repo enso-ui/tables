@@ -18,28 +18,22 @@
                                 : totalFormat(state.body.total[columns[i].name])
                     }}</span>
                     <slot :name="`${columns[i].name}_custom_total`"
-                        v-else-if="columns[i].meta.customTotal">
-                        {{ `${columns[i].name}_custom_total` }}
-                    </slot>
+                        :total="state.body.total"
+                        v-else-if="columns[i].meta.customTotal"/>
                 </td>
             </template>
             <td v-if="state.template.actions"/>
         </tr>
     </tfoot>
 </template>
-
 <script>
-
 export default {
     name: 'TableFooter',
-
     inject: ['state', 'i18n', 'visibleColumns', 'visibleColumn', 'columnAlignment', 'totalFormat'],
-
     computed: {
         columns() {
             return this.visibleColumns();
         },
     },
 };
-
 </script>

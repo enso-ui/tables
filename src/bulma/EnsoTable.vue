@@ -11,19 +11,20 @@
             <slot :name="slot"
                 v-bind="props"/>
         </template>
+        <template v-slot:[slot]="props"
+            v-for="slot in customTotals">
+            <slot :name="slot"
+                v-bind="props"/>
+        </template>
     </vue-table>
 </template>
-
 <script>
 import VueTable from './VueTable.vue';
 
 export default {
     name: 'EnsoTable',
-
     inject: ['errorHandler', 'i18n'],
-
     components: { VueTable },
-
     props: {
         path: {
             type: String,
@@ -33,11 +34,9 @@ export default {
             },
         },
     },
-
     data: () => ({
         ready: false,
     }),
-
     computed: {
         body() {
             return this.ready
@@ -49,8 +48,12 @@ export default {
                 ? this.$refs.table.scopedSlots
                 : [];
         },
+        customTotals() {
+            return this.ready
+                ? this.$refs.table.customTotals
+                : [];
+        },
     },
-
     methods: {
         clearHighlighted() {
             return this.ready
