@@ -8,8 +8,7 @@
                 :id="id"
                 v-if="hasContent()">
                 <table-header ref="header"/>
-                <table-body v-on="$listeners"
-                    ref="body">
+                <table-body v-on="$listeners">
                     <template v-slot:[slot]="props"
                         v-for="slot in scopedSlots()">
                         <slot :name="slot"

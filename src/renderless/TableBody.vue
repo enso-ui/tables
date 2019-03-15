@@ -130,7 +130,7 @@ export default {
                 value: row[column.name],
             }),
             cellEvents: (row, column) => ({
-                click: () => {
+                clicked: () => {
                     if (column.meta.clickable) {
                         this.$emit('clicked', { column, row });
                     }

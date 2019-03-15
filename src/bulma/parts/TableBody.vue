@@ -1,5 +1,5 @@
 <template>
-    <core-body>
+    <core-body v-on="$listeners">
         <template v-slot:default="{
                 isHighlighted, rowCrtNo, hiddenCount, cascadesHiddenControls,
                 selectBindings, selectEvents, isExpanded, toggleHidden, hiddenColSpan,

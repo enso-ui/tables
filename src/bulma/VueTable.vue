@@ -5,7 +5,7 @@
         ref="table">
         <template v-slot:default
             v-if="ready">
-            <table-content>
+            <table-content v-on="$listeners">
                 <template v-slot:[slot]="props"
                     v-for="slot in scopedSlots">
                     <slot :name="slot"
