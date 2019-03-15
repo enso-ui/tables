@@ -41,7 +41,7 @@
                             ]"
                             v-if="visibleColumn(column) && !isChild(row)">
                             <table-cell v-bind="cellBindings(row, column, idx)"
-                                v-on="{ ...$listeners, ...cellEvents(row, column) }">
+                                v-on="cellEvents(row, column)">
                                 <template v-slot:hidden-control>
                                     <span class="icon is-small hidden-control"
                                         v-on="hiddenEvents(row, index)"
