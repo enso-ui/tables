@@ -95,7 +95,7 @@
                                     <table-cell :i18n="i18n"
                                         :column="item.column"
                                         :value="item.value"
-                                        @clicked="clicked(state.body.data[item.index], item.column)">
+                                        v-on="cellEvents(row, column)">
                                         <template v-if="item.column.meta.slot"
                                             v-slot:[item.column.name]>
                                             <slot :name="item.column.name"
