@@ -284,6 +284,8 @@ export default {
                         translatable: column.meta.translatable,
                         nullLast: column.meta.nullLast,
                         rogue: column.meta.rogue,
+                        visible: column.meta.visible,
+                        hidden: column.meta.hidden,
                         notExportable: column.meta.notExportable,
                         visible: column.meta.visible,
                     }),
