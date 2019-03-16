@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import CoreTable from '../renderless/VueTable.vue';
+import CoreTable from '../renderless/CoreTable.vue';
 import TableContent from './parts/TableContent.vue';
 
 export default {

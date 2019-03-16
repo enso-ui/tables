@@ -82,7 +82,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faSync, faUndo, faSearch, faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import CoreControls from '../../../renderless/parts/top/Controls.vue';
+import CoreControls from '../../../renderless/parts/top/CoreControls.vue';
 import LengthMenu from './LengthMenu.vue';
 import ColumnVisibility from './ColumnVisibility.vue';
 import StyleSelector from './StyleSelector.vue';

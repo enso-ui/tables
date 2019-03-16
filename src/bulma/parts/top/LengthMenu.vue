@@ -22,7 +22,7 @@
 
 <script>
 import Dropdown from '@enso-ui/dropdown/bulma';
-import CoreLengthMenu from '../../../renderless/parts/top/LengthMenu.vue';
+import CoreLengthMenu from '../../../renderless/parts/top/CoreLengthMenu.vue';
 
 export default {
     name: 'LengthMenu',

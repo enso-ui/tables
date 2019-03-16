@@ -76,7 +76,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faSort, faSortUp, faSortDown, faPlus, faFileExcel, faInfo,
 } from '@fortawesome/free-solid-svg-icons';
-import CoreTableHeader from '../../renderless/parts/TableHeader.vue';
+import CoreTableHeader from '../../renderless/parts/CoreTableHeader.vue';
 
 library.add(faSort, faSortUp, faSortDown, faPlus, faFileExcel, faInfo);
 

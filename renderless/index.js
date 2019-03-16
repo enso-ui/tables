@@ -1,3 +1,3 @@
-import VueTable from '../src/renderless/VueTable.vue';
+import CoreTable from '../src/renderless/CoreTable.vue';
 
-export default VueTable;
+export default CoreTable;

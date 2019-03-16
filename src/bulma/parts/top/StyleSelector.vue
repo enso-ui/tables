@@ -26,7 +26,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTable } from '@fortawesome/free-solid-svg-icons';
 import Dropdown from '@enso-ui/dropdown/bulma';
-import CoreStyleSelector from '../../../renderless/parts/top/StyleSelector.vue';
+import CoreStyleSelector from '../../../renderless/parts/top/CoreStyleSelector.vue';
 
 library.add(faTable);
 

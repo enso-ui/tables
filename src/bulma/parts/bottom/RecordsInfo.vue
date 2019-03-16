@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import CoreRecordsInfo from '../../../renderless/parts/bottom/RecordsInfo.vue';
+import CoreRecordsInfo from '../../../renderless/parts/bottom/CoreRecordsInfo.vue';
 
 export default {
     name: 'RecordsInfo',

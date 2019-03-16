@@ -1,5 +1,5 @@
 <template>
-    <core-body v-on="$listeners">
+    <core-table-body v-on="$listeners">
         <template v-slot:default="{
                 isHighlighted, rowCrtNo, hiddenCount, cascadesHiddenControls,
                 selectBindings, selectEvents, isExpanded, toggleHidden, hiddenColSpan,
@@ -111,7 +111,7 @@
                 </tr>
             </tbody>
         </template>
-    </core-body>
+    </core-table-body>
 </template>
 
 <script>
@@ -120,7 +120,7 @@ import {
     faMinusSquare, faPlusSquare, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { VTooltip } from 'v-tooltip';
-import CoreBody from '../../renderless/TableBody.vue';
+import CoreTableBody from '../../renderless/CoreTableBody.vue';
 import TableCell from './TableCell.vue';
 
 library.add([
@@ -132,7 +132,7 @@ export default {
 
     directives: { tooltip: VTooltip },
 
-    components: { CoreBody, TableCell },
+    components: { CoreTableBody, TableCell },
 
     inject: [
         'state', 'i18n', 'ajax', 'refreshPageSelected', 'visibleColumn',

@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import CorePagination from '../../../renderless/parts/bottom/Pagination.vue';
+import CorePagination from '../../../renderless/parts/bottom/CorePagination.vue';
 
 export default {
     name: 'Pagination',
