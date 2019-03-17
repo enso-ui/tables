@@ -63,9 +63,9 @@ export default {
                 ? this.$refs.table.fetch()
                 : null;
         },
-        highlight() {
+        highlight(dtRowId) {
             return this.ready
-                ? this.$refs.table.highlight()
+                ? this.$refs.table.highlight(dtRowId)
                 : null;
         },
         highlighted() {
