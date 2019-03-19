@@ -214,7 +214,7 @@ export default {
         },
         fetch() {
             this.state.meta.loading = true;
-            this.state.meta.expanded = [];
+            this.state.expanded = [];
             this.$emit('fetching');
             axios[this.state.template.method.toLowerCase()](
                 this.state.template.readPath,
