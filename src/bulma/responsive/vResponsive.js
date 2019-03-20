@@ -7,8 +7,10 @@ let sensor = null;
 
 export default {
     inserted: (el, binding, { context }) => {
-        table = new ResponsiveTable(el, context);
-        sensor = new ResizeSensor(el, debounce(() => table && table.fit(), 16));
+        if (binding.value) {
+            table = new ResponsiveTable(el, context);
+            sensor = new ResizeSensor(el, debounce(() => table && table.fit(), 16));
+        }
     },
 
     unbind: () => {

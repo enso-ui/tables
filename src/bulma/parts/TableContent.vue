@@ -2,7 +2,7 @@
     <div class="vue-table">
         <top-controls v-on="$listeners"/>
         <div class="table-responsive"
-            v-responsive>
+            v-responsive="state.template.responsive">
             <table class="table is-fullwidth is-marginless"
                 :class="state.template.style"
                 :id="id"
