@@ -36,8 +36,13 @@ export default {
 
 <style lang="scss">
     .vue-table .column-visibility {
-        .dropdown-item {
-            padding: .5em .8em;
+        .options {
+            max-height: 250px;
+            overflow-y: scroll;
+
+            .dropdown-item {
+                padding: .5em .8em;
+            }
         }
 
         .button .icon:first-child:not(:last-child) {

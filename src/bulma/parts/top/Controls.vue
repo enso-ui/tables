@@ -6,10 +6,7 @@
             }">
             <div class="top-controls has-background-light">
                 <div class="columns is-multiline">
-                    <div class="
-                            column table-controls is-half-tablet is-one-third-desktop
-                            has-text-centered-mobile has-padding-small
-                        ">
+                    <div class="column table-controls is-half-tablet is-one-third-desktop has-text-centered-mobile has-padding-small">
                         <length-menu/>
                         <column-visibility/>
                         <style-selector class="is-hidden-mobile"/>
