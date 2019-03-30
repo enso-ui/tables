@@ -29,11 +29,9 @@ export default {
             return `(${this.state.selected.length} ${this.i18n('selected')})`;
         },
         chunkInfo() {
-            return this.hasRecords
-                ? `${this.i18n('From')} ${this.startInfo} ${this.i18n('to')} \
+            return `${this.i18n('From')} ${this.startInfo} ${this.i18n('to')} \
                 ${this.state.meta.start + this.state.body.data.length - this.state.expanded.length} \
-                ${this.filteredInfo}`
-                : this.i18n('No records were found');
+                ${this.filteredInfo}`;
         },
         fromInfo() {
             return `(${this.i18n('filtered from')} ${this.state.body.count} ${this.i18n('total records')})`;
