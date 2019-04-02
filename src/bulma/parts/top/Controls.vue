@@ -7,16 +7,18 @@
             <div class="top-controls has-background-light">
                 <div class="columns is-multiline">
                     <div class="column table-controls is-half-tablet is-one-third-desktop has-text-centered-mobile has-padding-small">
-                        <length-menu/>
-                        <column-visibility/>
-                        <style-selector class="is-hidden-mobile"/>
+                        <length-menu v-if="state.template.controls.includes('length')"/>
+                        <column-visibility v-if="state.template.controls.includes('columns')"/>
+                        <style-selector class="is-hidden-mobile" v-if="state.template.controls.includes('style')"/>
                         <a class="button"
+                            v-if="state.template.controls.includes('reload')"
                             v-on="reloadEvents">
                             <span class="icon is-small">
-                                <fa icon="sync"/>
+                                <fa icon="sync"l/>
                             </span>
                         </a>
                         <a class="button"
+                            v-if="state.template.controls.includes('reset')"
                             v-on="resetEvents">
                             <span class="icon is-small">
                                 <fa icon="undo"/>
