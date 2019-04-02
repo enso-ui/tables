@@ -1,8 +1,19 @@
 <script>
+import debounce from 'lodash/debounce';
+
 export default {
     name: 'CoreControls',
 
     inject: ['state', 'fetch', 'reset', 'buttonAction'],
+
+    created() {
+        this.fetchData = debounce(this.fetchData, this.state.template.debounce);
+    },
+    methods: {
+        fetchData() {
+            this.fetch();
+        },
+    },
 
     render() {
         return this.$scopedSlots.default({
@@ -32,7 +43,7 @@ export default {
             searchEvents: {
                 input: (e) => {
                     this.state.meta.search = e.target.value;
-                    this.fetch();
+                    this.fetchData();
                 },
             },
             clearEvents: {

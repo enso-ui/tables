@@ -1,5 +1,4 @@
 <script>
-import debounce from 'lodash/debounce';
 import accounting from 'accounting-js';
 
 export default {
@@ -163,7 +162,6 @@ export default {
                 this.state.template = template;
                 this.state.meta = meta;
                 this.loadPreferences();
-                this.fetch = debounce(this.fetch, template.debounce);
                 this.state.ready = true;
                 this.$emit('ready');
                 this.fetch();

@@ -96,8 +96,8 @@
                                         :column="item.column"
                                         :value="item.value"
                                         v-on="cellEvents(row, item.column)">
-                                        <template v-if="item.column.meta.slot"
-                                            v-slot:[item.column.name]>
+                                        <template v-slot:[item.column.name]
+                                            v-if="item.column.meta.slot">
                                             <slot :name="item.column.name"
                                                 :row="state.body.data[item.rowCrtNo]"
                                                 :column="item.column"
