@@ -290,6 +290,9 @@ export default {
                         visible: column.meta.visible,
                     }),
                 });
+                if(column.meta.sort) {
+                    this.state.meta.sort = true;
+                }
                 return columns;
             }, []);
         },
