@@ -4,6 +4,7 @@
         v-on="$listeners"
         :error-handler="errorHandler"
         :i18n="i18n"
+        :isRTL="isRTL"
         @ready="ready = true"
         ref="table">
         <template v-slot:[slot]="props"
@@ -21,6 +22,7 @@
 
 <script>
 import VueTable from './VueTable.vue';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'EnsoTable',
@@ -44,6 +46,7 @@ export default {
     }),
 
     computed: {
+        ...mapGetters('preferences', ['isRTL']),
         body() {
             return this.ready
                 ? this.$refs.table.body

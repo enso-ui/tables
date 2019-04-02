@@ -1,7 +1,7 @@
 <template>
     <core-length-menu>
         <template v-slot:default="{ isActive, optionEvents }">
-            <dropdown class="length-menu"
+            <dropdown class="length-menu" :isRTL='isRTL'
                 width="4em">
                 <template v-slot:label>
                     {{ state.meta.length }}
@@ -29,7 +29,7 @@ export default {
 
     components: { CoreLengthMenu, Dropdown },
 
-    inject: ['state'],
+    inject: ['state', 'isRTL'],
 };
 </script>
 

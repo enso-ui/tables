@@ -27,6 +27,10 @@ export default {
             type: Function,
             default: v => v,
         },
+        isRTL: {
+            type: Boolean,
+            default: false,
+        },
         params: {
             type: Object,
             default: null,
@@ -99,6 +103,7 @@ export default {
             hasEntries: this.hasEntries,
             hasFooter: this.hasFooter,
             i18n: this.i18n,
+            isRTL: this.isRTL,
             id: this.id,
             init: this.init,
             isChild: this.isChild,

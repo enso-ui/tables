@@ -1,7 +1,7 @@
 <template>
     <core-style-selector>
         <template v-slot:default="{ styles, hasStyle, optionEvents }">
-            <dropdown class="style-selector"
+            <dropdown class="style-selector" :isRTL='isRTL'
                 manual>
                 <template v-slot:label>
                     <span class="icon is-small">
@@ -32,6 +32,8 @@ library.add(faTable);
 
 export default {
     name: 'StyleSelector',
+
+    inject: ['isRTL'],
 
     components: { CoreStyleSelector, Dropdown },
 };

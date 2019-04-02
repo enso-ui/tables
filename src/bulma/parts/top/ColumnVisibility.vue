@@ -1,5 +1,5 @@
 <template>
-    <dropdown class="column-visibility"
+    <dropdown class="column-visibility" :isRTL='isRTL'
         manual>
         <template v-slot:label>
             <span class="icon is-small">
@@ -30,7 +30,7 @@ export default {
 
     components: { Dropdown },
 
-    inject: ['i18n', 'visibleColumns'],
+    inject: ['i18n', 'visibleColumns', 'isRTL'],
 };
 </script>
 
