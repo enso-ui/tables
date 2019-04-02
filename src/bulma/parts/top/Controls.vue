@@ -7,17 +7,20 @@
             <div class="top-controls has-background-light">
                 <div class="columns is-multiline">
                     <div class="column table-controls is-half-tablet is-one-third-desktop has-text-centered-mobile has-padding-small">
-                        <length-menu/>
-                        <column-visibility/>
-                        <style-selector class="is-hidden-mobile"/>
+                        <length-menu v-if="state.template.controls.includes('length')"/>
+                        <column-visibility v-if="state.template.controls.includes('columns')"/>
+                        <style-selector class="is-hidden-mobile"
+                            v-if="state.template.controls.includes('style')"/>
                         <a class="button"
-                            v-on="reloadEvents">
+                            v-on="reloadEvents"
+                            v-if="state.template.controls.includes('reload')">
                             <span class="icon is-small">
-                                <fa icon="sync"/>
+                                <fa icon="sync"l/>
                             </span>
                         </a>
                         <a class="button"
-                            v-on="resetEvents">
+                            v-on="resetEvents"
+                            v-if="state.template.controls.includes('reset')">
                             <span class="icon is-small">
                                 <fa icon="undo"/>
                             </span>
@@ -30,10 +33,7 @@
                             </span>
                         </a>
                     </div>
-                    <div class="
-                            column table-buttons is-one-third-desktop is-half-tablet
-                            has-text-right-tablet has-text-centered-mobile has-padding-small
-                        "
+                    <div class="column table-buttons is-one-third-desktop is-half-tablet has-text-right-tablet has-text-centered-mobile has-padding-small"
                         v-if="state.template.buttons">
                         <a v-for="button in state.template.buttons.global"
                             class="button has-margin-left-small"
