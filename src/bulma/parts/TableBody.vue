@@ -158,6 +158,10 @@ export default {
             margin-top: 0.1em;
         }
 
+        tbody {
+            overflow-y: hidden;
+        }
+
         td.table-actions {
             padding: .35em .5em;
 
