@@ -14,17 +14,21 @@ export default {
             type: Object,
             default: null,
         },
+        i18n: {
+            type: Function,
+            default: v => v,
+        },
         id: {
             type: String,
             required: true,
         },
-        intervals: {
+        initParams: {
             type: Object,
             default: null,
         },
-        i18n: {
-            type: Function,
-            default: v => v,
+        intervals: {
+            type: Object,
+            default: null,
         },
         params: {
             type: Object,
@@ -156,16 +160,17 @@ export default {
     },
     methods: {
         init() {
-            axios.get(this.path).then(({ data }) => {
-                const { apiVersion, template, meta } = data;
-                this.state.apiVersion = apiVersion;
-                this.state.template = template;
-                this.state.meta = meta;
-                this.loadPreferences();
-                this.state.ready = true;
-                this.$emit('ready');
-                this.fetch();
-            }).catch(this.errorHandler);
+            axios.get(this.path, { params: { ...this.initParams } })
+                .then(({ data }) => {
+                    const { apiVersion, template, meta } = data;
+                    this.state.apiVersion = apiVersion;
+                    this.state.template = template;
+                    this.state.meta = meta;
+                    this.loadPreferences();
+                    this.state.ready = true;
+                    this.$emit('ready');
+                    this.fetch();
+                }).catch(this.errorHandler);
         },
         loadPreferences() {
             const preferences = this.userPreferences();
