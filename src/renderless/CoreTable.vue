@@ -56,6 +56,7 @@ export default {
             body: {},
             meta: {},
         },
+        requestCanceler: null,
     }),
     computed: {
         preferencesKey() {
@@ -215,14 +216,32 @@ export default {
             this.state.meta.search = '';
             this.init();
         },
+        request() {
+            if (this.requestCanceler) {
+                this.requestCanceler.cancel();
+            }
+
+            this.requestCanceler = axios.CancelToken.source();
+
+            return this.state.template.method === 'GET'
+                ? axios[this.state.template.method.toLowerCase()](
+                    this.state.template.readPath, {
+                        ...this.readRequest(),
+                        cancelToken: this.requestCanceler.token,
+                    }
+)
+                : axios[this.state.template.method.toLowerCase()](
+                    this.state.template.readPath,
+                    this.readRequest(),
+                    { cancelToken: this.requestCanceler.token },
+                );
+        },
         fetch() {
             this.state.meta.loading = true;
             this.state.expanded = [];
             this.$emit('fetching');
-            axios[this.state.template.method.toLowerCase()](
-                this.state.template.readPath,
-                this.readRequest(),
-            ).then((response) => {
+
+            this.request().then((response) => {
                 const body = response.data;
                 this.state.meta.loading = false;
                 this.state.meta.forceInfo = false;
@@ -266,6 +285,7 @@ export default {
                     fullInfoRecordLimit: this.state.meta.fullInfoRecordLimit,
                 }),
             };
+
             return (method || this.state.template.method) === 'GET'
                 ? { params }
                 : params;
