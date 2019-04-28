@@ -228,8 +228,8 @@ export default {
                     this.state.template.readPath, {
                         ...this.readRequest(),
                         cancelToken: this.requestCanceler.token,
-                    }
-)
+                    },
+                )
                 : axios[this.state.template.method.toLowerCase()](
                     this.state.template.readPath,
                     this.readRequest(),
@@ -257,7 +257,10 @@ export default {
                 this.$nextTick(() => this.refreshPageSelected());
             }).catch((error) => {
                 this.state.meta.loading = false;
-                this.errorHandler(error);
+
+                if (!axios.isCancel(error)) {
+                    this.errorHandler(error);
+                }
             });
         },
         readRequest(method = null) {
