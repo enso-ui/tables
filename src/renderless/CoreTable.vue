@@ -408,9 +408,9 @@ export default {
                 : params;
         },
         ajax(method, path, postEvent) {
-            axios[method.toLowerCase()](path).then(({ data }) => {
-                this.$toastr.success(data.message);
+            axios[method.toLowerCase()](path).then(() => {
                 this.fetch();
+
                 if (postEvent) {
                     this.$emit(postEvent);
                 }
