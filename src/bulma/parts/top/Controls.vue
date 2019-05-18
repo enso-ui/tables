@@ -15,7 +15,7 @@
                             v-on="reloadEvents"
                             v-if="state.template.controls.includes('reload')">
                             <span class="icon is-small">
-                                <fa icon="sync"l/>
+                                <fa icon="sync"/>
                             </span>
                         </a>
                         <a class="button"
