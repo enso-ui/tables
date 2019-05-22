@@ -2,7 +2,9 @@
 import accounting from 'accounting-js';
 
 export default {
+
     name: 'CoreTable',
+
     props: {
         errorHandler: {
             type: Function,
@@ -39,6 +41,7 @@ export default {
             required: true,
         },
     },
+
     data: () => ({
         state: {
             apiVersion: null,
@@ -58,6 +61,7 @@ export default {
         },
         requestCanceler: null,
     }),
+
     computed: {
         preferencesKey() {
             return `VueTable_${this.id}_preferences`;
@@ -88,6 +92,7 @@ export default {
             };
         },
     },
+
     provide() {
         return {
             action: this.action,
@@ -118,6 +123,7 @@ export default {
             visibleColumns: this.visibleColumns,
         };
     },
+
     watch: {
         filters: {
             handler() {
@@ -149,16 +155,16 @@ export default {
         },
         preferences: {
             handler() {
-                if (this.hasContent()) {
-                    this.savePreferences();
-                }
+                this.savePreferences();
             },
             deep: true,
         },
     },
+
     created() {
         this.init();
     },
+
     methods: {
         init() {
             axios.get(this.path, { params: { ...this.initParams } })
@@ -553,6 +559,7 @@ export default {
                 : [];
         },
     },
+
     render() {
         return this.$slots.default;
     },
