@@ -1,24 +1,28 @@
 <template>
     <core-table-header>
-        <template v-slot:default="{ selectBindings, selectEvents, sortEvents, clearSortEvents }">
+        <template v-slot:default="{
+                align, style, crtNo, crtNoLabel, actions, actionsLabel, i18n, columns, selectable, visibleColumn,
+                hiddenColumns, columnAlignment, selectBindings, selectEvents, sortEvents, clearSortEvents
+            }">
             <thead>
                 <tr class="has-background-light"
-                    :class="state.template.style">
+                    :class="style">
                     <th class="table-header"
-                        :class="state.template.align"
-                        v-if="state.template.selectable">
+                        :class="align"
+                        v-if="selectable">
                         <label class="checkbox">
                             <input type="checkbox"
                                 v-bind="selectBindings"
                                 v-on="selectEvents">
                         </label>
                     </th>
+                    <th v-if="hiddenColumns"/>
                     <th class="table-header"
-                        :class="state.template.align"
-                        v-if="state.template.crtNo">
-                        {{ i18n(state.template.labels.crtNo) }}
+                        :class="align"
+                        v-if="crtNo">
+                        {{ i18n(crtNoLabel) }}
                     </th>
-                    <template v-for="column in state.template.columns">
+                    <template v-for="column in columns">
                         <th class="table-header"
                             :class="columnAlignment(column)"
                             :key="column.label"
@@ -59,9 +63,9 @@
                         </th>
                     </template>
                     <th class="table-header"
-                        :class="state.template.align"
-                        v-if="state.template.actions">
-                        {{ i18n(state.template.labels.actions) }}
+                        :class="align"
+                        v-if="actions">
+                        {{ i18n(actionsLabel) }}
                     </th>
                 </tr>
             </thead>
@@ -86,8 +90,6 @@ export default {
     directives: { tooltip: VTooltip },
 
     components: { CoreTableHeader },
-
-    inject: ['i18n', 'state', 'visibleColumn', 'columnAlignment'],
 };
 </script>
 

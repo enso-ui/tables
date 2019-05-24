@@ -1,6 +1,7 @@
 <template>
     <tfoot>
         <tr>
+            <td v-if="hiddenColumns().length"/>
             <td v-if="state.template.crtNo"/>
             <td v-if="state.template.selectable"/>
             <td class="has-text-centered is-bold"
@@ -29,7 +30,9 @@
 <script>
 export default {
     name: 'TableFooter',
-    inject: ['state', 'i18n', 'visibleColumns', 'visibleColumn', 'columnAlignment', 'totalFormat'],
+
+    inject: ['state', 'i18n', 'visibleColumns', 'hiddenColumns', 'visibleColumn', 'columnAlignment', 'totalFormat'],
+
     computed: {
         columns() {
             return this.visibleColumns();

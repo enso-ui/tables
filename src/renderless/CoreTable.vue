@@ -107,6 +107,7 @@ export default {
             hasContent: this.hasContent,
             hasEntries: this.hasEntries,
             hasFooter: this.hasFooter,
+            hiddenColumns: this.hiddenColumns,
             i18n: this.i18n,
             id: this.id,
             init: this.init,
@@ -556,6 +557,12 @@ export default {
                 ? this.state.template.columns
                     .filter(column => column.meta.customTotal)
                     .map(column => `${column.name}_custom_total`)
+                : [];
+        },
+        hiddenColumns() {
+            return this.state.ready
+                ? this.state.template.columns && this.state.template.columns
+                    .filter(column => column.meta.hidden && column.meta.visible)
                 : [];
         },
     },

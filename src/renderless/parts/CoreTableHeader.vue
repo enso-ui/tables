@@ -2,7 +2,7 @@
 export default {
     name: 'CoreTableHeader',
 
-    inject: ['state', 'fetch', 'togglePageSelect'],
+    inject: ['state', 'fetch', 'togglePageSelect', 'i18n', 'visibleColumn', 'hiddenColumns', 'columnAlignment'],
 
     methods: {
         toggleSort(event, { meta }) {
@@ -49,6 +49,18 @@ export default {
             clearSortEvents: column => ({
                 click: () => this.clearColumnSort(column),
             }),
+            i18n: this.i18n,
+            visibleColumn: this.visibleColumn,
+            hiddenColumns: this.hiddenColumns().length,
+            columns: this.state.template.columns,
+            columnAlignment: this.columnAlignment,
+            crtNo: this.state.template.crtNo,
+            crtNoLabel: this.state.template.labels.crtNo,
+            actions: this.state.template.actions,
+            actionsLabel: this.state.template.labels.actions,
+            align: this.state.template.align,
+            style: this.state.template.style,
+            selectable: this.state.template.selectable,
         });
     },
 };

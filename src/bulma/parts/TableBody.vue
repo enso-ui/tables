@@ -1,8 +1,8 @@
 <template>
     <core-table-body v-on="$listeners">
         <template v-slot:default="{
-                isHighlighted, rowCrtNo, hiddenCount, cascadesHiddenControls,
-                selectBindings, selectEvents, isExpanded, toggleHidden, hiddenColSpan,
+                isHighlighted, rowCrtNo, hiddenCount,
+                selectBindings, selectEvents, isExpanded, hiddenColSpan,
                 hiddenEvents, cellBindings, cellEvents, actionBindings, actionEvents,
             }">
             <tbody>
@@ -19,17 +19,17 @@
                             </label>
                         </div>
                     </td>
+                    <td v-if="hiddenCount && !isChild(row)">
+                        <span class="icon is-small hidden-control"
+                            :aria-visible="isExpanded(row)"
+                            v-on="hiddenEvents(row, index)">
+                            <fa icon="chevron-right"/>
+                        </span>
+                    </td>
                     <td :class="state.template.align"
                         v-if="state.template.crtNo && !isChild(row)">
                         <span class="crt-no">
-                            <span class="crt-no-label">
-                                {{ rowCrtNo(row) }}
-                            </span>
-                            <span v-if="hiddenCount"
-                                class="icon is-small hidden-control"
-                                v-on="hiddenEvents(row, index)">
-                                <fa :icon="isExpanded(row) ? 'minus-square' : 'plus-square'"/>
-                            </span>
+                            {{ rowCrtNo(row) }}
                         </span>
                     </td>
                     <template v-for="(column, idx) in state.template.columns">
@@ -42,17 +42,6 @@
                             v-if="visibleColumn(column) && !isChild(row)">
                             <table-cell v-bind="cellBindings(row, column, idx)"
                                 v-on="cellEvents(row, column)">
-                                <template v-slot:hidden-control>
-                                    <span class="icon is-small hidden-control"
-                                        v-on="hiddenEvents(row, index)"
-                                        v-if="cascadesHiddenControls && idx === 0">
-                                        <fa :icon="
-                                            isExpanded(row)
-                                                ? 'minus-square'
-                                                : 'plus-square'
-                                        "/>
-                                    </span>
-                                </template>
                                 <template v-slot:[column.name]
                                     v-if="column.meta.slot">
                                     <slot :name="column.name"
@@ -117,14 +106,14 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faMinusSquare, faPlusSquare, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
+    faChevronRight, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { VTooltip } from 'v-tooltip';
 import CoreTableBody from '../../renderless/CoreTableBody.vue';
 import TableCell from './TableCell.vue';
 
 library.add([
-    faMinusSquare, faPlusSquare, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
+    faChevronRight, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
 ]);
 
 export default {
@@ -143,15 +132,6 @@ export default {
 
 <style lang="scss">
     .vue-table {
-        .crt-no {
-            white-space:nowrap;
-            display: flex;
-
-            .crt-no-label {
-                margin: auto;
-            }
-        }
-
         .hidden-control {
             cursor: pointer;
             margin-left: auto;
@@ -160,6 +140,14 @@ export default {
 
         tbody {
             overflow-y: hidden;
+        }
+
+        td .icon.hidden-control {
+            &[aria-visible="true"] {
+                transform: rotate(90deg);
+            }
+
+            transition: transform .300s ease;
         }
 
         td.table-actions {
