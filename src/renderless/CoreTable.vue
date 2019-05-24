@@ -401,12 +401,12 @@ export default {
                 meta: {
                     start: 0,
                     length: this.state.body.filtered,
-                    sort: this.state.template.sort,
-                    enum: this.state.template.enum,
-                    date: this.state.template.date,
-                    translatable: this.state.template.translatable,
+                    sort: this.state.meta.sort,
+                    enum: this.state.meta.enum,
+                    date: this.state.meta.date,
+                    translatable: this.state.meta.translatable,
                     search: this.state.meta.search,
-                    comparisonOperator: this.state.template.comparisonOperator,
+                    comparisonOperator: this.state.meta.comparisonOperator,
                 },
             };
             return this.state.template.method === 'GET'
