@@ -1,8 +1,9 @@
 <template>
     <core-table-header>
         <template v-slot:default="{
-                align, style, crtNo, crtNoLabel, actions, actionsLabel, i18n, columns, selectable, visibleColumn,
-                hiddenColumns, columnAlignment, selectBindings, selectEvents, sortEvents, clearSortEvents
+                align, style, crtNo, crtNoLabel, actions, actionsLabel, i18n, columns,
+                selectable, visibleColumn, hiddenColumns, preview, columnAlignment,
+                selectBindings, selectEvents, sortEvents, clearSortEvents
             }">
             <thead>
                 <tr class="has-background-light"
@@ -16,7 +17,7 @@
                                 v-on="selectEvents">
                         </label>
                     </th>
-                    <th v-if="hiddenColumns"/>
+                    <th v-if="hiddenColumns || preview"/>
                     <th class="table-header"
                         :class="align"
                         v-if="crtNo">

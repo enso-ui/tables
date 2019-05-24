@@ -52,6 +52,7 @@ export default {
             i18n: this.i18n,
             visibleColumn: this.visibleColumn,
             hiddenColumns: this.hiddenColumns().length,
+            preview: this.state.template.preview,
             columns: this.state.template.columns,
             columnAlignment: this.columnAlignment,
             crtNo: this.state.template.crtNo,

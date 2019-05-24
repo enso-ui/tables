@@ -9,69 +9,6 @@
                 <tr v-for="(row, index) in state.body.data"
                     :key="`${row.dtRowId}-${index}`"
                     :class="{ [state.template.highlight]: isHighlighted(index) }">
-                    <td v-if="state.template.selectable && !isChild(row)"
-                        :class="state.template.align">
-                        <div class="selectable">
-                            <label class="checkbox">
-                                <input type="checkbox"
-                                    v-bind="selectBindings(row)"
-                                    v-on="selectEvents(row)">
-                            </label>
-                        </div>
-                    </td>
-                    <td v-if="hiddenCount && !isChild(row)">
-                        <span class="icon is-small hidden-control"
-                            :aria-visible="isExpanded(row)"
-                            v-on="hiddenEvents(row, index)">
-                            <fa icon="chevron-right"/>
-                        </span>
-                    </td>
-                    <td :class="state.template.align"
-                        v-if="state.template.crtNo && !isChild(row)">
-                        <span class="crt-no">
-                            {{ rowCrtNo(row) }}
-                        </span>
-                    </td>
-                    <template v-for="(column, idx) in state.template.columns">
-                        <td :key="column.name"
-                            :class="[
-                                column.class,
-                                { 'is-money' : column.money },
-                                columnAlignment(column)
-                            ]"
-                            v-if="visibleColumn(column) && !isChild(row)">
-                            <table-cell v-bind="cellBindings(row, column, idx)"
-                                v-on="cellEvents(row, column)">
-                                <template v-slot:[column.name]
-                                    v-if="column.meta.slot">
-                                    <slot :name="column.name"
-                                        :row="row"
-                                        :column="column"
-                                        :loading="state.meta.loading"/>
-                                </template>
-                            </table-cell>
-                        </td>
-                    </template>
-                    <td class="table-actions"
-                        :class="state.template.align"
-                        v-if="state.template.actions && !isChild(row)">
-                        <span class="action-buttons">
-                            <a v-for="(button, idx) in state.template.buttons.row"
-                                :key="idx"
-                                class="button is-small is-table-button has-margin-left-small"
-                                :class="button.class"
-                                v-tooltip="button.tooltip ? i18n(button.tooltip) : null"
-                                v-bind="actionBindings(button, row)"
-                                v-on="actionEvents(button, row)">
-                                <span v-if="button.label">
-                                    {{ i18n(button.label) }}
-                                </span>
-                                <span class="icon is-small">
-                                    <fa :icon="button.icon"/>
-                                </span>
-                            </a>
-                        </span>
-                    </td>
                     <td v-if="isChild(row)"
                         :colspan="hiddenColSpan"
                         :class="state.template.align">
@@ -95,8 +32,77 @@
                                     </table-cell>
                                 </li>
                             </template>
+                            <li v-if="state.template.preview">
+                                <slot name="preview"
+                                    :row="state.body.data[index-1]"/>
+                            </li>
                         </ul>
                     </td>
+                    <template v-else>
+                        <td v-if="state.template.selectable"
+                            :class="state.template.align">
+                            <div class="selectable">
+                                <label class="checkbox">
+                                    <input type="checkbox"
+                                        v-bind="selectBindings(row)"
+                                        v-on="selectEvents(row)">
+                                </label>
+                            </div>
+                        </td>
+                        <td v-if="hiddenCount || state.template.preview">
+                            <span class="icon is-small hidden-control"
+                                :aria-visible="isExpanded(row)"
+                                v-on="hiddenEvents(row, index)">
+                                <fa icon="chevron-right"/>
+                            </span>
+                        </td>
+                        <td :class="state.template.align"
+                            v-if="state.template.crtNo">
+                            <span class="crt-no">
+                                {{ rowCrtNo(row) }}
+                            </span>
+                        </td>
+                        <template v-for="(column, idx) in state.template.columns">
+                            <td :key="column.name"
+                                :class="[
+                                    column.class,
+                                    { 'is-money' : column.money },
+                                    columnAlignment(column)
+                                ]"
+                                v-if="visibleColumn(column)">
+                                <table-cell v-bind="cellBindings(row, column, idx)"
+                                    v-on="cellEvents(row, column)">
+                                    <template v-slot:[column.name]
+                                        v-if="column.meta.slot">
+                                        <slot :name="column.name"
+                                            :row="row"
+                                            :column="column"
+                                            :loading="state.meta.loading"/>
+                                    </template>
+                                </table-cell>
+                            </td>
+                        </template>
+                        <td class="table-actions"
+                            :class="state.template.align"
+                            v-if="state.template.actions && !isChild(row)">
+                            <span class="action-buttons">
+                                <a v-for="(button, idx) in state.template.buttons.row"
+                                    :key="idx"
+                                    class="button is-small is-table-button has-margin-left-small"
+                                    :class="button.class"
+                                    v-tooltip="button.tooltip ? i18n(button.tooltip) : null"
+                                    v-bind="actionBindings(button, row)"
+                                    v-on="actionEvents(button, row)">
+                                    <span v-if="button.label">
+                                        {{ i18n(button.label) }}
+                                    </span>
+                                    <span class="icon is-small">
+                                        <fa :icon="button.icon"/>
+                                    </span>
+                                </a>
+                            </span>
+                        </td>
+                    </template>
                 </tr>
             </tbody>
         </template>
@@ -124,8 +130,7 @@ export default {
     components: { CoreTableBody, TableCell },
 
     inject: [
-        'state', 'i18n', 'ajax', 'refreshPageSelected', 'visibleColumn',
-        'columnAlignment', 'isChild',
+        'state', 'i18n', 'visibleColumn', 'columnAlignment', 'isChild',
     ],
 };
 </script>

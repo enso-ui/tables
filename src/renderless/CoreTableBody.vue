@@ -2,7 +2,10 @@
 export default {
     name: 'CoreTableBody',
 
-    inject: ['state', 'i18n', 'ajax', 'actionPath', 'buttonAction', 'isChild', 'refreshPageSelected', 'hiddenColumns'],
+    inject: [
+        'state', 'i18n', 'ajax', 'actionPath', 'buttonAction', 'isChild',
+        'refreshPageSelected', 'hiddenColumns',
+    ],
 
     data: () => ({
         row: null,
@@ -14,8 +17,9 @@ export default {
         },
         hiddenColSpan() {
             return this.state.template.columns.length
-                    - this.hiddenColumns.length
-                    + (this.state.template.actions ? 2 : 1);
+                + (this.state.template.preview && !this.hiddenColumns.length ? 1 : 0)
+                - (this.hiddenColumns.length ? this.hiddenColumns.length - 1 : 0)
+                + (this.state.template.actions ? 2 : 1);
         },
     },
 
@@ -41,7 +45,6 @@ export default {
         isExpanded(row) {
             return this.state.expanded.includes(row.dtRowId);
         },
-
         toggleHidden(row, index) {
             if (!this.isExpanded(row)) {
                 this.state.expanded.push(row.dtRowId);
