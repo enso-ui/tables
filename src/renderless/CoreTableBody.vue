@@ -116,7 +116,7 @@ export default {
             hiddenEvents: (row, index) => ({
                 click: () => this.toggleHidden(row, index),
             }),
-            cellBindings: (row, column, index) => ({
+            cellBindings: (row, column) => ({
                 column,
                 value: row[column.name],
             }),

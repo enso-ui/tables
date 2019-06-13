@@ -21,7 +21,7 @@
                                     <table-cell :i18n="i18n"
                                         :column="item.column"
                                         :value="item.value"
-                                        v-on="cellEvents(row, item.column)">
+                                        v-on="cellEvents(state.body.data[index - 1], item.column)">
                                         <template v-slot:[item.column.name]
                                             v-if="item.column.meta.slot">
                                             <slot :name="item.column.name"
@@ -62,7 +62,7 @@
                                 {{ rowCrtNo(row) }}
                             </span>
                         </td>
-                        <template v-for="(column, idx) in state.template.columns">
+                        <template v-for="column in state.template.columns">
                             <td :key="column.name"
                                 :class="[
                                     column.class,
@@ -70,7 +70,7 @@
                                     columnAlignment(column)
                                 ]"
                                 v-if="visibleColumn(column)">
-                                <table-cell v-bind="cellBindings(row, column, idx)"
+                                <table-cell v-bind="cellBindings(row, column)"
                                     v-on="cellEvents(row, column)">
                                     <template v-slot:[column.name]
                                         v-if="column.meta.slot">
