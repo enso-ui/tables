@@ -415,11 +415,11 @@ export default {
                 : params;
         },
         ajax(method, path, postEvent) {
-            axios[method.toLowerCase()](path).then(() => {
+            axios[method.toLowerCase()](path).then(({ data }) => {
                 this.fetch();
 
                 if (postEvent) {
-                    this.$emit(postEvent);
+                    this.$emit(postEvent, data);
                 }
             }).catch((error) => {
                 this.state.meta.loading = false;
@@ -429,10 +429,10 @@ export default {
         action(method, path, postEvent) {
             this.state.meta.loading = true;
             axios[method.toLowerCase()](path, this.readRequest(method))
-                .then(() => {
+                .then(({ data }) => {
                     this.state.meta.loading = false;
                     if (postEvent) {
-                        this.$emit(postEvent);
+                        this.$emit(postEvent, data);
                     }
                 }).catch((error) => {
                     this.state.meta.loading = false;
