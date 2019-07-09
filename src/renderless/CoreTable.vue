@@ -320,6 +320,7 @@ export default {
                         visible: column.meta.visible,
                         hidden: column.meta.hidden,
                         notExportable: column.meta.notExportable,
+                        cents: column.meta.cents,
                         visible: column.meta.visible,
                     }),
                 });
