@@ -40,7 +40,8 @@
                                 <span class="icon is-small has-text-info"
                                     v-if="column.tooltip"
                                     v-tooltip="i18n(column.tooltip)">
-                                    <fa icon="info" size="xs"/>
+                                    <fa icon="info"
+                                        size="xs"/>
                                 </span>
                                 <span class="sorter"
                                     v-on="sortEvents(column)"

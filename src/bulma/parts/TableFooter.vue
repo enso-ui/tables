@@ -13,15 +13,15 @@
                     :class="[{ 'is-money' : columns[i].money }, columnAlignment(columns[i])]"
                     :key="i"
                     v-if="visibleColumn(columns[i])">
-                    <span v-if="columns[i].meta.total"> {{
+                    <slot :name="`${columns[i].name}_custom_total`"
+                        :total="state.body.total"
+                        v-if="columns[i].meta.customTotal"/>
+                    <span v-else-if="columns[i].meta.total"> {{
                             columns[i].money
                                 ? state.body.total[columns[i].name]
                                 : totalFormat(state.body.total[columns[i].name])
                     }}</span>
-                    <slot :name="`${columns[i].name}_custom_total`"
-                        :total="state.body.total"
-                        v-else-if="columns[i].meta.customTotal"/>
-                </td>
+</td>
             </template>
             <td v-if="state.template.actions"/>
         </tr>
