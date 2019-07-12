@@ -58,7 +58,7 @@ export default {
         },
         addChildRow(row, index) {
             const newRow = this.hiddenColumns().reduce((collector, column) => {
-                collector.push({ column, value: row[column.name], rowCrtNo: index });
+                collector.push({ column, value: this.cellValue(row, column), rowCrtNo: index });
                 return collector;
             }, []);
 
@@ -87,6 +87,10 @@ export default {
         },
         isHighlighted(index) {
             return this.state.highlighted.includes(index);
+        },
+        cellValue(row, column) {
+            return column.name.split('.')
+                .reduce((value, prop) => (value ? value[prop]: null), row);
         },
     },
 
@@ -118,7 +122,7 @@ export default {
             }),
             cellBindings: (row, column) => ({
                 column,
-                value: row[column.name],
+                value: this.cellValue(row, column),
             }),
             cellEvents: (row, column) => ({
                 clicked: () => {
