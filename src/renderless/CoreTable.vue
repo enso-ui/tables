@@ -290,6 +290,7 @@ export default {
                     translatable: this.state.meta.translatable,
                     actions: this.state.meta.actions,
                     search: this.state.meta.search,
+                    cents: this.state.meta.cents,
                     forceInfo: this.state.meta.forceInfo,
                     comparisonOperator: this.state.meta.comparisonOperator,
                     fullInfoRecordLimit: this.state.meta.fullInfoRecordLimit,
@@ -408,6 +409,7 @@ export default {
                     date: this.state.meta.date,
                     translatable: this.state.meta.translatable,
                     search: this.state.meta.search,
+                    cents: this.state.meta.cents,
                     comparisonOperator: this.state.meta.comparisonOperator,
                 },
             };
