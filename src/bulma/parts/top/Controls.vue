@@ -1,8 +1,8 @@
 <template>
     <core-controls>
         <template v-slot:default="{
-                reloadEvents, resetEvents, forceInfoEvents, controlBindings, controlEvents,
-                searchBindings, searchEvents, clearEvents
+                reloadEvents, resetEvents, forceInfoEvents, controlBindings,
+                controlEvents, searchBindings, searchEvents, clearEvents,
             }">
             <div class="top-controls has-background-light">
                 <div class="columns is-multiline">
@@ -57,15 +57,18 @@
                                 type="text"
                                 v-bind="searchBindings"
                                 v-on="searchEvents"
-                                :placeholder="i18n('Search')">
+                                :placeholder="i18n('Search')"
+                                ref="search">
                             <span class="icon is-small is-left">
                                 <fa icon="search"/>
                             </span>
-                            <span class="icon is-small is-right clear-button"
-                                v-if="state.meta.search && !state.meta.loading"
-                                v-on="clearEvents">
-                                <a class="delete is-small"/>
+                            <span class="is-right icon is-small"
+                                v-if="state.meta.search && !state.meta.loading">
+                                <a class="delete is-small"
+                                    v-on="clearEvents"/>
                             </span>
+                            <search-mode @click="$refs.search.focus()"
+                                v-if="state.meta.search && !state.meta.loading"/>
                         </p>
                     </div>
                 </div>
@@ -83,6 +86,7 @@ import CoreControls from '../../../renderless/parts/top/CoreControls.vue';
 import LengthMenu from './LengthMenu.vue';
 import ColumnVisibility from './ColumnVisibility.vue';
 import StyleSelector from './StyleSelector.vue';
+import SearchMode from './SearchMode.vue';
 
 library.add(faSync, faUndo, faSearch, faInfoCircle);
 
@@ -90,7 +94,7 @@ export default {
     name: 'TopControls',
 
     components: {
-        CoreControls, LengthMenu, ColumnVisibility, StyleSelector,
+        CoreControls, LengthMenu, ColumnVisibility, StyleSelector, SearchMode,
     },
 
     inject: ['state', 'i18n'],
@@ -103,8 +107,12 @@ export default {
         border-top-right-radius: inherit;
         padding: 1em;
 
-        .control.has-icons-right .icon.clear-button {
+        .is-right.icon {
             pointer-events: all;
+
+            &.search-mode {
+                right: 1.6em;
+            }
         }
 
         @media screen and (min-width: 1024px) {

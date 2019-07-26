@@ -76,6 +76,7 @@ export default {
                     start: this.state.meta.start,
                     length: this.state.meta.length,
                     search: this.state.meta.search,
+                    searchMode: this.state.meta.searchMode,
                     sort: this.state.meta.sort,
                 },
                 columns: this.state.template.columns
@@ -293,6 +294,7 @@ export default {
                     cents: this.state.meta.cents,
                     forceInfo: this.state.meta.forceInfo,
                     comparisonOperator: this.state.meta.comparisonOperator,
+                    searchMode: this.state.meta.searchMode,
                     fullInfoRecordLimit: this.state.meta.fullInfoRecordLimit,
                 }),
             };
@@ -411,6 +413,7 @@ export default {
                     search: this.state.meta.search,
                     cents: this.state.meta.cents,
                     comparisonOperator: this.state.meta.comparisonOperator,
+                    searchMode: this.state.meta.searchMode,
                 },
             };
             return this.state.template.method === 'GET'

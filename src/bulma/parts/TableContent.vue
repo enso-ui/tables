@@ -81,7 +81,7 @@ export default {
             width: 100%;
             overflow-x: auto;
             .table {
-                font-size: 0.95em;
+                font-size: 0.9em;
                 td, th {
                     vertical-align: middle;
                 }
