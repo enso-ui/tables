@@ -38,7 +38,7 @@
                         <a v-for="button in state.template.buttons.global"
                             class="button has-margin-left-small"
                             :class="button.class"
-                            :key="button.label"
+                            :key="`${button.label}-${button.icon}`"
                             v-bind="controlBindings(button)"
                             v-on="controlEvents(button)">
                             <span class="is-hidden-mobile">
