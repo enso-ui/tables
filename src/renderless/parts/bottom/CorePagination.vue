@@ -5,11 +5,14 @@ export default {
     inject: ['state', 'fetch'],
 
     computed: {
+        meta() {
+            return this.state.meta;
+        },
         page() {
-            return (this.state.meta.start / this.state.meta.length) + 1;
+            return (this.meta.start / this.meta.length) + 1;
         },
         pages() {
-            return Math.ceil(this.state.body.filtered / this.state.meta.length);
+            return Math.ceil(this.state.body.filtered / this.meta.length);
         },
         atStart() {
             return this.page < 4;
@@ -50,7 +53,7 @@ export default {
                 return;
             }
 
-            this.state.meta.start = (page - 1) * this.state.meta.length;
+            this.meta.start = (page - 1) * this.meta.length;
 
             this.fetch();
         },

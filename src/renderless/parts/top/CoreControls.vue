@@ -6,9 +6,16 @@ export default {
 
     inject: ['state', 'fetch', 'reset', 'buttonAction'],
 
+    computed: {
+        meta() {
+            return this.state.meta;
+        },
+    },
+
     created() {
         this.fetchData = debounce(this.fetchData, this.state.template.debounce);
     },
+
     methods: {
         fetchData() {
             this.fetch();
@@ -25,7 +32,7 @@ export default {
             },
             forceInfoEvents: {
                 click: () => {
-                    this.state.meta.forceInfo = true;
+                    this.meta.forceInfo = true;
                     this.fetch();
                 },
             },
@@ -38,17 +45,17 @@ export default {
                 click: () => this.buttonAction(button),
             }),
             searchBindings: {
-                value: this.state.meta.search,
+                value: this.meta.search,
             },
             searchEvents: {
                 input: (e) => {
-                    this.state.meta.search = e.target.value;
+                    this.meta.search = e.target.value;
                     this.fetchData();
                 },
             },
             clearEvents: {
                 click: () => {
-                    this.state.meta.search = '';
+                    this.meta.search = '';
                     this.fetch();
                 },
             },

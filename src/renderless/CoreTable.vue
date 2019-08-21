@@ -63,6 +63,15 @@ export default {
     }),
 
     computed: {
+        template() {
+            return this.state.template;
+        },
+        meta() {
+            return this.state.meta;
+        },
+        body() {
+            return this.state.body;
+        },
         preferencesKey() {
             return `VueTable_${this.id}_preferences`;
         },
@@ -70,16 +79,16 @@ export default {
             return this.state.ready && {
                 apiVersion: this.state.apiVersion,
                 template: {
-                    style: this.state.template.style,
+                    style: this.template.style,
                 },
                 meta: {
-                    start: this.state.meta.start,
-                    length: this.state.meta.length,
-                    search: this.state.meta.search,
-                    searchMode: this.state.meta.searchMode,
-                    sort: this.state.meta.sort,
+                    start: this.meta.start,
+                    length: this.meta.length,
+                    search: this.meta.search,
+                    searchMode: this.meta.searchMode,
+                    sort: this.meta.sort,
                 },
-                columns: this.state.template.columns
+                columns: this.template.columns
                     .reduce((collector, column) => {
                         collector.push({
                             name: column.name,
@@ -187,10 +196,10 @@ export default {
                 this.clearPreferences();
                 return;
             }
-            this.matchProperties(preferences.meta, this.state.meta);
-            this.matchProperties(preferences.template, this.state.template);
+            this.matchProperties(preferences.meta, this.meta);
+            this.matchProperties(preferences.template, this.template);
             preferences.columns.forEach((source) => {
-                const dest = this.state.template.columns
+                const dest = this.template.columns
                     .find(({ name }) => name === source.name);
                 this.matchProperties(source.meta, dest.meta);
             });
@@ -208,9 +217,9 @@ export default {
         invalidPreferences(preferences) {
             return !preferences
                 || preferences.apiVersion !== this.state.apiVersion
-                || preferences.columns.length !== this.state.template.columns.length
+                || preferences.columns.length !== this.template.columns.length
                 || preferences.columns
-                    .some(({ name }) => !this.state.template.columns
+                    .some(({ name }) => !this.template.columns
                         .some(column => name === column.name));
         },
         savePreferences() {
@@ -221,7 +230,7 @@ export default {
         },
         reset() {
             this.clearPreferences();
-            this.state.meta.search = '';
+            this.meta.search = '';
             this.init();
         },
         request() {
@@ -231,40 +240,40 @@ export default {
 
             this.requestCanceler = axios.CancelToken.source();
 
-            return this.state.template.method === 'GET'
-                ? axios[this.state.template.method.toLowerCase()](
-                    this.state.template.readPath, {
+            return this.template.method === 'GET'
+                ? axios[this.template.method.toLowerCase()](
+                    this.template.readPath, {
                         ...this.readRequest(),
                         cancelToken: this.requestCanceler.token,
                     },
                 )
-                : axios[this.state.template.method.toLowerCase()](
-                    this.state.template.readPath,
+                : axios[this.template.method.toLowerCase()](
+                    this.template.readPath,
                     this.readRequest(),
                     { cancelToken: this.requestCanceler.token },
                 );
         },
         fetch() {
-            this.state.meta.loading = true;
+            this.meta.loading = true;
             this.state.expanded = [];
             this.$emit('fetching');
 
             this.request().then((response) => {
                 const body = response.data;
-                this.state.meta.loading = false;
-                this.state.meta.forceInfo = false;
-                if (body.data.length === 0 && this.state.meta.start > 0) {
-                    this.state.meta.start = 0;
+                this.meta.loading = false;
+                this.meta.forceInfo = false;
+                if (body.data.length === 0 && this.meta.start > 0) {
+                    this.meta.start = 0;
                     this.fetch();
                     return;
                 }
-                this.state.body = this.state.meta.money
+                this.state.body = this.meta.money
                     ? this.processMoney(body)
                     : body;
                 this.$emit('fetched');
                 this.$nextTick(() => this.refreshPageSelected());
             }).catch((error) => {
-                this.state.meta.loading = false;
+                this.meta.loading = false;
 
                 if (!axios.isCancel(error)) {
                     this.errorHandler(error);
@@ -274,37 +283,37 @@ export default {
         readRequest(method = null) {
             const params = {
                 name: this.name || this.id,
-                cache: this.state.template.cache,
-                flatten: this.state.template.flatten,
-                appends: this.state.template.appends,
+                cache: this.template.cache,
+                flatten: this.template.flatten,
+                appends: this.template.appends,
                 filters: this.filters,
                 intervals: this.intervals,
                 params: this.params,
                 columns: this.requestColumns(),
                 meta: this.trimNeutrals({
-                    start: this.state.meta.start,
-                    length: this.state.meta.length,
-                    sort: this.state.meta.sort,
-                    total: this.state.meta.total,
-                    enum: this.state.meta.enum,
-                    date: this.state.meta.date,
-                    translatable: this.state.meta.translatable,
-                    actions: this.state.meta.actions,
-                    search: this.state.meta.search,
-                    cents: this.state.meta.cents,
-                    forceInfo: this.state.meta.forceInfo,
-                    comparisonOperator: this.state.meta.comparisonOperator,
-                    searchMode: this.state.meta.searchMode,
-                    fullInfoRecordLimit: this.state.meta.fullInfoRecordLimit,
+                    start: this.meta.start,
+                    length: this.meta.length,
+                    sort: this.meta.sort,
+                    total: this.meta.total,
+                    enum: this.meta.enum,
+                    date: this.meta.date,
+                    translatable: this.meta.translatable,
+                    actions: this.meta.actions,
+                    search: this.meta.search,
+                    cents: this.meta.cents,
+                    forceInfo: this.meta.forceInfo,
+                    comparisonOperator: this.meta.comparisonOperator,
+                    searchMode: this.meta.searchMode,
+                    fullInfoRecordLimit: this.meta.fullInfoRecordLimit,
                 }),
             };
 
-            return (method || this.state.template.method) === 'GET'
+            return (method || this.template.method) === 'GET'
                 ? { params }
                 : params;
         },
         requestColumns() {
-            return this.state.template.columns.reduce((columns, column) => {
+            return this.template.columns.reduce((columns, column) => {
                 columns.push({
                     label: column.label,
                     name: column.name,
@@ -339,10 +348,10 @@ export default {
             return meta;
         },
         processMoney(body) {
-            this.state.template.columns
+            this.template.columns
                 .filter(column => !!column.money)
                 .forEach((column) => {
-                    const total = this.state.meta.total
+                    const total = this.meta.total
                         && Object.keys(body.total).includes(column.name);
                     let money = body.data.map(row => parseFloat(row[column.name]) || 0);
                     if (total) {
@@ -360,21 +369,21 @@ export default {
             return body;
         },
         isEmpty() {
-            return this.state.body && this.state.body.count === 0;
+            return this.body && this.body.count === 0;
         },
         hasContent() {
-            return this.state.body && this.state.body.count > 0;
+            return this.body && this.body.count > 0;
         },
         hasEntries() {
-            return this.state.body && this.state.body.data.length > 0;
+            return this.body && this.body.data.length > 0;
         },
         hasFooter() {
-            return this.state.meta.total
-                && this.state.body
-                && this.state.body.fullRecordInfo;
+            return this.meta.total
+                && this.body
+                && this.body.fullRecordInfo;
         },
         visibleColumns() {
-            return this.state.template.columns
+            return this.template.columns
                 .filter(({ meta }) => !meta.rogue);
         },
         visibleColumn(column) {
@@ -384,39 +393,39 @@ export default {
         },
         columnAlignment(column) {
             return column.align
-                ? this.state.template.aligns[column.align]
-                : this.state.template.align;
+                ? this.template.aligns[column.align]
+                : this.template.align;
         },
         exportData(path) {
-            axios[this.state.template.method.toLowerCase()](
+            axios[this.template.method.toLowerCase()](
                 path, this.exportRequest(),
             ).catch((error) => {
-                this.state.meta.loading = false;
+                this.meta.loading = false;
                 this.errorHandler(error);
             });
         },
         exportRequest() {
             const params = {
                 name: this.name || this.id,
-                appends: this.state.template.appends,
+                appends: this.template.appends,
                 filters: this.filters,
                 intervals: this.intervals,
                 params: this.params,
                 columns: this.requestColumns(),
                 meta: {
                     start: 0,
-                    length: this.state.body.filtered,
-                    sort: this.state.meta.sort,
-                    enum: this.state.meta.enum,
-                    date: this.state.meta.date,
-                    translatable: this.state.meta.translatable,
-                    search: this.state.meta.search,
-                    cents: this.state.meta.cents,
-                    comparisonOperator: this.state.meta.comparisonOperator,
-                    searchMode: this.state.meta.searchMode,
+                    length: this.body.filtered,
+                    sort: this.meta.sort,
+                    enum: this.meta.enum,
+                    date: this.meta.date,
+                    translatable: this.meta.translatable,
+                    search: this.meta.search,
+                    cents: this.meta.cents,
+                    comparisonOperator: this.meta.comparisonOperator,
+                    searchMode: this.meta.searchMode,
                 },
             };
-            return this.state.template.method === 'GET'
+            return this.template.method === 'GET'
                 ? { params }
                 : params;
         },
@@ -428,51 +437,51 @@ export default {
                     this.$emit(postEvent, data);
                 }
             }).catch((error) => {
-                this.state.meta.loading = false;
+                this.meta.loading = false;
                 this.errorHandler(error);
             });
         },
         action(method, path, postEvent) {
-            this.state.meta.loading = true;
+            this.meta.loading = true;
             axios[method.toLowerCase()](path, this.readRequest(method))
                 .then(({ data }) => {
-                    this.state.meta.loading = false;
+                    this.meta.loading = false;
                     if (postEvent) {
                         this.$emit(postEvent, data);
                     }
                 }).catch((error) => {
-                    this.state.meta.loading = false;
+                    this.meta.loading = false;
                     this.errorHandler(error);
                 });
         },
         filterUpdate() {
             if (this.state.ready) {
-                this.state.meta.start = 0;
+                this.meta.start = 0;
                 this.fetch();
             }
         },
         togglePageSelect() {
-            this.state.body.data.forEach((row) => {
+            this.body.data.forEach((row) => {
                 if (!this.isChild(row)) {
                     const index = this.state.selected
-                        .findIndex(id => id === row.dtRowId);
+                        .findIndex(id => id === row[this.template.dtRowId]);
                     if (!this.state.pageSelected) {
                         this.state.selected.splice(index, 1);
                     } else if (index === -1) {
-                        this.state.selected.push(row.dtRowId);
+                        this.state.selected.push(row[this.template.dtRowId]);
                     }
                 }
             });
         },
         refreshPageSelected() {
-            this.state.pageSelected = this.state.body
-                && this.state.body.data
+            this.state.pageSelected = this.body
+                && this.body.data
                     .some(row => this.state.selected
-                        .some(id => id === row.dtRowId));
+                        .some(id => id === row[this.template.dtRowId]));
         },
-        highlight(id) {
-            const index = this.state.body.data
-                .findIndex(({ dtRowId }) => dtRowId === id);
+        highlight(dtRowId) {
+            const index = this.body.data
+                .findIndex(row => row[this.template.dtRowId] === dtRowId);
             if (index >= 0) {
                 this.state.highlighted.push(index);
             }
@@ -512,7 +521,7 @@ export default {
                 if (row) {
                     this.ajax(
                         button.method,
-                        this.actionPath(button, row.dtRowId),
+                        this.actionPath(button, row[this.template.dtRowId]),
                         button.postEvent,
                     );
                 } else {
@@ -525,7 +534,7 @@ export default {
         },
         routeParams(button, row) {
             const params = {};
-            params[this.state.template.pathSegment] = row.dtRowId;
+            params[this.template.pathSegment] = row[this.template.dtRowId];
             return button.params
                 ? { ...params, ...button.params }
                 : params;
@@ -553,21 +562,21 @@ export default {
         },
         scopedSlots() {
             return this.state.ready
-                ? this.state.template.columns
+                ? this.template.columns
                     .filter(column => column.meta.slot)
                     .map(column => column.name)
                 : [];
         },
         customTotals() {
             return this.state.ready
-                ? this.state.template.columns
+                ? this.template.columns
                     .filter(column => column.meta.customTotal)
                     .map(column => `${column.name}_custom_total`)
                 : [];
         },
         hiddenColumns() {
             return this.state.ready
-                ? this.state.template.columns && this.state.template.columns
+                ? this.template.columns && this.template.columns
                     .filter(column => column.meta.hidden && column.meta.visible)
                 : [];
         },

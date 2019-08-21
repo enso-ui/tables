@@ -5,14 +5,17 @@ export default {
     inject: ['i18n', 'state'],
 
     computed: {
+        body() {
+            return this.state.body;
+        },
         hasRecords() {
-            return this.state.body.data && this.state.body.data.length > 0;
+            return this.body.data && this.body.data.length > 0;
         },
         hasSelected() {
             return this.state.selected.length > 0;
         },
         hasFilters() {
-            return this.state.body.filters;
+            return this.body.filters;
         },
         startInfo() {
             return this.hasRecords
@@ -21,20 +24,20 @@ export default {
         },
         filteredInfo() {
             return this.hasFilters
-                ? `${this.i18n('of')} ${this.state.body.fullRecordInfo ? this.state.body.filtered : '...'} \
+                ? `${this.i18n('of')} ${this.body.fullRecordInfo ? this.body.filtered : '...'} \
                  ${this.i18n('entries')}`
-                : `${this.i18n('of')} ${this.state.body.count} ${this.i18n('entries')}`;
+                : `${this.i18n('of')} ${this.body.count} ${this.i18n('entries')}`;
         },
         selectedInfo() {
             return `(${this.state.selected.length} ${this.i18n('selected')})`;
         },
         chunkInfo() {
             return `${this.i18n('From')} ${this.startInfo} ${this.i18n('to')} \
-                ${this.state.meta.start + this.state.body.data.length - this.state.expanded.length} \
+                ${this.state.meta.start + this.body.data.length - this.state.expanded.length} \
                 ${this.filteredInfo}`;
         },
         fromInfo() {
-            return `(${this.i18n('filtered from')} ${this.state.body.count} ${this.i18n('total records')})`;
+            return `(${this.i18n('filtered from')} ${this.body.count} ${this.i18n('total records')})`;
         },
     },
 

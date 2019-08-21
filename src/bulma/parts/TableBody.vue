@@ -7,7 +7,7 @@
             }">
             <tbody>
                 <tr v-for="(row, index) in state.body.data"
-                    :key="`${row.dtRowId}-${index}`"
+                    :key="`${row[state.dtRowId]}-${index}`"
                     :class="{ [state.template.highlight]: isHighlighted(index) }">
                     <td v-if="isChild(row)"
                         :colspan="hiddenColSpan"
