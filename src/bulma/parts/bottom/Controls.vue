@@ -15,7 +15,7 @@ import RecordsInfo from './RecordsInfo.vue';
 import Pagination from './Pagination.vue';
 
 export default {
-    name: 'BottomControls',
+    name: 'Controls',
 
     components: { RecordsInfo, Pagination },
 

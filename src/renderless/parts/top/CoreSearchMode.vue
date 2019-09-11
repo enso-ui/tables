@@ -17,15 +17,15 @@ export default {
             return current === this.state.template.searchModes.length - 1
                 ? 0
                 : current + 1;
-        }
+        },
     },
 
     render() {
         return this.$scopedSlots.default({
             clickEvents: {
                 click: this.update,
-            }
+            },
         });
-    }
+    },
 };
 </script>

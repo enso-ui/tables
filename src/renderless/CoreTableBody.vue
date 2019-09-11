@@ -45,8 +45,8 @@ export default {
         rowCrtNo(row) {
             return this.body.data
                 && this.body.data.filter(filteredRow => !this.isChild(filteredRow))
-                    .findIndex(filteredRow => filteredRow[this.template.dtRowId] === row[this.template.dtRowId])
-                    + this.state.meta.start + 1;
+                    .findIndex(filteredRow => filteredRow[this.template.dtRowId]
+                        === row[this.template.dtRowId]) + this.state.meta.start + 1;
         },
         isExpanded(row) {
             return this.state.expanded.includes(row[this.template.dtRowId]);
@@ -114,7 +114,9 @@ export default {
             selectEvents: row => ({
                 change: () => {
                     if (this.state.selected.includes(row[this.template.dtRowId])) {
-                        const index = this.state.selected.findIndex(id => id === row[this.template.dtRowId]);
+                        const index = this.state.selected
+                            .findIndex(id => id === row[this.template.dtRowId]);
+
                         this.state.selected.splice(index, 1);
                     } else {
                         this.state.selected.push(row[this.template.dtRowId]);

@@ -38,6 +38,7 @@ export default {
                 }
 
                 pages.push(this.pages - 2, this.pages - 1);
+
                 return pages;
             }
 

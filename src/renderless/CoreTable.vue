@@ -192,12 +192,16 @@ export default {
         },
         loadPreferences() {
             const preferences = this.userPreferences();
+
             if (this.invalidPreferences(preferences)) {
                 this.clearPreferences();
                 return;
             }
+
             this.matchProperties(preferences.meta, this.meta);
+
             this.matchProperties(preferences.template, this.template);
+
             preferences.columns.forEach((source) => {
                 const dest = this.template.columns
                     .find(({ name }) => name === source.name);
@@ -229,6 +233,7 @@ export default {
             localStorage.removeItem(this.preferencesKey);
         },
         reset() {
+            this.$emit('reset');
             this.clearPreferences();
             this.meta.search = '';
             this.init();
@@ -262,15 +267,19 @@ export default {
                 const body = response.data;
                 this.meta.loading = false;
                 this.meta.forceInfo = false;
+
                 if (body.data.length === 0 && this.meta.start > 0) {
                     this.meta.start = 0;
                     this.fetch();
                     return;
                 }
+
                 this.state.body = this.meta.money
                     ? this.processMoney(body)
                     : body;
+
                 this.$emit('fetched');
+
                 this.$nextTick(() => this.refreshPageSelected());
             }).catch((error) => {
                 this.meta.loading = false;
@@ -329,7 +338,6 @@ export default {
                         translatable: column.meta.translatable,
                         nullLast: column.meta.nullLast,
                         rogue: column.meta.rogue,
-                        visible: column.meta.visible,
                         hidden: column.meta.hidden,
                         notExportable: column.meta.notExportable,
                         cents: column.meta.cents,
@@ -354,14 +362,18 @@ export default {
                     const total = this.meta.total
                         && Object.keys(body.total).includes(column.name);
                     let money = body.data.map(row => parseFloat(row[column.name]) || 0);
+
                     if (total) {
                         money.push(body.total[column.name]);
                     }
+
                     money = accounting.formatColumn(money, column.money);
+
                     body.data = body.data.map((row, index) => {
                         row[column.name] = money[index];
                         return row;
                     });
+
                     if (total) {
                         body.total[column.name] = money.pop();
                     }
@@ -425,6 +437,7 @@ export default {
                     searchMode: this.meta.searchMode,
                 },
             };
+
             return this.template.method === 'GET'
                 ? { params }
                 : params;
@@ -443,6 +456,7 @@ export default {
         },
         action(method, path, postEvent) {
             this.meta.loading = true;
+
             axios[method.toLowerCase()](path, this.readRequest(method))
                 .then(({ data }) => {
                     this.meta.loading = false;
@@ -474,14 +488,14 @@ export default {
             });
         },
         refreshPageSelected() {
-            this.state.pageSelected = this.body
-                && this.body.data
-                    .some(row => this.state.selected
-                        .some(id => id === row[this.template.dtRowId]));
+            this.state.pageSelected = this.body && this.body.data
+                && this.body.data.some(row => this.state.selected
+                    .some(id => id === row[this.template.dtRowId]));
         },
         highlight(dtRowId) {
             const index = this.body.data
                 .findIndex(row => row[this.template.dtRowId] === dtRowId);
+
             if (index >= 0) {
                 this.state.highlighted.push(index);
             }
@@ -492,6 +506,7 @@ export default {
         buttonAction(button, row = null) {
             this.state.action.button = button;
             this.state.action.row = row;
+
             if (button.confirmation) {
                 this.showConfirmation();
             } else {
@@ -503,10 +518,13 @@ export default {
         },
         doButtonAction() {
             const { button, row } = this.state.action;
+
             this.closeConfirmation();
+
             if (button.event) {
                 this.$emit(button.event, row);
             }
+
             switch (button.action) {
             case 'export':
                 this.exportData(button.path);
@@ -534,7 +552,9 @@ export default {
         },
         routeParams(button, row) {
             const params = {};
+
             params[this.template.pathSegment] = row[this.template.dtRowId];
+
             return button.params
                 ? { ...params, ...button.params }
                 : params;
@@ -552,9 +572,11 @@ export default {
             let x1 = x[0];
             const x2 = x.length > 1 ? `.${x[1]}` : '';
             const rgx = /(\d+)(\d{3})/;
+
             while (rgx.test(x1)) {
                 x1 = x1.replace(rgx, '$1,$2');
             }
+
             return x1 + x2;
         },
         isChild(row) {

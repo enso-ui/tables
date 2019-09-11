@@ -91,7 +91,7 @@ import SearchMode from './SearchMode.vue';
 library.add(faSync, faUndo, faSearch, faInfoCircle);
 
 export default {
-    name: 'TopControls',
+    name: 'Controls',
 
     components: {
         CoreControls, LengthMenu, ColumnVisibility, StyleSelector, SearchMode,
