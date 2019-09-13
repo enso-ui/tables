@@ -553,7 +553,7 @@ export default {
         routeParams(button, row) {
             const params = {};
 
-            params[this.template.pathSegment] = row[this.template.dtRowId];
+            params[this.template.model] = row[this.template.dtRowId];
 
             return button.params
                 ? { ...params, ...button.params }
