@@ -141,7 +141,7 @@ export default {
             }),
             actionBindings: (button, row) => ({
                 href: button.action === 'href'
-                    ? this.actionPath(button, row.dtRowId)
+                    ? this.actionPath(button, row[this.template.dtRowId])
                     : null,
             }),
             actionEvents: (button, row) => ({
