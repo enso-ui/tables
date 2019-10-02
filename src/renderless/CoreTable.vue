@@ -59,7 +59,7 @@ export default {
             body: {},
             meta: {},
         },
-        requestCanceler: null,
+        ongoingRequest: null,
     }),
 
     computed: {
@@ -239,23 +239,23 @@ export default {
             this.init();
         },
         request() {
-            if (this.requestCanceler) {
-                this.requestCanceler.cancel();
+            if (this.ongoingRequest) {
+                this.ongoingRequest.cancel();
             }
 
-            this.requestCanceler = axios.CancelToken.source();
+            this.ongoingRequest = axios.CancelToken.source();
 
             return this.template.method === 'GET'
                 ? axios[this.template.method.toLowerCase()](
                     this.template.readPath, {
                         ...this.readRequest(),
-                        cancelToken: this.requestCanceler.token,
+                        cancelToken: this.ongoingRequest.token,
                     },
                 )
                 : axios[this.template.method.toLowerCase()](
                     this.template.readPath,
                     this.readRequest(),
-                    { cancelToken: this.requestCanceler.token },
+                    { cancelToken: this.ongoingRequest.token },
                 );
         },
         fetch() {
