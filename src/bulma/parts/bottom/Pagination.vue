@@ -67,7 +67,6 @@ export default {
 
     inject: ['state', 'i18n', 'fetch'],
 };
-
 </script>
 
 <style lang="scss">

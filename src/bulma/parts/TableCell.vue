@@ -22,7 +22,6 @@
 </template>
 
 <script>
-
 export default {
     name: 'TableCell',
 
@@ -43,7 +42,6 @@ export default {
         },
     },
 };
-
 </script>
 
 <style lang="scss">

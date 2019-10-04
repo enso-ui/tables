@@ -10,7 +10,6 @@
 </template>
 
 <script>
-
 import RecordsInfo from './RecordsInfo.vue';
 import Pagination from './Pagination.vue';
 
@@ -21,7 +20,6 @@ export default {
 
     inject: ['hasEntries'],
 };
-
 </script>
 
 <style lang="scss">

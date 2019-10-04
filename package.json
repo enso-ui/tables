@@ -35,10 +35,10 @@
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
-    "@enso-ui/directives": "^1.0.4",
-    "@enso-ui/dropdown": "^1.0.15",
-    "@enso-ui/loader": "^1.0.6",
-    "@enso-ui/modal": "^1.0.6",
+    "@enso-ui/directives": "1.0.x",
+    "@enso-ui/dropdown": "1.0.x",
+    "@enso-ui/loader": "1.0.x",
+    "@enso-ui/modal": "1.0.x",
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.2",
     "@fortawesome/free-solid-svg-icons": "^5.2.0",

@@ -361,10 +361,11 @@ export default {
                 .forEach((column) => {
                     const total = this.meta.total
                         && Object.keys(body.total).includes(column.name);
-                    let money = body.data.map(row => parseFloat(row[column.name]) || 0);
+
+                    let money = body.data.map(row => Number.parseFloat(row[column.name]) || 0);
 
                     if (total) {
-                        money.push(body.total[column.name]);
+                        money.push(Number.parseFloat(body.total[column.name]) || 0);
                     }
 
                     money = accounting.formatColumn(money, column.money);

@@ -27,6 +27,7 @@
         </tr>
     </tfoot>
 </template>
+
 <script>
 export default {
     name: 'TableFooter',

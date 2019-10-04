@@ -110,11 +110,11 @@
 </template>
 
 <script>
+import { VTooltip } from 'v-tooltip';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faChevronRight, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { VTooltip } from 'v-tooltip';
 import CoreTableBody from '../../renderless/CoreTableBody.vue';
 import TableCell from './TableCell.vue';
 

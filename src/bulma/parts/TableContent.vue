@@ -37,6 +37,7 @@
         <confirmation v-if="state.confirmation"/>
     </div>
 </template>
+
 <script>
 import Loader from '@enso-ui/loader/bulma';
 import TopControls from './top/Controls.vue';
