@@ -248,13 +248,13 @@ export default {
             return this.template.method === 'GET'
                 ? axios[this.template.method.toLowerCase()](
                     this.template.readPath, {
-                        ...this.readRequest(),
+                        ...this.readRequest(this.template.method),
                         cancelToken: this.ongoingRequest.token,
                     },
                 )
                 : axios[this.template.method.toLowerCase()](
                     this.template.readPath,
-                    this.readRequest(),
+                    this.readRequest(this.template.method),
                     { cancelToken: this.ongoingRequest.token },
                 );
         },
@@ -289,46 +289,42 @@ export default {
                 }
             });
         },
-        readRequest(method = null) {
+        readRequest(method, exportMode = false) {
             const params = {
-                name: this.name || this.id,
                 filters: this.filters,
                 intervals: this.intervals,
                 params: this.params,
-                columns: this.requestColumns(),
-                meta: this.trimNeutrals({
+                columns: this.requestColumns(exportMode),
+                meta: {
                     start: this.meta.start,
                     length: this.meta.length,
                     sort: this.meta.sort,
                     search: this.meta.search,
                     forceInfo: this.meta.forceInfo,
                     searchMode: this.meta.searchMode,
-                }),
+                },
             };
 
-            return (method || this.template.method) === 'GET'
+            return method === 'GET'
                 ? { params }
                 : params;
         },
-        requestColumns() {
+        requestColumns(exportMode) {
             return this.template.columns.reduce((columns, column) => {
-                columns.push({
-                    meta: this.trimNeutrals({
-                        sort: column.meta.sort,
-                        hidden: column.meta.hidden,
-                        visible: column.meta.visible,
-                    }),
-                });
+                const meta = {};
+
+                if (column.meta.sort) {
+                    meta.sort = column.meta.sort;
+                }
+
+                if (exportMode) {
+                    meta.visible = column.meta.visible;
+                }
+
+                columns.push({ meta });
+
                 return columns;
             }, []);
-        },
-        trimNeutrals(meta) {
-            Object.keys(meta).forEach((key) => {
-                if (meta[key] === false || meta[key] === null) {
-                    delete meta[key];
-                }
-            });
-            return meta;
         },
         processMoney(body) {
             this.template.columns
@@ -386,31 +382,11 @@ export default {
         },
         exportData(path) {
             axios[this.template.method.toLowerCase()](
-                path, this.exportRequest(),
+                path, this.readRequest(this.template.method, true),
             ).catch((error) => {
                 this.meta.loading = false;
                 this.errorHandler(error);
             });
-        },
-        exportRequest() {
-            const params = {
-                name: this.name || this.id,
-                filters: this.filters,
-                intervals: this.intervals,
-                params: this.params,
-                columns: this.requestColumns(),
-                meta: {
-                    start: 0,
-                    length: this.body.filtered,
-                    sort: this.meta.sort,
-                    search: this.meta.search,
-                    searchMode: this.meta.searchMode,
-                },
-            };
-
-            return this.template.method === 'GET'
-                ? { params }
-                : params;
         },
         ajax(method, path, postEvent) {
             axios[method.toLowerCase()](path).then(({ data }) => {
