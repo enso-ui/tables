@@ -311,13 +311,15 @@ export default {
         },
         requestColumns(exportMode) {
             return this.template.columns.reduce((columns, column) => {
-                const meta = ['sort', 'visible'].reduce((meta, attribute) => {
-                    if (column.meta[attribute]) {
-                        meta[attribute] = column.meta[attribute];
-                    }
+                const meta = {};
 
-                    return meta;
-                }, {})
+                if (column.meta.sort) {
+                    meta.sort = column.meta.sort;
+                }
+
+                if (exportMode) {
+                    meta.visible = column.meta.visible;
+                }
 
                 columns.push({ meta });
 
