@@ -13,7 +13,7 @@
                     :class="[{ 'is-money' : columns[i].money }, columnAlignment(columns[i])]"
                     :key="i"
                     v-if="visibleColumn(columns[i])">
-                    <span v-if="columns[i].meta.total">{{
+                    <span v-if="columns[i].meta.total || columns[i].meta.rawTotal ">{{
                             columns[i].money
                                 ? state.body.total[columns[i].name]
                                 : totalFormat(state.body.total[columns[i].name])

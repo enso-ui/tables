@@ -54,12 +54,10 @@ export default {
             hiddenColumns: this.hiddenColumns().length,
             preview: this.state.template.preview,
             columns: this.state.template.columns,
-            columnAlignment: this.columnAlignment,
             crtNo: this.state.template.crtNo,
             crtNoLabel: this.state.template.labels.crtNo,
             actions: this.state.template.actions,
             actionsLabel: this.state.template.labels.actions,
-            align: this.state.template.align,
             style: this.state.template.style,
             selectable: this.state.template.selectable,
         });

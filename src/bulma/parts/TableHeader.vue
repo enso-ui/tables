@@ -1,15 +1,14 @@
 <template>
     <core-table-header>
         <template v-slot:default="{
-                align, style, crtNo, crtNoLabel, actions, actionsLabel, i18n, columns,
-                selectable, visibleColumn, hiddenColumns, preview, columnAlignment,
+                style, crtNo, crtNoLabel, actions, actionsLabel, i18n, columns,
+                selectable, visibleColumn, hiddenColumns, preview,
                 selectBindings, selectEvents, sortEvents, clearSortEvents
             }">
             <thead>
                 <tr class="has-background-light"
                     :class="style">
-                    <th class="table-header"
-                        :class="align"
+                    <th class="table-header has-text-centered"
                         v-if="selectable">
                         <label class="checkbox">
                             <input type="checkbox"
@@ -18,14 +17,12 @@
                         </label>
                     </th>
                     <th v-if="hiddenColumns || preview"/>
-                    <th class="table-header"
-                        :class="align"
+                    <th class="table-header has-text-centered"
                         v-if="crtNo">
                         {{ i18n(crtNoLabel) }}
                     </th>
                     <template v-for="column in columns">
-                        <th class="table-header"
-                            :class="columnAlignment(column)"
+                        <th class="table-header has-text-centered"
                             :key="column.label"
                             v-if="visibleColumn(column)">
                             <span class="is-clickable"
@@ -64,8 +61,7 @@
                             </span>
                         </th>
                     </template>
-                    <th class="table-header"
-                        :class="align"
+                    <th class="table-header has-text-centered"
                         v-if="actions">
                         {{ i18n(actionsLabel) }}
                     </th>
@@ -97,7 +93,6 @@ export default {
 <style lang="scss">
     .vue-table .table-header {
         white-space: nowrap;
-        align-content: center;
 
         .is-clickable {
             cursor: pointer;
