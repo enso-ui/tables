@@ -178,7 +178,7 @@ export default {
 
     methods: {
         init() {
-            axios.get(this.path, { params: { ...this.initParams } })
+            axios.get(this.path, { params: { params: this.initParams } })
                 .then(({ data }) => {
                     const { apiVersion, template, meta } = data;
                     this.state.apiVersion = apiVersion;
