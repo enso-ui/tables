@@ -118,6 +118,7 @@ export default {
             hasEntries: this.hasEntries,
             hasFooter: this.hasFooter,
             hiddenColumns: this.hiddenColumns,
+            hiddenColspan: this.hiddenColspan,
             i18n: this.i18n,
             id: this.id,
             init: this.init,
@@ -547,6 +548,14 @@ export default {
                 ? this.template.columns && this.template.columns
                     .filter(column => column.meta.hidden && column.meta.visible)
                 : [];
+        },
+        hiddenColspan() {
+            const hiddenLength = this.hiddenColumns().length;
+
+            return this.template.columns.length
+                - (hiddenLength ? hiddenLength - 1 : 0)
+                + (this.template.actions ? 2 : 1)
+                + (this.template.selectable ? 1 : 0);
         },
     },
 

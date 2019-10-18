@@ -4,7 +4,7 @@ export default {
 
     inject: [
         'state', 'i18n', 'ajax', 'actionPath', 'buttonAction', 'isChild',
-        'refreshPageSelected', 'hiddenColumns',
+        'refreshPageSelected', 'hiddenColumns', 'hiddenColspan',
     ],
 
     data: () => ({
@@ -20,12 +20,6 @@ export default {
         },
         hiddenCount() {
             return this.hiddenColumns().length;
-        },
-        hiddenColSpan() {
-            return this.template.columns.length
-                + (this.template.preview && !this.hiddenColumns.length ? 1 : 0)
-                - (this.hiddenColumns.length ? this.hiddenColumns.length - 1 : 0)
-                + (this.template.actions ? 2 : 1);
         },
     },
 
@@ -107,7 +101,7 @@ export default {
             isExpanded: this.isExpanded,
             rowCrtNo: this.rowCrtNo,
             hiddenCount: this.hiddenCount,
-            hiddenColSpan: this.hiddenColSpan,
+            hiddenColspan: this.hiddenColspan,
             selectBindings: row => ({
                 checked: this.state.selected.includes(row[this.template.dtRowId]),
             }),

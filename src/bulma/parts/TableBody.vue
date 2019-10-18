@@ -2,7 +2,7 @@
     <core-table-body v-on="$listeners">
         <template v-slot:default="{
                 isHighlighted, rowCrtNo, hiddenCount,
-                selectBindings, selectEvents, isExpanded, hiddenColSpan,
+                selectBindings, selectEvents, isExpanded, hiddenColspan,
                 hiddenEvents, cellBindings, cellEvents, actionBindings, actionEvents,
             }">
             <tbody>
@@ -10,23 +10,23 @@
                     :key="`${row[state.dtRowId]}-${index}`"
                     :class="{ [state.template.highlight]: isHighlighted(index) }">
                     <td v-if="isChild(row)"
-                        :colspan="hiddenColSpan"
+                        :colspan="hiddenColspan()"
                         :class="state.template.align">
                         <ul>
-                            <template v-for="item in row">
+                            <template v-for="cell in row">
                                 <li class="child-row"
-                                    :key="item.column.label"
-                                    v-if="!item.column.meta.rogue">
-                                    <b>{{ i18n(item.column.label) }}</b>:
+                                    :key="cell.column.label"
+                                    v-if="!cell.column.meta.rogue">
+                                    <b>{{ i18n(cell.column.label) }}</b>:
                                     <table-cell :i18n="i18n"
-                                        :column="item.column"
-                                        :value="item.value"
-                                        v-on="cellEvents(state.body.data[index - 1], item.column)">
-                                        <template v-slot:[item.column.name]
-                                            v-if="item.column.meta.slot">
-                                            <slot :name="item.column.name"
-                                                :row="state.body.data[item.rowCrtNo]"
-                                                :column="item.column"
+                                        :column="cell.column"
+                                        :value="cell.value"
+                                        v-on="cellEvents(state.body.data[index - 1], cell.column)">
+                                        <template v-slot:[cell.column.name]
+                                            v-if="cell.column.meta.slot">
+                                            <slot :name="cell.column.name"
+                                                :row="state.body.data[cell.rowCrtNo]"
+                                                :column="cell.column"
                                                 :loading="state.meta.loading"/>
                                         </template>
                                     </table-cell>
