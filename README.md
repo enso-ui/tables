@@ -16,28 +16,9 @@ Unless where specified otherwise, the components can be used outside of the Enso
 
 For live examples and demos, you may visit [laravel-enso.com](https://www.laravel-enso.com)
 
-Check the full documentation at  [docs.laravel-enso.com](https://docs.laravel-enso.com).
+### Installation, Configuration & Usage
 
-### Installation
-
-Install the package:
-```
-yarn add @enso-ui/tables
-```
-Import the desired component(s):
-```js
-import { VueTable, EnsoTable } from '@enso-ui/tables/bulma';
-import { VueTable } from '@enso-ui/tables/renderless';
-```
-
-### Exports
-
-`@enso-ui/tables/bulma`:
-- `EnsoTable`, 
-- `VueTable`, 
-
-`@enso-ui/tables/renderless`:
-- `VueTable`,
+Be sure to check out the full documentation for this package available at [docs.laravel-enso.com](https://docs.laravel-enso.com/frontend/tables.html)
 
 ## Questions & Issues
 
