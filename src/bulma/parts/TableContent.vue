@@ -81,6 +81,14 @@ export default {
         .table-responsive {
             width: 100%;
             overflow-x: auto;
+            -ms-overflow-style: none;
+
+            overflow: -moz-scrollbars-none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
             .table {
                 font-size: 0.9em;
                 td, th {
