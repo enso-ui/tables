@@ -1,5 +1,5 @@
 <template>
-    <span :class="{ 'is-clickable has-text-info': column.meta.clickable }"
+    <span :class="[{ 'is-clickable has-text-info': column.meta.clickable }, column.class]"
         @click="column.meta.clickable ? $emit('clicked') : null">
         <span class="tag is-table-tag icon is-small"
             :class="value ? 'is-success' : 'is-danger'"

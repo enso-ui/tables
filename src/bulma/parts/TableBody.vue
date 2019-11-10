@@ -64,11 +64,7 @@
                         </td>
                         <template v-for="column in state.template.columns">
                             <td :key="column.name"
-                                :class="[
-                                    column.class,
-                                    { 'is-money' : column.money },
-                                    columnAlignment(column)
-                                ]"
+                                :class="[{ 'is-money' : column.money }, columnAlignment(column)]"
                                 v-if="visibleColumn(column)">
                                 <table-cell v-bind="cellBindings(row, column)"
                                     v-on="cellEvents(row, column)">
