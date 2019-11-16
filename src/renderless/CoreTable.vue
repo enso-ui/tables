@@ -381,10 +381,14 @@ export default {
                 ? this.template.aligns[column.align]
                 : this.template.align;
         },
-        exportData(path) {
+        exportData({ path, postEvent }) {
             axios[this.template.method.toLowerCase()](
                 path, this.readRequest(this.template.method, true),
-            ).catch((error) => {
+            ).then(({ data }) => {
+                if (postEvent) {
+                    this.$emit(postEvent, data);
+                }
+            }).catch((error) => {
                 this.meta.loading = false;
                 this.errorHandler(error);
             });
@@ -401,7 +405,7 @@ export default {
                 this.errorHandler(error);
             });
         },
-        action(method, path, postEvent) {
+        action({ method, path, postEvent }) {
             this.meta.loading = true;
 
             axios[method.toLowerCase()](path, this.readRequest(method))
@@ -474,7 +478,7 @@ export default {
 
             switch (button.action) {
             case 'export':
-                this.exportData(button.path);
+                this.exportData(button);
                 break;
             case 'router':
                 this.$router.push({
@@ -490,7 +494,7 @@ export default {
                         button.postEvent,
                     );
                 } else {
-                    this.action(button.method, button.path, button.postEvent);
+                    this.action(button);
                 }
                 break;
             default:
@@ -506,8 +510,8 @@ export default {
                 ? { ...params, ...button.params }
                 : params;
         },
-        actionPath(button, dtRowId) {
-            return button.path.replace('dtRowId', dtRowId);
+        actionPath({ path }, dtRowId) {
+            return path.replace('dtRowId', dtRowId);
         },
         closeConfirmation() {
             this.state.confirmation = false;
