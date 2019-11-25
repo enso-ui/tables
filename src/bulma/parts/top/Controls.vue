@@ -63,7 +63,7 @@
                                 <fa icon="search"/>
                             </span>
                             <span class="is-right icon is-small"
-                                v-if="state.meta.search && !state.meta.loading">
+                                v-if="state.meta.search">
                                 <a class="delete is-small"
                                     v-on="clearEvents"/>
                             </span>
