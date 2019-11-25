@@ -68,7 +68,7 @@
                                     v-on="clearEvents"/>
                             </span>
                             <search-mode @click="$refs.search.focus()"
-                                v-if="state.meta.search && !state.meta.loading"/>
+                                v-if="state.meta.search"/>
                         </p>
                     </div>
                 </div>
