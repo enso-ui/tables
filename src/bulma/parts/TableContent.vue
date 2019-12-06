@@ -18,6 +18,10 @@
                         <slot name="preview"
                             v-bind="props"/>
                     </template>
+                    <template v-slot:row-actions="props">
+                        <slot name="row-actions"
+                            v-bind="props"/>
+                    </template>
                 </table-body>
                 <table-footer v-if="hasFooter()">
                     <template v-slot:[customTotal]="props"
