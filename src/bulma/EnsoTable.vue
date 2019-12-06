@@ -20,6 +20,10 @@
             <slot name="preview"
                 v-bind="props"/>
         </template>
+        <template v-slot:actions="props">
+            <slot name="actions"
+                  v-bind="props"/>
+        </template>
     </vue-table>
 </template>
 

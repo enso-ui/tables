@@ -96,6 +96,7 @@
                                         <fa :icon="button.icon"/>
                                     </span>
                                 </a>
+                                <slot name="actions" :row="row"/>
                             </span>
                         </td>
                     </template>
