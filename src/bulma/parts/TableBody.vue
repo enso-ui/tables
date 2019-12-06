@@ -82,6 +82,7 @@
                             :class="state.template.align"
                             v-if="state.template.actions && !isChild(row)">
                             <span class="action-buttons">
+                                <slot name="row-actions" :row="row"/>
                                 <a v-for="(button, idx) in state.template.buttons.row"
                                     :key="idx"
                                     class="button is-small is-table-button has-margin-left-small"
@@ -96,7 +97,6 @@
                                         <fa :icon="button.icon"/>
                                     </span>
                                 </a>
-                                <slot name="actions" :row="row"/>
                             </span>
                         </td>
                     </template>

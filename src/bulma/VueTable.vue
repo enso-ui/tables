@@ -20,8 +20,8 @@
                     <slot name="preview"
                         v-bind="props"/>
                 </template>
-                <template v-slot:actions="props">
-                    <slot name="actions"
+                <template v-slot:row-actions="props">
+                    <slot name="row-actions"
                           v-bind="props"/>
                 </template>
             </table-content>
