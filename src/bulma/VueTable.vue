@@ -16,12 +16,8 @@
                     <slot :name="customTotal"
                         v-bind="props"/>
                 </template>
-                <template v-slot:preview="props">
-                    <slot name="preview"
-                        v-bind="props"/>
-                </template>
-                <template v-slot:row-actions="props">
-                    <slot name="row-actions"
+                <template v-for="slot in ['row-actions', 'global-actions', 'preview']" v-slot:[slot]="props">
+                    <slot :name="slot"
                           v-bind="props"/>
                 </template>
             </table-content>
