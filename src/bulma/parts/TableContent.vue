@@ -19,7 +19,8 @@
                         <slot :name="slot"
                             v-bind="props"/>
                     </template>
-                    <template v-for="slot in ['row-actions','preview']" v-slot:[slot]="props">
+                    <template v-slot:[slot]="props"
+                        v-for="slot in ['row-actions','preview']">
                         <slot :name="slot"
                               v-bind="props"/>
                     </template>
