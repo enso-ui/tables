@@ -1,6 +1,11 @@
 <template>
     <div class="vue-table">
-        <top-controls v-on="$listeners"/>
+        <top-controls v-on="$listeners">
+            <template v-slot:global-actions="props">
+                <slot name="global-actions"
+                      v-bind="props"/>
+            </template>
+        </top-controls>
         <div class="table-responsive"
             v-responsive="state.template.responsive">
             <table class="table is-fullwidth is-marginless"
@@ -14,13 +19,10 @@
                         <slot :name="slot"
                             v-bind="props"/>
                     </template>
-                    <template v-slot:preview="props">
-                        <slot name="preview"
-                            v-bind="props"/>
-                    </template>
-                    <template v-slot:row-actions="props">
-                        <slot name="row-actions"
-                            v-bind="props"/>
+                    <template v-slot:[slot]="props"
+                        v-for="slot in ['row-actions','preview']">
+                        <slot :name="slot"
+                              v-bind="props"/>
                     </template>
                 </table-body>
                 <table-footer v-if="hasFooter()">

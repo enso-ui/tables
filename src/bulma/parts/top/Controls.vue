@@ -35,6 +35,7 @@
                     </div>
                     <div class="column table-buttons is-one-third-desktop is-half-tablet has-text-right-tablet has-text-centered-mobile has-padding-small"
                         v-if="state.template.buttons">
+                        <slot name="global-actions"/>
                         <a v-for="button in state.template.buttons.global"
                             class="button has-margin-left-small"
                             :class="button.class"
