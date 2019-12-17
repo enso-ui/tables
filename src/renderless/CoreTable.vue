@@ -101,6 +101,10 @@ export default {
                     }, []),
             };
         },
+        slots() {
+            return this.scopedSlots().concat(...this.customTotals())
+                .concat('row-actions', 'global-actions', 'preview');
+        },
     },
 
     provide() {

@@ -7,17 +7,7 @@
         @ready="ready = true"
         ref="table">
         <template v-slot:[slot]="props"
-            v-for="slot in scopedSlots">
-            <slot :name="slot"
-                v-bind="props"/>
-        </template>
-        <template v-slot:[customTotal]="props"
-            v-for="customTotal in customTotals">
-            <slot :name="customTotal"
-                v-bind="props"/>
-        </template>
-        <template v-slot:[slot]="props"
-            v-for="slot in ['row-actions', 'global-actions', 'preview']">
+            v-for="slot in slots">
             <slot :name="slot"
                 v-bind="props"/>
         </template>
@@ -54,14 +44,9 @@ export default {
                 ? this.$refs.table.body
                 : null;
         },
-        scopedSlots() {
+        slots() {
             return this.ready
-                ? this.$refs.table.scopedSlots
-                : [];
-        },
-        customTotals() {
-            return this.ready
-                ? this.$refs.table.customTotals
+                ? this.$refs.table.slots
                 : [];
         },
     },

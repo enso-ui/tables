@@ -15,14 +15,9 @@
                 <table-header ref="header"/>
                 <table-body v-on="$listeners">
                     <template v-slot:[slot]="props"
-                        v-for="slot in scopedSlots()">
+                        v-for="slot in slots">
                         <slot :name="slot"
                             v-bind="props"/>
-                    </template>
-                    <template v-slot:[slot]="props"
-                        v-for="slot in ['row-actions','preview']">
-                        <slot :name="slot"
-                              v-bind="props"/>
                     </template>
                 </table-body>
                 <table-footer v-if="hasFooter()">
@@ -77,6 +72,9 @@ export default {
     computed: {
         columns() {
             return this.visibleColumns();
+        },
+        slots() {
+            return this.scopedSlots().concat('row-actions', 'preview');
         },
     },
 };
