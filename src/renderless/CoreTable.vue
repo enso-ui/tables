@@ -104,8 +104,7 @@ export default {
         slots() {
             return this.bodySlots()
                 .concat(...this.controlSlots())
-                .concat(...this.customTotals())
-                .concat('preview');
+                .concat(...this.customTotals());
         },
     },
 
@@ -566,7 +565,8 @@ export default {
         },
         bodySlots() {
             return this.columnSlots()
-                .concat(...this.actionSlots());
+                .concat(...this.actionSlots())
+                .concat('preview');
         },
         customTotals() {
             return this.state.ready

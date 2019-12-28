@@ -16,7 +16,7 @@
                 <table-header ref="header"/>
                 <table-body v-on="$listeners">
                     <template v-slot:[slot]="props"
-                        v-for="slot in slots">
+                        v-for="slot in bodySlots()">
                         <slot :name="slot"
                             v-bind="props"/>
                     </template>
@@ -74,9 +74,6 @@ export default {
     computed: {
         columns() {
             return this.visibleColumns();
-        },
-        slots() {
-            return this.bodySlots().concat('preview');
         },
     },
 };
