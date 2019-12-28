@@ -1,8 +1,9 @@
 <template>
     <div class="vue-table">
         <top-controls v-on="$listeners">
-            <template v-slot:global-actions="props">
-                <slot name="global-actions"
+            <template v-slot:[slot]="props"
+                      v-for="slot in controlSlots()">
+                <slot :name="slot"
                       v-bind="props"/>
             </template>
         </top-controls>
@@ -66,7 +67,8 @@ export default {
 
     inject: [
         'state', 'id', 'hasContent', 'hasFooter', 'isEmpty',
-        'visibleColumns', 'scopedSlots', 'customTotals', 'i18n',
+        'visibleColumns', 'bodySlots', 'controlSlots',
+        'customTotals', 'i18n',
     ],
 
     computed: {
@@ -74,7 +76,7 @@ export default {
             return this.visibleColumns();
         },
         slots() {
-            return this.scopedSlots().concat('row-actions', 'preview');
+            return this.bodySlots().concat('preview');
         },
     },
 };

@@ -35,21 +35,25 @@
                     </div>
                     <div class="column table-buttons is-one-third-desktop is-half-tablet has-text-right-tablet has-text-centered-mobile has-padding-small"
                         v-if="state.template.buttons">
-                        <slot name="global-actions"/>
-                        <a v-for="button in state.template.buttons.global"
-                            class="button has-margin-left-small"
-                            :class="button.class"
-                            :key="`${button.label}-${button.icon}`"
-                            v-bind="controlBindings(button)"
-                            v-on="controlEvents(button)">
-                            <span class="is-hidden-mobile">
-                                {{ i18n(button.label) }}
-                            </span>
-                            <span class="icon is-small">
-                                <fa :icon="button.icon"/>
-                            </span>
-                            <span class="is-hidden-mobile"/>
-                        </a>
+                        <template v-for="button in state.template.buttons.global">
+                            <slot v-if="button.slot"
+                                  :name="button.name"/>
+                            <a v-else
+                               class="button has-margin-left-small"
+                               :class="button.class"
+                               :key="`${button.label}-${button.icon}`"
+                               v-bind="controlBindings(button)"
+                               v-on="controlEvents(button)">
+                               <span class="is-hidden-mobile">
+                                   {{ i18n(button.label) }}
+                               </span>
+                                   <span class="icon is-small">
+                                   <fa :icon="button.icon"/>
+                               </span>
+                               <span class="is-hidden-mobile"/>
+                            </a>
+                        </template>
+
                     </div>
                     <div class="column has-padding-small is-one-third-desktop search-input">
                         <p class="control has-icons-left has-icons-right"
