@@ -554,14 +554,11 @@ export default {
                 : [];
         },
         controlSlots() {
-            const buttons = this.state.ready
+            return this.state.ready
                 ? this.template.buttons.global
                     .filter(control => control.slot)
                     .map(control => control.name)
                 : [];
-            console.log('buttons', buttons);
-
-            return buttons;
         },
         bodySlots() {
             return this.columnSlots()
