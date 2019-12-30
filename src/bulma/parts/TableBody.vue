@@ -82,21 +82,26 @@
                             :class="state.template.align"
                             v-if="state.template.actions && !isChild(row)">
                             <span class="action-buttons">
-                                <slot name="row-actions" :row="row"/>
-                                <a v-for="(button, idx) in state.template.buttons.row"
-                                    :key="idx"
-                                    class="button is-small is-table-button has-margin-left-small"
-                                    :class="button.class"
-                                    v-tooltip="button.tooltip ? i18n(button.tooltip) : null"
-                                    v-bind="actionBindings(button, row)"
-                                    v-on="actionEvents(button, row)">
-                                    <span v-if="button.label">
-                                        {{ i18n(button.label) }}
-                                    </span>
-                                    <span class="icon is-small">
-                                        <fa :icon="button.icon"/>
-                                    </span>
-                                </a>
+                                <template v-for="(button, idx) in state.template.buttons.row">
+                                    <slot v-if="button.slot"
+                                        :name="button.name"
+                                        :row="row"/>
+                                    <a v-else
+                                        class="button is-small is-table-button has-margin-left-small"
+                                        :key="idx"
+                                        :class="button.class"
+                                        v-tooltip="button.tooltip ? i18n(button.tooltip) : null"
+                                        v-bind="actionBindings(button, row)"
+                                        v-on="actionEvents(button, row)">
+                                        <span v-if="button.label">
+                                            {{ i18n(button.label) }}
+                                        </span>
+                                        <span class="icon is-small">
+                                            <fa :icon="button.icon"/>
+                                        </span>
+                                    </a>
+                                </template>
+
                             </span>
                         </td>
                     </template>

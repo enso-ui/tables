@@ -102,8 +102,9 @@ export default {
             };
         },
         slots() {
-            return this.scopedSlots().concat(...this.customTotals())
-                .concat('row-actions', 'global-actions', 'preview');
+            return this.bodySlots()
+                .concat(...this.controlSlots())
+                .concat(...this.customTotals());
         },
     },
 
@@ -130,7 +131,8 @@ export default {
             isEmpty: this.isEmpty,
             refreshPageSelected: this.refreshPageSelected,
             reset: this.reset,
-            scopedSlots: this.scopedSlots,
+            bodySlots: this.bodySlots,
+            controlSlots: this.controlSlots,
             customTotals: this.customTotals,
             state: this.state,
             togglePageSelect: this.togglePageSelect,
@@ -537,12 +539,31 @@ export default {
         isChild(row) {
             return Array.isArray(row);
         },
-        scopedSlots() {
+        columnSlots() {
             return this.state.ready
                 ? this.template.columns
                     .filter(column => column.meta.slot)
                     .map(column => column.name)
                 : [];
+        },
+        actionSlots() {
+            return this.state.ready
+                ? this.template.buttons.row
+                    .filter(action => action.slot)
+                    .map(action => action.name)
+                : [];
+        },
+        controlSlots() {
+            return this.state.ready
+                ? this.template.buttons.global
+                    .filter(control => control.slot)
+                    .map(control => control.name)
+                : [];
+        },
+        bodySlots() {
+            return this.columnSlots()
+                .concat(...this.actionSlots())
+                .concat('preview');
         },
         customTotals() {
             return this.state.ready
