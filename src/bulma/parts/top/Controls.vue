@@ -37,6 +37,7 @@
                         v-if="state.template.buttons">
                         <template v-for="button in state.template.buttons.global">
                             <slot v-if="button.slot"
+                                  :icon="button.icon"
                                   :name="button.name"/>
                             <a v-else
                                class="button has-margin-left-small"
