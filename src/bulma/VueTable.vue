@@ -48,6 +48,11 @@ export default {
                 ? this.$refs.table.clearHighlighted()
                 : null;
         },
+        clearSelected() {
+            return this.ready
+                ? this.$refs.table.clearSelected()
+                : null;
+        },
         fetch() {
             return this.ready
                 ? this.$refs.table.fetch()

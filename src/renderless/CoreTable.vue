@@ -460,6 +460,10 @@ export default {
         clearHighlighted() {
             this.state.highlighted = [];
         },
+        clearSelected() {
+            this.state.selected = [];
+            this.refreshPageSelected();
+        },
         buttonAction(button, row = null) {
             this.state.action.button = button;
             this.state.action.row = row;
