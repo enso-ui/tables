@@ -462,7 +462,7 @@ export default {
         },
         clearSelected() {
             this.state.selected = [];
-            this.refreshPageSelected();
+            this.state.pageSelected = false;
         },
         buttonAction(button, row = null) {
             this.state.action.button = button;
