@@ -44,29 +44,22 @@ export default {
 
     methods: {
         clearHighlighted() {
-            return this.ready
-                ? this.$refs.table.clearHighlighted()
-                : null;
+            return this.ready && this.$refs.table.clearHighlighted();
+        },
+        clearSelected() {
+            return this.ready && this.$refs.table.clearSelected();
         },
         fetch() {
-            return this.ready
-                ? this.$refs.table.fetch()
-                : null;
+            return this.ready && this.$refs.table.fetch();
         },
         highlight(dtRowId) {
-            return this.ready
-                ? this.$refs.table.highlight(dtRowId)
-                : null;
+            return this.ready && this.$refs.table.highlight(dtRowId);
         },
         highlighted() {
-            return this.ready
-                ? this.$refs.table.state.highlighted
-                : null;
+            return this.ready && this.$refs.table.state.highlighted;
         },
         selected() {
-            return this.ready
-                ? this.$refs.table.state.selected
-                : null;
+            return this.ready && this.$refs.table.state.selected;
         },
     },
 };
