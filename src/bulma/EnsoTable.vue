@@ -69,7 +69,12 @@ export default {
         },
         highlighted() {
             return this.ready
-                ? this.$refs.table.state.highlighted()
+                ? this.$refs.table.highlighted()
+                : null;
+        },
+        selected() {
+            return this.ready
+                ? this.$refs.table.selected()
                 : null;
         },
     },
