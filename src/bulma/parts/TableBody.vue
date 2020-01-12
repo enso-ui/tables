@@ -83,10 +83,12 @@
                             v-if="state.template.actions && !isChild(row)">
                             <span class="action-buttons">
                                 <template v-for="(button, idx) in state.template.buttons.row">
-                                    <slot v-if="button.slot"
-                                        :name="button.name"
+                                    <slot :name="button.slot"
                                         :icon="button.icon"
-                                        :row="row"/>
+                                        :label="button.label"
+                                        :css-class="button.class"
+                                        :row="row"
+                                        v-if="button.slot"/>
                                     <a v-else
                                         class="button is-small is-table-button has-margin-left-small"
                                         :key="idx"

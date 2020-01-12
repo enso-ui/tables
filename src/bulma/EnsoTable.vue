@@ -65,7 +65,7 @@ export default {
             return this.ready && this.$refs.table.highlight(dtRowId);
         },
         highlighted() {
-            return this.ready && this.$refs.table.highlighted()
+            return this.ready && this.$refs.table.highlighted();
         },
         selected() {
             return this.ready && this.$refs.table.selected();

@@ -36,15 +36,17 @@
                     <div class="column table-buttons is-one-third-desktop is-half-tablet has-text-right-tablet has-text-centered-mobile has-padding-small"
                         v-if="state.template.buttons">
                         <template v-for="button in state.template.buttons.global">
-                            <slot v-if="button.slot"
-                                  :icon="button.icon"
-                                  :name="button.name"/>
-                            <a v-else
-                               class="button has-margin-left-small"
-                               :class="button.class"
-                               :key="`${button.label}-${button.icon}`"
-                               v-bind="controlBindings(button)"
-                               v-on="controlEvents(button)">
+                            <slot :name="button.slot"
+                                :icon="button.icon"
+                                :label="button.label"
+                                :css-class="button.class"
+                                v-if="button.slot"/>
+                            <a class="button has-margin-left-small"
+                                :class="button.class"
+                                :key="`${button.label}-${button.icon}`"
+                                v-bind="controlBindings(button)"
+                                v-on="controlEvents(button)"
+                                v-else>
                                <span class="is-hidden-mobile">
                                    {{ i18n(button.label) }}
                                </span>
@@ -54,7 +56,6 @@
                                <span class="is-hidden-mobile"/>
                             </a>
                         </template>
-
                     </div>
                     <div class="column has-padding-small is-one-third-desktop search-input">
                         <p class="control has-icons-left has-icons-right"

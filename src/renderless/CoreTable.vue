@@ -553,15 +553,15 @@ export default {
         actionSlots() {
             return this.state.ready
                 ? this.template.buttons.row
-                    .filter(action => action.slot)
-                    .map(action => action.name)
+                    .filter(button => button.slot)
+                    .map(button => button.slot)
                 : [];
         },
         controlSlots() {
             return this.state.ready
                 ? this.template.buttons.global
-                    .filter(control => control.slot)
-                    .map(control => control.name)
+                    .filter(button => button.slot)
+                    .map(button => button.slot)
                 : [];
         },
         bodySlots() {
