@@ -166,6 +166,11 @@ export default {
             },
             deep: true,
         },
+        path: {
+            handler() {
+                this.init();
+            }
+        },
         search: {
             handler() {
                 this.filterUpdate();
