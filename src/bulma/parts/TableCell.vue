@@ -50,6 +50,7 @@ export default {
     }
 
     .tag.is-table-tag {
+        padding: 0 5px;
         font-size: 0.8rem;
         font-weight: bold;
         height: 1.4em;
