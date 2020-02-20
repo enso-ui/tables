@@ -6,7 +6,7 @@ export default {
 
     computed: {
         currentStyles() {
-            return this.state.template.style.split(' ');
+            return this.state.template.style.split(' ').filter(style => style);
         },
     },
 
@@ -25,9 +25,7 @@ export default {
         return this.$scopedSlots.default({
             styles: this.state.template.styles,
             hasStyle: this.hasStyle,
-            optionEvents: style => ({
-                click: () => this.toggle(style),
-            }),
+            toggle: this.toggle,
         });
     },
 };

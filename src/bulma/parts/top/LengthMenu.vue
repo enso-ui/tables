@@ -1,19 +1,19 @@
 <template>
     <core-length-menu>
-        <template v-slot:default="{ isActive, optionEvents }">
+        <template v-slot:default="{ isActive, update }">
             <dropdown class="length-menu"
                 width="4em">
                 <template v-slot:label>
                     {{ state.meta.length }}
                 </template>
-                <template v-slot:options>
-                    <a v-for="value in state.template.lengthMenu"
+                <template v-slot:items="{ itemBindings, itemEvents }">
+                    <dropdown-item v-for="(value, index) in state.template.lengthMenu"
                         :key="value"
-                        class="dropdown-item has-text-centered"
-                        :class="{ 'is-active': isActive(value) }"
-                        v-on="optionEvents(value)">
+                        @select="update(value)"
+                        v-bind="itemBindings(isActive(value), index)"
+                        v-on="itemEvents(index)">
                         {{ value }}
-                    </a>
+                    </dropdown-item>
                 </template>
             </dropdown>
         </template>
@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import Dropdown from '@enso-ui/dropdown/bulma';
+import { Dropdown, DropdownItem } from '@enso-ui/dropdown/bulma';
 import CoreLengthMenu from '../../../renderless/parts/top/CoreLengthMenu.vue';
 
 export default {
     name: 'LengthMenu',
 
-    components: { CoreLengthMenu, Dropdown },
+    components: { CoreLengthMenu, Dropdown, DropdownItem },
 
     inject: ['state'],
 };

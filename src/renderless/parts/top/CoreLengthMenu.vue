@@ -8,17 +8,16 @@ export default {
         isActive(value) {
             return value === this.state.meta.length;
         },
+        update(value) {
+            this.state.meta.length = value;
+            this.fetch();
+        },
     },
 
     render() {
         return this.$scopedSlots.default({
             isActive: this.isActive,
-            optionEvents: value => ({
-                click: () => {
-                    this.state.meta.length = value;
-                    this.fetch();
-                },
-            }),
+            update: this.update,
         });
     },
 };

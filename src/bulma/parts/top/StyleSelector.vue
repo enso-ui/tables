@@ -1,6 +1,6 @@
 <template>
     <core-style-selector>
-        <template v-slot:default="{ styles, hasStyle, optionEvents }">
+        <template v-slot:default="{ styles, hasStyle, toggle }">
             <dropdown class="style-selector"
                 manual>
                 <template v-slot:label>
@@ -8,14 +8,14 @@
                         <fa icon="table"/>
                     </span>
                 </template>
-                <template v-slot:options>
-                    <a v-for="(style, key) in styles"
-                        :key="key"
-                        class="dropdown-item"
-                        :class="{ 'is-active': hasStyle(style) }"
-                        v-on="optionEvents(style)">
-                        {{ key }}
-                    </a>
+                <template v-slot:items="{ itemBindings, itemEvents }">
+                    <dropdown-item v-for="(style, index) in Object.keys(styles)"
+                        :key="style"
+                        v-bind="itemBindings(hasStyle(styles[style]), index)"
+                        @select="toggle(styles[style])"
+                        v-on="itemEvents(index)">
+                        {{ style }}
+                    </dropdown-item>
                 </template>
             </dropdown>
         </template>
@@ -25,7 +25,7 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTable } from '@fortawesome/free-solid-svg-icons';
-import Dropdown from '@enso-ui/dropdown/bulma';
+import { Dropdown, DropdownItem } from '@enso-ui/dropdown/bulma';
 import CoreStyleSelector from '../../../renderless/parts/top/CoreStyleSelector.vue';
 
 library.add(faTable);
@@ -33,7 +33,7 @@ library.add(faTable);
 export default {
     name: 'StyleSelector',
 
-    components: { CoreStyleSelector, Dropdown },
+    components: { CoreStyleSelector, Dropdown, DropdownItem },
 };
 </script>
 

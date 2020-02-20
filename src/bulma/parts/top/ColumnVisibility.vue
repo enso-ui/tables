@@ -6,14 +6,14 @@
                 <fa icon="eye"/>
             </span>
         </template>
-        <template v-slot:options>
-            <a v-for="(column, index) in visibleColumns()"
-                :key="index"
-                class="dropdown-item"
-                :class="{ 'is-active': column.meta.visible }"
-                @click="column.meta.visible = !column.meta.visible">
+        <template v-slot:items="{ itemBindings, itemEvents }">
+            <dropdown-item v-for="(column, index) in visibleColumns()"
+                :key="column.name"
+                v-bind="itemBindings(column.meta.visible, index)"
+                @select="column.meta.visible = !column.meta.visible"
+                v-on="itemEvents(index)">
                 {{ i18n(column.label) }}
-            </a>
+            </dropdown-item>
         </template>
     </dropdown>
 </template>
@@ -21,14 +21,14 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import Dropdown from '@enso-ui/dropdown/bulma';
+import { Dropdown, DropdownItem } from '@enso-ui/dropdown/bulma';
 
 library.add(faEye);
 
 export default {
     name: 'ColumnVisibility',
 
-    components: { Dropdown },
+    components: { Dropdown, DropdownItem },
 
     inject: ['i18n', 'visibleColumns'],
 };
