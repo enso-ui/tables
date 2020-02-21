@@ -6,12 +6,11 @@
                 <fa icon="eye"/>
             </span>
         </template>
-        <template v-slot:items="{ itemBindings, itemEvents }">
-            <dropdown-item v-for="(column, index) in visibleColumns()"
+        <template v-slot:items>
+            <dropdown-item v-for="column in visibleColumns()"
                 :key="column.name"
-                v-bind="itemBindings(column.meta.visible, index)"
-                @select="column.meta.visible = !column.meta.visible"
-                v-on="itemEvents(index)">
+                :selected="column.meta.visible"
+                @select="column.meta.visible = !column.meta.visible">
                 {{ i18n(column.label) }}
             </dropdown-item>
         </template>

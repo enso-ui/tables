@@ -6,12 +6,11 @@
                 <template v-slot:label>
                     {{ state.meta.length }}
                 </template>
-                <template v-slot:items="{ itemBindings, itemEvents }">
-                    <dropdown-item v-for="(value, index) in state.template.lengthMenu"
+                <template v-slot:items>
+                    <dropdown-item v-for="value in state.template.lengthMenu"
                         :key="value"
-                        @select="update(value)"
-                        v-bind="itemBindings(isActive(value), index)"
-                        v-on="itemEvents(index)">
+                        :selected="isActive(value)"
+                        @select="update(value)">
                         {{ value }}
                     </dropdown-item>
                 </template>

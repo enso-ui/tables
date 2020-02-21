@@ -8,12 +8,11 @@
                         <fa icon="table"/>
                     </span>
                 </template>
-                <template v-slot:items="{ itemBindings, itemEvents }">
-                    <dropdown-item v-for="(style, index) in Object.keys(styles)"
+                <template v-slot:items>
+                    <dropdown-item v-for="(cssClass, style) in styles"
                         :key="style"
-                        v-bind="itemBindings(hasStyle(styles[style]), index)"
-                        @select="toggle(styles[style])"
-                        v-on="itemEvents(index)">
+                        :selected="hasStyle(cssClass)"
+                        @select="toggle(cssClass)">
                         {{ style }}
                     </dropdown-item>
                 </template>
