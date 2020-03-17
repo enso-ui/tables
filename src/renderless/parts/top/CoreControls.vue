@@ -4,11 +4,14 @@ import debounce from 'lodash/debounce';
 export default {
     name: 'CoreControls',
 
-    inject: ['state', 'fetch', 'reset', 'buttonAction'],
+    inject: ['buttonAction', 'fetch', 'reset', 'state'],
 
     computed: {
         meta() {
             return this.state.meta;
+        },
+        modeSelector() {
+            return this.state.template.searchModes.length > 1;
         },
     },
 
@@ -24,16 +27,10 @@ export default {
 
     render() {
         return this.$scopedSlots.default({
-            reloadEvents: {
-                click: this.fetch,
-            },
-            resetEvents: {
-                click: this.reset,
-            },
-            forceInfoEvents: {
+            clearEvents: {
                 click: () => {
-                    this.meta.forceInfo = true;
-                    this.fetch();
+                    this.meta.search = '';
+                    this.fetchData();
                 },
             },
             controlBindings: button => ({
@@ -44,6 +41,29 @@ export default {
             controlEvents: button => ({
                 click: () => this.buttonAction(button),
             }),
+            forceInfoEvents: {
+                click: () => {
+                    this.meta.forceInfo = true;
+                    this.fetchData();
+                },
+            },
+            modeBindings: {
+                modes: this.state.template.searchModes,
+                query: this.meta.search,
+                value: this.state.meta.searchMode,
+            },
+            modeEvents: {
+                input: event => (this.state.meta.searchMode = event),
+                change: this.fetchData,
+            },
+            modeSelector: this.modeSelector,
+            reloadEvents: {
+                click: this.fetchData,
+            },
+            resetEvents: {
+                click: this.reset,
+            },
+
             searchBindings: {
                 value: this.meta.search,
             },
@@ -51,12 +71,6 @@ export default {
                 input: (e) => {
                     this.meta.search = e.target.value;
                     this.fetchData();
-                },
-            },
-            clearEvents: {
-                click: () => {
-                    this.meta.search = '';
-                    this.fetch();
                 },
             },
         });

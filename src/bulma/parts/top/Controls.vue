@@ -1,8 +1,8 @@
 <template>
     <core-controls>
         <template v-slot:default="{
-                reloadEvents, resetEvents, forceInfoEvents, controlBindings,
-                controlEvents, searchBindings, searchEvents, clearEvents,
+                clearEvents, controlBindings, controlEvents, forceInfoEvents, modeBindings,
+                modeEvents, modeSelector, reloadEvents, resetEvents, searchBindings, searchEvents,
             }">
             <div class="top-controls has-background-light">
                 <div class="columns is-multiline">
@@ -74,8 +74,10 @@
                                 <a class="delete is-small"
                                     v-on="clearEvents"/>
                             </span>
-                            <search-mode @click="$refs.search.focus()"
-                                v-if="state.meta.search"/>
+                            <search-mode class="is-right is-small search-mode"
+                                v-bind="modeBindings"
+                                v-on="modeEvents"
+                                v-if="modeSelector"/>
                         </p>
                     </div>
                 </div>
@@ -89,11 +91,11 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faSync, faUndo, faSearch, faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
+import SearchMode from '@enso-ui/search-mode/bulma';
 import CoreControls from '../../../renderless/parts/top/CoreControls.vue';
 import LengthMenu from './LengthMenu.vue';
 import ColumnVisibility from './ColumnVisibility.vue';
 import StyleSelector from './StyleSelector.vue';
-import SearchMode from './SearchMode.vue';
 
 library.add(faSync, faUndo, faSearch, faInfoCircle);
 
