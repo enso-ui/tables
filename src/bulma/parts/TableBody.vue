@@ -15,6 +15,7 @@
                         <ul>
                             <template v-for="cell in row">
                                 <li class="child-row"
+                                    :class="cell.column.class"
                                     :key="cell.column.label"
                                     v-if="!cell.column.meta.rogue">
                                     <b>{{ i18n(cell.column.label) }}</b>:
@@ -64,7 +65,7 @@
                         </td>
                         <template v-for="column in state.template.columns">
                             <td :key="column.name"
-                                :class="[{ 'is-money' : column.money }, columnAlignment(column)]"
+                                :class="[{ 'is-money' : column.money }, columnAlignment(column), column.class]"
                                 v-if="visibleColumn(column)">
                                 <table-cell v-bind="cellBindings(row, column)"
                                     v-on="cellEvents(row, column)">
