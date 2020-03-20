@@ -4,7 +4,8 @@
             <records-info/>
         </div>
         <div class="column is-narrow has-text-right">
-            <pagination v-if="hasEntries()"/>
+            <pagination v-on="$listeners"
+                v-if="hasEntries()"/>
         </div>
     </div>
 </template>

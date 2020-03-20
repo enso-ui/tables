@@ -1,5 +1,5 @@
 <template>
-    <core-pagination>
+    <core-pagination v-on="$listeners">
         <template v-slot:default="{ jumpTo, atStart, middlePages, atEnd, page, pages }">
             <nav class="pagination is-small"
                 role="navigation"

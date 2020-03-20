@@ -55,6 +55,12 @@ export default {
         highlight(dtRowId) {
             return this.ready && this.$refs.table.highlight(dtRowId);
         },
+        removeHighlight(dtRowId) {
+            return this.ready && this.$refs.table.removeHighlight(dtRowId);
+        },
+        toggleHighlight(dtRowId) {
+            return this.ready && this.$refs.table.toggleHighlight(dtRowId);
+        },
         highlighted() {
             return this.ready && this.$refs.table.state.highlighted;
         },

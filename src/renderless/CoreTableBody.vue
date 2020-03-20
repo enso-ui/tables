@@ -4,7 +4,7 @@ export default {
 
     inject: [
         'state', 'i18n', 'ajax', 'actionPath', 'buttonAction', 'isChild',
-        'refreshPageSelected', 'hiddenColumns', 'hiddenColspan',
+        'isHighlighted', 'refreshPageSelected', 'hiddenColumns', 'hiddenColspan',
     ],
 
     data: () => ({
@@ -85,9 +85,6 @@ export default {
                 .forEach(index => this.body.data.splice(index, 1));
             this.state.expanded.splice(0);
         },
-        isHighlighted(index) {
-            return this.state.highlighted.includes(index);
-        },
         cellValue(row, column) {
             return column.name.split('.')
                 .reduce((value, prop) => (value ? value[prop] : null), row);
@@ -96,9 +93,9 @@ export default {
 
     render() {
         return this.$scopedSlots.default({
-            isHighlighted: this.isHighlighted,
             isChild: this.isChild,
             isExpanded: this.isExpanded,
+            isHighlighted: this.isHighlighted,
             rowCrtNo: this.rowCrtNo,
             hiddenCount: this.hiddenCount,
             hiddenColspan: this.hiddenColspan,

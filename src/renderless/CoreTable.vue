@@ -129,6 +129,7 @@ export default {
             init: this.init,
             isChild: this.isChild,
             isEmpty: this.isEmpty,
+            isHighlighted: this.isHighlighted,
             refreshPageSelected: this.refreshPageSelected,
             reset: this.reset,
             bodySlots: this.bodySlots,
@@ -270,7 +271,7 @@ export default {
             this.state.expanded = [];
             this.$emit('fetching');
 
-            this.request().then((response) => {
+            return this.request().then((response) => {
                 const body = response.data;
                 this.meta.loading = false;
                 this.meta.forceInfo = false;
@@ -432,29 +433,46 @@ export default {
             }
         },
         togglePageSelect() {
-            this.body.data.forEach((row) => {
-                if (!this.isChild(row)) {
-                    const index = this.state.selected
-                        .findIndex(id => id === row[this.template.dtRowId]);
-                    if (!this.state.pageSelected) {
-                        this.state.selected.splice(index, 1);
-                    } else if (index === -1) {
-                        this.state.selected.push(row[this.template.dtRowId]);
-                    }
+            this.body.data.forEach(row => this.toggleRowSelect(row));
+
+            const event = this.state.pageSelected ? 'select-page' : 'deselect-page';
+
+            this.$emit(event, this.state.selected);
+        },
+        toggleRowSelect(row) {
+            if (!this.isChild(row)) {
+                const index = this.state.selected
+                    .findIndex(id => id === row[this.template.dtRowId]);
+                if (!this.state.pageSelected) {
+                    this.state.selected.splice(index, 1);
+                } else if (index === -1) {
+                    this.state.selected.push(row[this.template.dtRowId]);
                 }
-            });
+            }
         },
         refreshPageSelected() {
             this.state.pageSelected = this.body && this.body.data
                 && this.body.data.some(row => this.state.selected
                     .some(id => id === row[this.template.dtRowId]));
         },
+        isHighlighted(dtRowId) {
+            return this.state.highlighted.includes(dtRowId);
+        },
         highlight(dtRowId) {
-            const index = this.body.data
-                .findIndex(row => row[this.template.dtRowId] === dtRowId);
+            this.state.highlighted.push(dtRowId);
+        },
+        removeHighlight(dtRowId) {
+            const index = this.state.highlighted.indexOf(dtRowId);
 
             if (index >= 0) {
-                this.state.highlighted.push(index);
+                this.state.highlighted.splice(index, 1);
+            }
+        },
+        toggleHighlight(dtRowId) {
+            if (this.isHighlighted(dtRowId)) {
+                this.removeHighlight(dtRowId);
+            } else {
+                this.highlight(dtRowId);
             }
         },
         clearHighlighted() {

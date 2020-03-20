@@ -56,7 +56,7 @@ export default {
 
             this.meta.start = (page - 1) * this.meta.length;
 
-            this.fetch();
+            this.fetch().then(() => this.$emit('page-changed', page));
         },
     },
 

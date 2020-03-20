@@ -31,7 +31,8 @@
             </table>
             <loader v-if="state.meta.loading === true"/>
         </div>
-        <bottom-controls v-if="hasContent()"/>
+        <bottom-controls v-on="$listeners"
+            v-if="hasContent()"/>
         <div class="has-text-centered no-records-found"
             v-if="isEmpty()">
             {{ i18n('No records were found') }}
