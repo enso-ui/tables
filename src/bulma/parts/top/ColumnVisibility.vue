@@ -6,12 +6,34 @@
                 <fa icon="eye"/>
             </span>
         </template>
+        <template v-slot:controls>
+            <div class="has-padding-medium">
+                <div class="level is-mobile">
+                    <div class="level-item">
+                        <a class="button is-small"
+                            :class="{ 'is-info': invisibleColumns().length === 0 }"
+                            @click="all">
+                            {{ i18n('all') }}
+                        </a>
+                    </div>
+                    <div class="level-item">
+                        <a class="button is-small"
+                            :class="{ 'is-info': visibleColumns().length === invisibleColumns().length }"
+                            @click="none">
+                            {{ i18n('none') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
         <template v-slot:items>
             <dropdown-item v-for="column in visibleColumns()"
-                :key="column.name"
-                :selected="column.meta.visible"
-                @select="column.meta.visible = !column.meta.visible">
+                :key="column.name">
+                <label class="checkbox">
+                <input type="checkbox"
+                    v-model="column.meta.visible">
                 {{ i18n(column.label) }}
+            </label>
             </dropdown-item>
         </template>
     </dropdown>
@@ -29,7 +51,16 @@ export default {
 
     components: { Dropdown, DropdownItem },
 
-    inject: ['i18n', 'visibleColumns'],
+    inject: ['i18n', 'visibleColumns', 'invisibleColumns'],
+
+    methods: {
+        all() {
+            this.visibleColumns().forEach(column => column.meta.visible = true);
+        },
+        none() {
+            this.visibleColumns().forEach(column => column.meta.visible = false);
+        },
+    },
 };
 </script>
 
@@ -37,7 +68,6 @@ export default {
     .vue-table .column-visibility {
         .options {
             max-height: 250px;
-            overflow-y: scroll;
 
             .dropdown-item {
                 padding: .5em .8em;

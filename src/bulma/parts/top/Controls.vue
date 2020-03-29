@@ -5,8 +5,8 @@
                 modeEvents, modeSelector, reloadEvents, resetEvents, searchBindings, searchEvents,
             }">
             <div class="top-controls has-background-light">
-                <div class="columns is-multiline">
-                    <div class="column table-controls is-half-tablet is-one-third-desktop has-text-centered-mobile has-padding-small">
+                <div class="columns is-multiline is-mobile">
+                    <div class="column table-controls is-narrow-desktop is-half-touch has-padding-small">
                         <length-menu v-if="state.template.controls.includes('length')"/>
                         <column-visibility v-if="state.template.controls.includes('columns')"/>
                         <style-selector class="is-hidden-mobile"
@@ -33,7 +33,7 @@
                             </span>
                         </a>
                     </div>
-                    <div class="column table-buttons is-one-third-desktop is-half-tablet has-text-right-tablet has-text-centered-mobile has-padding-small"
+                    <div class="column table-buttons is-narrow-desktop is-half-touch has-padding-small has-text-right"
                         v-if="state.template.buttons">
                         <template v-for="button in state.template.buttons.global">
                             <slot :name="button.slot"
@@ -57,10 +57,10 @@
                             </a>
                         </template>
                     </div>
-                    <div class="column has-padding-small is-one-third-desktop search-input">
+                    <div class="column has-padding-small search-input">
                         <p class="control has-icons-left has-icons-right"
                             v-if="state.meta.searchable">
-                            <input class="input has-text-centered is-rounded"
+                            <input class="input has-text-centered"
                                 type="text"
                                 v-bind="searchBindings"
                                 v-on="searchEvents"

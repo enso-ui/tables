@@ -10,10 +10,13 @@
                 </template>
                 <template v-slot:items>
                     <dropdown-item v-for="(cssClass, style) in styles"
-                        :key="style"
-                        :selected="hasStyle(cssClass)"
-                        @select="toggle(cssClass)">
-                        {{ style }}
+                        :key="style">
+                        <label class="checkbox">
+                            <input type="checkbox"
+                                :checked="hasStyle(cssClass)"
+                                @change="toggle(cssClass)">
+                            {{ style }}
+                        </label>
                     </dropdown-item>
                 </template>
             </dropdown>
