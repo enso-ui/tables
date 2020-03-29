@@ -140,6 +140,7 @@ export default {
             totalFormat: this.totalFormat,
             visibleColumn: this.visibleColumn,
             visibleColumns: this.visibleColumns,
+            invisibleColumns: this.invisibleColumns,
         };
     },
 
@@ -377,6 +378,10 @@ export default {
         visibleColumns() {
             return this.template.columns
                 .filter(({ meta }) => !meta.rogue);
+        },
+        invisibleColumns() {
+            return this.template.columns
+                .filter(({ meta }) => !meta.rogue && !meta.visible);
         },
         visibleColumn(column) {
             return column.meta.visible
