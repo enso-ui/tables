@@ -1,15 +1,11 @@
 <template>
-    <span :class="{ 'is-clickable has-text-info': column.meta.clickable }"
+    <span :class="[boolean, clickable, icon]"
         @click="column.meta.clickable ? $emit('clicked') : null">
-        <span class="tag is-table-tag icon"
-            :class="value ? 'is-success' : 'is-danger'"
-            v-if="column.meta.boolean">
-            <fa :icon="value ? 'check' : 'times'"/>
-        </span>
-        <span class="icon is-small"
-            v-else-if="column.meta.icon && value">
-            <fa :icon="value"/>
-        </span>
+        <fa :icon="value ? 'check' : 'times'"
+            size="sm"
+            v-if="column.meta.boolean"/>
+        <fa :icon="value"
+            v-else-if="column.meta.icon && value"/>
         <slot v-else-if="column.meta.slot"
             :name="column.name">
             {{ value }}
@@ -39,6 +35,24 @@ export default {
         hiddenControls: {
             type: Boolean,
             default: false,
+        },
+    },
+
+    computed: {
+        boolean() {
+            return this.column.meta.boolean
+                ? ['tag is-table-tag icon', this.value ? 'is-success' : 'is-danger']
+                : null;
+        },
+        clickable() {
+            return this.column.meta.clickable
+                ? 'is-clickable has-text-info'
+                : null;
+        },
+        icon() {
+            return this.column.meta.icon
+                ? 'icon is-small'
+                : null;
         },
     },
 };
