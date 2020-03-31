@@ -26,15 +26,6 @@
                         v-on="modeEvents"
                         v-if="modeSelector"/>
                 </p>
-                <p class="control">
-                    <span class="select">
-                        <select>
-                            <option>$</option>
-                            <option>£</option>
-                            <option>€</option>
-                        </select>
-                    </span>
-                </p>
             </div>
         </template>
     </core-search>
