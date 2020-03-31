@@ -1,15 +1,18 @@
 <template>
     <span :class="[boolean, clickable, icon]"
         @click="column.meta.clickable ? $emit('clicked') : null">
-        <fa :icon="value ? 'check' : 'times'"
-            size="sm"
-            v-if="column.meta.boolean"/>
-        <fa :icon="value"
-            v-else-if="column.meta.icon && value"/>
-        <slot v-else-if="column.meta.slot"
+        <slot v-if="column.meta.slot"
             :name="column.name">
             {{ value }}
         </slot>
+        <fa :icon="value ? 'check' : 'times'"
+            size="sm"
+            v-else-if="column.meta.boolean"/>
+        <fa :icon="value"
+            v-else-if="column.meta.icon && value"/>
+        <template v-else-if="column.enum">
+            {{ column.enum._get(value) }}
+        </template>
         <template v-else-if="column.meta.translatable">
             {{ i18n(value) }}
         </template>

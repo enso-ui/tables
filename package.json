@@ -24,22 +24,10 @@
     "url": "https://github.com/enso-ui/tables/issues"
   },
   "homepage": "https://github.com/enso-ui/tables#readme",
-  "devDependencies": {
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@vue/cli-plugin-babel": "^4.0.5",
-    "@vue/cli-plugin-eslint": "^4.0.5",
-    "@vue/cli-service": "^4.0.5",
-    "@vue/eslint-config-airbnb": "^5.0.0",
-    "autoprefixer": "^9.6.1",
-    "babel-eslint": "^10.0.1",
-    "cross-env": "^6.0.0",
-    "eslint": "^6.8.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-vue": "^6.0.0"
-  },
   "dependencies": {
     "@enso-ui/directives": "1.0.x",
     "@enso-ui/dropdown": "1.1.x",
+    "@enso-ui/enums": "1.0.x",
     "@enso-ui/loader": "1.0.x",
     "@enso-ui/modal": "1.0.x",
     "@enso-ui/search-mode": "1.0.x",
@@ -53,5 +41,18 @@
     "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.5.16",
     "vuex": "^3.1.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@vue/cli-plugin-babel": "^4.0.5",
+    "@vue/cli-plugin-eslint": "^4.0.5",
+    "@vue/cli-service": "^4.0.5",
+    "@vue/eslint-config-airbnb": "^5.0.0",
+    "autoprefixer": "^9.6.1",
+    "babel-eslint": "^10.0.1",
+    "cross-env": "^6.0.0",
+    "eslint": "^6.8.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-vue": "^6.0.0"
   }
 }

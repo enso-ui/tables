@@ -1,5 +1,6 @@
 <script>
 import accounting from 'accounting-js';
+import Enum from '@enso-ui/enums';
 
 export default {
 
@@ -175,15 +176,22 @@ export default {
         init() {
             axios.get(this.path, { params: { params: this.initParams } })
                 .then(({ data }) => {
-                    const { apiVersion, template, meta } = data;
-                    this.state.apiVersion = apiVersion;
-                    this.state.template = template;
-                    this.state.meta = meta;
-                    this.loadPreferences();
+                    this.prepare(data);
                     this.state.ready = true;
                     this.$emit('ready');
                     this.fetch();
                 }).catch(this.errorHandler);
+        },
+        prepare({ apiVersion, template, meta }) {
+            this.state.apiVersion = apiVersion;
+            this.state.template = template;
+            this.state.meta = meta;
+            this.bootEnums();
+            this.loadPreferences();
+        },
+        bootEnums() {
+            this.template.columns.filter(column => column.enum)
+                .forEach(column => (column.enum = new Enum(column.enum, this.i18n)));
         },
         loadPreferences() {
             const preferences = this.userPreferences();
