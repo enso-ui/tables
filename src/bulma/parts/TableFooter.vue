@@ -20,7 +20,7 @@
                     :class="[{ 'is-money' : columns[i].money }, columnAlignment(columns[i])]"
                     :key="i"
                     v-if="visibleColumn(columns[i])">
-                    <span v-if="columns[i].meta.total || columns[i].meta.rawTotal ">{{
+                    <span v-if="columns[i].meta.total || columns[i].meta.rawTotal || columns[i].meta.average">{{
                         columns[i].money
                             ? state.body.total[columns[i].name]
                             : totalFormat(state.body.total[columns[i].name])
@@ -66,8 +66,8 @@ export default {
     name: 'TableFooter',
 
     inject: [
-        'state', 'i18n', 'visibleColumns', 'hiddenColumns', 'visibleColumn',
-        'columnAlignment', 'totalFormat', 'hiddenColspan',
+        'hiddenColspan', 'hiddenColumns', 'i18n', 'totalFormat',
+        'visibleColumn', 'visibleColumns', 'columnAlignment', 'state',
     ],
 
     data: () => ({

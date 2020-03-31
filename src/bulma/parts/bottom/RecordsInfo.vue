@@ -1,6 +1,6 @@
 <template>
     <core-records-info>
-        <template v-slot:default="{ chunkInfo, fromInfo, selectedInfo, hasFilters, hasSelected }">
+        <template v-slot:default="{ chunkInfo, fromInfo, hasFilters, hasSelected, selectedInfo }">
             <div class="records-info has-text-centered-touch">
                 {{ chunkInfo }}
                 <span v-if="hasFilters">

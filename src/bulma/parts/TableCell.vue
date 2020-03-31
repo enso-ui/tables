@@ -25,16 +25,16 @@ export default {
 
     props: {
         column: {
+            required: true,
             type: Object,
-            required: true,
-        },
-        value: {
-            type: null,
-            required: true,
         },
         hiddenControls: {
-            type: Boolean,
             default: false,
+            type: Boolean,
+        },
+        value: {
+            required: true,
+            type: null,
         },
     },
 

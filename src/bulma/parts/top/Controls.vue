@@ -1,12 +1,13 @@
 <template>
     <core-controls>
         <template v-slot:default="{
-                clearEvents, controlBindings, controlEvents, forceInfoEvents, modeBindings,
-                modeEvents, modeSelector, reloadEvents, resetEvents, searchBindings, searchEvents,
+                controlBindings, controlEvents, filteredEvents, forceInfoEvents,
+                i18n, reloadEvents, resetEvents, state
             }">
+            <div class="wrapper">
             <div class="top-controls has-background-light">
-                <div class="columns is-multiline is-mobile">
-                    <div class="column table-controls is-narrow-desktop is-half-touch has-padding-small">
+                <div class="columns is-multiline is-mobile is-gapless">
+                    <div class="column table-controls is-narrow-desktop is-half-touch">
                         <length-menu v-if="state.template.controls.includes('length')"/>
                         <column-visibility v-if="state.template.controls.includes('columns')"/>
                         <style-selector class="is-hidden-mobile"
@@ -33,7 +34,7 @@
                             </span>
                         </a>
                     </div>
-                    <div class="column table-buttons is-narrow-desktop is-half-touch has-padding-small has-text-right"
+                    <div class="column table-buttons is-narrow-desktop is-half-touch has-text-right"
                         v-if="state.template.buttons">
                         <template v-for="button in state.template.buttons.global">
                             <slot :name="button.slot"
@@ -57,30 +58,12 @@
                             </a>
                         </template>
                     </div>
-                    <div class="column has-padding-small search-input">
-                        <p class="control has-icons-left has-icons-right"
-                            v-if="state.meta.searchable">
-                            <input class="input has-text-centered"
-                                type="text"
-                                v-bind="searchBindings"
-                                v-on="searchEvents"
-                                :placeholder="i18n('Search')"
-                                ref="search">
-                            <span class="icon is-small is-left">
-                                <fa icon="search"/>
-                            </span>
-                            <span class="is-right icon is-small"
-                                v-if="state.meta.search">
-                                <a class="delete is-small"
-                                    v-on="clearEvents"/>
-                            </span>
-                            <search-mode class="is-right is-small search-mode"
-                                v-bind="modeBindings"
-                                v-on="modeEvents"
-                                v-if="modeSelector"/>
-                        </p>
+                    <div class="column search">
+                        <search ref="search"/>
                     </div>
                 </div>
+            </div>
+            <filtered v-on="filteredEvents"/>
             </div>
         </template>
     </core-controls>
@@ -91,11 +74,12 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faSync, faUndo, faSearch, faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import SearchMode from '@enso-ui/search-mode/bulma';
+import Search from './Search';
 import CoreControls from '../../../renderless/parts/top/CoreControls.vue';
 import LengthMenu from './LengthMenu.vue';
 import ColumnVisibility from './ColumnVisibility.vue';
 import StyleSelector from './StyleSelector.vue';
+import Filtered from './Filtered.vue';
 
 library.add(faSync, faUndo, faSearch, faInfoCircle);
 
@@ -103,38 +87,35 @@ export default {
     name: 'Controls',
 
     components: {
-        CoreControls, LengthMenu, ColumnVisibility, StyleSelector, SearchMode,
+        CoreControls, LengthMenu, ColumnVisibility, StyleSelector, Search, Filtered,
     },
-
-    inject: ['state', 'i18n'],
 };
 </script>
 
 <style lang="scss">
-    .vue-table .top-controls {
-        border-top-left-radius: inherit;
-        border-top-right-radius: inherit;
-        padding: 1em;
+    .vue-table {
+        .wrapper {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
 
-        .is-right.icon {
-            pointer-events: all;
+            .top-controls {
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+                padding: 0.3em;
 
-            &.search-mode {
-                right: 1.6em;
-            }
-        }
+                @media screen and (min-width: 1024px) {
+                    .table-controls {
+                        order: 1;
+                    }
 
-        @media screen and (min-width: 1024px) {
-            .table-controls {
-                order: 1;
-            }
+                    .search {
+                        order: 2;
+                    }
 
-            .search-input {
-                order: 2;
-            }
-
-            .table-buttons {
-                order: 3;
+                    .table-buttons {
+                        order: 3;
+                    }
+                }
             }
         }
     }

@@ -2,7 +2,7 @@
 export default {
     name: 'CorePagination',
 
-    inject: ['state', 'fetch'],
+    inject: ['i18n', 'fetch', 'state'],
 
     computed: {
         meta() {
@@ -62,12 +62,15 @@ export default {
 
     render() {
         return this.$scopedSlots.default({
+            fetch: this.fetch,
+            i18n: this.i18n,
             jumpTo: this.jumpTo,
             atStart: this.atStart,
             middlePages: this.middlePages,
             atEnd: this.atEnd,
             page: this.page,
             pages: this.pages,
+            state: this.state,
         });
     },
 };

@@ -1,6 +1,6 @@
 <template>
     <core-length-menu>
-        <template v-slot:default="{ isActive, update }">
+        <template v-slot:default="{ isActive, update, state }">
             <dropdown class="length-menu"
                 width="4em">
                 <template v-slot:label>
@@ -27,8 +27,6 @@ export default {
     name: 'LengthMenu',
 
     components: { CoreLengthMenu, Dropdown, DropdownItem },
-
-    inject: ['state'],
 };
 </script>
 

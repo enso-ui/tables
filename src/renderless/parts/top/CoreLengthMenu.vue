@@ -18,6 +18,7 @@ export default {
         return this.$scopedSlots.default({
             isActive: this.isActive,
             update: this.update,
+            state: this.state,
         });
     },
 };

@@ -7,59 +7,60 @@ export default {
 
     props: {
         errorHandler: {
-            type: Function,
             default: (error) => {
                 throw error;
             },
+            type: Function,
         },
         filters: {
-            type: Object,
             default: null,
+            type: Object,
         },
         i18n: {
-            type: Function,
             default: v => v,
+            type: Function,
         },
         id: {
-            type: String,
             required: true,
+            type: String,
         },
         initParams: {
-            type: Object,
             default: null,
+            type: Object,
         },
         intervals: {
-            type: Object,
             default: null,
+            type: Object,
         },
         params: {
-            type: Object,
             default: null,
+            type: Object,
         },
         path: {
-            type: String,
             required: true,
+            type: String,
         },
     },
 
     data: () => ({
+        ongoingRequest: null,
         state: {
-            apiVersion: null,
-            ready: false,
-            confirmation: false,
             action: {
                 button: null,
                 row: null,
             },
-            pageSelected: false,
-            selected: [],
-            expanded: [],
-            highlighted: [],
-            template: {},
+            apiVersion: null,
             body: {},
+            confirmation: false,
+            expanded: [],
+            filters: [],
+            highlighted: [],
             meta: {},
+            pageSelected: false,
+            ready: false,
+            selected: [],
+            template: {},
         },
-        ongoingRequest: null,
     }),
 
     computed: {
@@ -113,70 +114,55 @@ export default {
             action: this.action,
             actionPath: this.actionPath,
             ajax: this.ajax,
+            bodySlots: this.bodySlots,
             buttonAction: this.buttonAction,
-            columnAlignment: this.columnAlignment,
             closeConfirmation: this.closeConfirmation,
+            columnAlignment: this.columnAlignment,
+            controlSlots: this.controlSlots,
+            customTotals: this.customTotals,
             doButtonAction: this.doButtonAction,
             exportData: this.exportData,
             fetch: this.fetch,
+            filterableColumns: this.filterableColumns,
             hasContent: this.hasContent,
             hasEntries: this.hasEntries,
             hasFooter: this.hasFooter,
-            hiddenColumns: this.hiddenColumns,
             hiddenColspan: this.hiddenColspan,
+            hiddenColumns: this.hiddenColumns,
             i18n: this.i18n,
             id: this.id,
             init: this.init,
+            invisibleColumns: this.invisibleColumns,
             isChild: this.isChild,
             isEmpty: this.isEmpty,
             isHighlighted: this.isHighlighted,
             refreshPageSelected: this.refreshPageSelected,
             reset: this.reset,
-            bodySlots: this.bodySlots,
-            controlSlots: this.controlSlots,
-            customTotals: this.customTotals,
             state: this.state,
             togglePageSelect: this.togglePageSelect,
             totalFormat: this.totalFormat,
             visibleColumn: this.visibleColumn,
             visibleColumns: this.visibleColumns,
-            invisibleColumns: this.invisibleColumns,
         };
     },
 
     watch: {
         filters: {
-            handler() {
-                this.filterUpdate();
-            },
+            handler: 'filterUpdate',
             deep: true,
         },
         intervals: {
-            handler() {
-                this.filterUpdate();
-            },
+            handler: 'filterUpdate',
             deep: true,
         },
-        length: {
-            handler() {
-                this.filterUpdate();
-            },
-        },
+        length: 'filterUpdate',
         params: {
-            handler() {
-                this.filterUpdate();
-            },
+            handler: 'filterUpdate',
             deep: true,
         },
-        search: {
-            handler() {
-                this.filterUpdate();
-            },
-        },
-        preferences: {
-            handler() {
-                this.savePreferences();
-            },
+        search: 'filterUpdate',
+        'state.filters': {
+            handler: 'filterUpdate',
             deep: true,
         },
     },
@@ -245,6 +231,7 @@ export default {
             this.$emit('reset');
             this.clearPreferences();
             this.meta.search = '';
+            this.state.filters = [];
             this.init();
         },
         request() {
@@ -289,7 +276,7 @@ export default {
 
                 this.$emit('fetched');
 
-                this.$nextTick(() => this.refreshPageSelected());
+                this.$nextTick(this.refreshPageSelected);
             }).catch((error) => {
                 this.meta.loading = false;
 
@@ -300,6 +287,7 @@ export default {
         },
         readRequest(method, exportMode = false) {
             const params = {
+                internalFilters: this.state.filters,
                 filters: this.filters,
                 intervals: this.intervals,
                 params: this.params,
@@ -330,7 +318,9 @@ export default {
                     meta.visible = column.meta.visible;
                 }
 
-                columns.push({ meta });
+                if (meta.hasOwnProperty('sort') || meta.hasOwnProperty('visible')) {
+                    columns.push({ name: column.name, meta });
+                }
 
                 return columns;
             }, []);
@@ -374,6 +364,10 @@ export default {
             return this.meta.total
                 && this.body
                 && this.body.fullRecordInfo;
+        },
+        filterableColumns() {
+            return this.template.columns
+                .filter(({ meta }) => meta.filterable);
         },
         visibleColumns() {
             return this.template.columns

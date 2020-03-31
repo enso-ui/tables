@@ -7,7 +7,7 @@
             </span>
         </template>
         <template v-slot:controls>
-            <div class="has-padding-medium">
+            <div class="has-padding-medium-bottom">
                 <div class="level is-mobile">
                     <div class="level-item">
                         <a class="button is-small"
@@ -25,15 +25,16 @@
                     </div>
                 </div>
             </div>
+            <hr class="dropdown-divider">
         </template>
         <template v-slot:items>
             <dropdown-item v-for="column in visibleColumns()"
                 :key="column.name">
                 <label class="checkbox">
-                <input type="checkbox"
-                    v-model="column.meta.visible">
-                {{ i18n(column.label) }}
-            </label>
+                    <input type="checkbox"
+                        v-model="column.meta.visible">
+                    {{ i18n(column.label) }}
+                </label>
             </dropdown-item>
         </template>
     </dropdown>
@@ -55,10 +56,10 @@ export default {
 
     methods: {
         all() {
-            this.visibleColumns().forEach(column => column.meta.visible = true);
+            this.visibleColumns().forEach(column => (column.meta.visible = true));
         },
         none() {
-            this.visibleColumns().forEach(column => column.meta.visible = false);
+            this.visibleColumns().forEach(column => (column.meta.visible = false));
         },
     },
 };
@@ -66,7 +67,7 @@ export default {
 
 <style lang="scss">
     .vue-table .column-visibility {
-        .options {
+        .items {
             max-height: 250px;
 
             .dropdown-item {

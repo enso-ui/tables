@@ -1,6 +1,6 @@
 <template>
     <core-pagination v-on="$listeners">
-        <template v-slot:default="{ jumpTo, atStart, middlePages, atEnd, page, pages }">
+        <template v-slot:default="{ atStart, atEnd, fetch, i18n, jumpTo, middlePages, page, pages, state }">
             <nav class="pagination is-small"
                 role="navigation"
                 aria-label="pagination">
@@ -64,8 +64,6 @@ export default {
     name: 'Pagination',
 
     components: { CorePagination },
-
-    inject: ['state', 'i18n', 'fetch'],
 };
 </script>
 

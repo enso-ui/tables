@@ -1,9 +1,9 @@
 <template>
     <core-table-body v-on="$listeners">
         <template v-slot:default="{
-                isHighlighted, rowCrtNo, hiddenCount,
-                selectBindings, selectEvents, isExpanded, hiddenColspan,
-                hiddenEvents, cellBindings, cellEvents, actionBindings, actionEvents,
+                actionBindings, actionEvents, cellBindings, cellEvents, hiddenColspan, hiddenCount,
+                isExpanded, rowCrtNo, selectEvents, hiddenEvents, isHighlighted, selectBindings,
+                columnAlignment, isChild, i18n, visibleColumn, state,
             }">
             <tbody>
                 <tr v-for="(row, index) in state.body.data"

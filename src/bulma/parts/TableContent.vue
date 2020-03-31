@@ -2,9 +2,9 @@
     <div class="vue-table">
         <top-controls v-on="$listeners">
             <template v-slot:[slot]="props"
-                      v-for="slot in controlSlots()">
+                v-for="slot in controlSlots()">
                 <slot :name="slot"
-                      v-bind="props"/>
+                    v-bind="props"/>
             </template>
         </top-controls>
         <div class="table-responsive"
@@ -67,9 +67,8 @@ export default {
     },
 
     inject: [
-        'state', 'id', 'hasContent', 'hasFooter', 'isEmpty',
-        'visibleColumns', 'bodySlots', 'controlSlots',
-        'customTotals', 'i18n',
+        'bodySlots', 'controlSlots', 'hasContent', 'hasFooter', 'i18n',
+        'id', 'isEmpty', 'customTotals', 'state', 'visibleColumns',
     ],
 
     computed: {

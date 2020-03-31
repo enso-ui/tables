@@ -3,8 +3,9 @@ export default {
     name: 'CoreTableBody',
 
     inject: [
-        'state', 'i18n', 'ajax', 'actionPath', 'buttonAction', 'isChild',
-        'isHighlighted', 'refreshPageSelected', 'hiddenColumns', 'hiddenColspan',
+        'actionPath', 'ajax', 'buttonAction', 'columnAlignment', 'hiddenColspan',
+        'hiddenColumns', 'i18n', 'isChild', 'isHighlighted', 'refreshPageSelected',
+        'state', 'visibleColumn',
     ],
 
     data: () => ({
@@ -93,31 +94,11 @@ export default {
 
     render() {
         return this.$scopedSlots.default({
-            isChild: this.isChild,
-            isExpanded: this.isExpanded,
-            isHighlighted: this.isHighlighted,
-            rowCrtNo: this.rowCrtNo,
-            hiddenCount: this.hiddenCount,
-            hiddenColspan: this.hiddenColspan,
-            selectBindings: row => ({
-                checked: this.state.selected.includes(row[this.template.dtRowId]),
+            actionBindings: (button, row) => ({
+                href: button.action === 'href' ? this.actionPath(button, row[this.template.dtRowId]) : null,
             }),
-            selectEvents: row => ({
-                change: () => {
-                    if (this.state.selected.includes(row[this.template.dtRowId])) {
-                        const index = this.state.selected
-                            .findIndex(id => id === row[this.template.dtRowId]);
-
-                        this.state.selected.splice(index, 1);
-                    } else {
-                        this.state.selected.push(row[this.template.dtRowId]);
-                    }
-
-                    this.refreshPageSelected();
-                },
-            }),
-            hiddenEvents: (row, index) => ({
-                click: () => this.toggleHidden(row, index),
+            actionEvents: (button, row) => ({
+                click: () => this.buttonAction(button, row),
             }),
             cellBindings: (row, column) => ({
                 column,
@@ -126,18 +107,41 @@ export default {
             cellEvents: (row, column) => ({
                 clicked: () => {
                     if (column.meta.clickable) {
-                        this.$emit('clicked', { column, row });
+                        this.$emit('clicked', {
+                            column,
+                            row,
+                        });
                     }
                 },
             }),
-            actionBindings: (button, row) => ({
-                href: button.action === 'href'
-                    ? this.actionPath(button, row[this.template.dtRowId])
-                    : null,
+            columnAlignment: this.columnAlignment,
+            hiddenColspan: this.hiddenColspan,
+            hiddenCount: this.hiddenCount,
+            hiddenEvents: (row, index) => ({
+                click: () => this.toggleHidden(row, index),
             }),
-            actionEvents: (button, row) => ({
-                click: () => this.buttonAction(button, row),
+            i18n: this.i18n,
+            isChild: this.isChild,
+            isExpanded: this.isExpanded,
+            isHighlighted: this.isHighlighted,
+            rowCrtNo: this.rowCrtNo,
+            selectBindings: row => ({
+                checked: this.state.selected.includes(row[this.template.dtRowId]),
             }),
+            selectEvents: row => ({
+                change: () => {
+                    if (this.state.selected.includes(row[this.template.dtRowId])) {
+                        const index = this.state.selected.findIndex(id => id === row[this.template.dtRowId]);
+                        this.state.selected.splice(index, 1);
+                    } else {
+                        this.state.selected.push(row[this.template.dtRowId]);
+                    }
+
+                    this.refreshPageSelected();
+                },
+            }),
+            state: this.state,
+            visibleColumn: this.visibleColumn,
         });
     },
 };

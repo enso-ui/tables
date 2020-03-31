@@ -23,8 +23,8 @@ export default {
 
     render() {
         return this.$scopedSlots.default({
-            styles: this.state.template.styles,
             hasStyle: this.hasStyle,
+            styles: this.state.template.styles,
             toggle: this.toggle,
         });
     },

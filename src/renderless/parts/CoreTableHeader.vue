@@ -2,20 +2,12 @@
 export default {
     name: 'CoreTableHeader',
 
-    inject: ['state', 'fetch', 'togglePageSelect', 'i18n', 'visibleColumn', 'hiddenColumns', 'columnAlignment'],
+    inject: [
+        'columnAlignment', 'fetch', 'hiddenColumns', 'i18n',
+        'state', 'togglePageSelect', 'visibleColumn',
+    ],
 
     methods: {
-        toggleSort(event, { meta }) {
-            const { sort } = meta;
-
-            if (!event.shiftKey) {
-                this.clearSort();
-            }
-
-            meta.sort = sort === 'ASC' ? 'DESC' : 'ASC';
-            this.state.meta.sort = true;
-            this.fetch();
-        },
         clearColumnSort({ meta }) {
             meta.sort = null;
 
@@ -30,10 +22,33 @@ export default {
                 meta.sort = null;
             });
         },
+        toggleSort(event, { meta }) {
+            const { sort } = meta;
+
+            if (!event.shiftKey) {
+                this.clearSort();
+            }
+
+            meta.sort = sort === 'ASC' ? 'DESC' : 'ASC';
+            this.state.meta.sort = true;
+            this.fetch();
+        },
     },
 
     render() {
         return this.$scopedSlots.default({
+            actions: this.state.template.actions,
+            actionsLabel: this.state.template.labels.actions,
+            clearSortEvents: column => ({
+                click: () => this.clearColumnSort(column),
+            }),
+            columns: this.state.template.columns,
+            crtNo: this.state.template.crtNo,
+            crtNoLabel: this.state.template.labels.crtNo,
+            hiddenColumns: this.hiddenColumns().length,
+            i18n: this.i18n,
+            preview: this.state.template.preview,
+            selectable: this.state.template.selectable,
             selectBindings: {
                 checked: this.state.pageSelected,
             },
@@ -46,20 +61,8 @@ export default {
             sortEvents: column => ({
                 click: e => this.toggleSort(e, column),
             }),
-            clearSortEvents: column => ({
-                click: () => this.clearColumnSort(column),
-            }),
-            i18n: this.i18n,
-            visibleColumn: this.visibleColumn,
-            hiddenColumns: this.hiddenColumns().length,
-            preview: this.state.template.preview,
-            columns: this.state.template.columns,
-            crtNo: this.state.template.crtNo,
-            crtNoLabel: this.state.template.labels.crtNo,
-            actions: this.state.template.actions,
-            actionsLabel: this.state.template.labels.actions,
             style: this.state.template.style,
-            selectable: this.state.template.selectable,
+            visibleColumn: this.visibleColumn,
         });
     },
 };

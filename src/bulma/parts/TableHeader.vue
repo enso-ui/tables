@@ -1,9 +1,9 @@
 <template>
     <core-table-header>
         <template v-slot:default="{
-                style, crtNo, crtNoLabel, actions, actionsLabel, i18n, columns,
-                selectable, visibleColumn, hiddenColumns, preview,
-                selectBindings, selectEvents, sortEvents, clearSortEvents
+                actions, actionsLabel, clearSortEvents, columns, crtNo, crtNoLabel,
+                hiddenColumns, i18n, preview, selectBindings, selectEvents,
+                selectable, sortEvents, style, visibleColumn,
             }">
             <thead>
                 <tr class="has-background-light"
