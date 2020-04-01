@@ -2,12 +2,15 @@
 export default {
     name: 'CoreLengthMenu',
 
-    inject: ['state', 'fetch'],
+    inject: ['fetch', 'i18n', 'state'],
+
+    computed: {
+        options() {
+            return this.state.template.lengthMenu.map(value => ({ value }));
+        },
+    },
 
     methods: {
-        isActive(value) {
-            return value === this.state.meta.length;
-        },
         update(value) {
             this.state.meta.length = value;
             this.fetch();
@@ -16,9 +19,17 @@ export default {
 
     render() {
         return this.$scopedSlots.default({
-            isActive: this.isActive,
-            update: this.update,
-            state: this.state,
+            bindings: {
+                disableClear: true,
+                i18n: this.i18n,
+                label: 'value',
+                options: this.options,
+                trackBy: 'value',
+                value: this.state.meta.length,
+            },
+            events: {
+                input: this.update,
+            },
         });
     },
 };

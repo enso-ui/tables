@@ -2,30 +2,49 @@
 export default {
     name: 'CoreStyleSelector',
 
-    inject: ['state'],
+    inject: ['i18n', 'state'],
 
     computed: {
-        currentStyles() {
-            return this.state.template.style.split(' ').filter(style => style);
+        options() {
+            return Object.keys(this.styles)
+                .map(key => ({ value: key, label: this.i18n(this.styles[key]) }));
+        },
+        selection() {
+            return this.state.template.style
+                .map(style => Object.keys(this.styles)
+                    .find(key => this.styles[key] === style));
+        },
+        styles() {
+            return this.state.template.styles;
         },
     },
 
     methods: {
-        hasStyle(style) {
-            return this.currentStyles.includes(style);
+        select(selected) {
+            this.state.template.style.push(this.styles[selected]);
         },
-        toggle(style) {
-            this.state.template.style = this.hasStyle(style)
-                ? this.currentStyles.filter(value => value !== style).join(' ')
-                : `${this.state.template.style} ${style}`;
+        deselect(deselected) {
+            const index = this.state.template.style.findIndex(style => style === this.styles[deselected]);
+
+            this.state.template.style.splice(index, 1);
         },
     },
 
     render() {
         return this.$scopedSlots.default({
-            hasStyle: this.hasStyle,
-            styles: this.state.template.styles,
-            toggle: this.toggle,
+            bindings: {
+                disableClear: true,
+                i18n: this.i18n,
+                label: 'label',
+                multiple: true,
+                options: this.options,
+                trackBy: 'value',
+                value: this.selection,
+            },
+            events: {
+                select: this.select,
+                deselect: this.deselect,
+            },
         });
     },
 };

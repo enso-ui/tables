@@ -117,6 +117,11 @@ export default {
                     }
                 }
             }
+
+            .has-vertically-centered-content {
+                display:flex;
+                align-items: center;
+            }
         }
     }
 </style>

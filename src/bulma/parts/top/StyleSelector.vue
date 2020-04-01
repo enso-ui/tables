@@ -1,25 +1,17 @@
 <template>
     <core-style-selector>
-        <template v-slot:default="{ styles, hasStyle, toggle }">
-            <dropdown class="style-selector"
-                manual>
-                <template v-slot:label>
-                    <span class="icon is-small">
-                        <fa icon="table"/>
-                    </span>
+        <template v-slot:default="{ bindings, events }">
+            <vue-select class="style-selector"
+                v-bind="bindings"
+                v-on="events">
+                <template v-slot:selection>
+                    <div class="has-vertically-centered-content">
+                        <span class="icon">
+                            <fa icon="table"/>
+                        </span>
+                    </div>
                 </template>
-                <template v-slot:items>
-                    <dropdown-item v-for="(cssClass, style) in styles"
-                        :key="style">
-                        <label class="checkbox">
-                            <input type="checkbox"
-                                :checked="hasStyle(cssClass)"
-                                @change="toggle(cssClass)">
-                            {{ style }}
-                        </label>
-                    </dropdown-item>
-                </template>
-            </dropdown>
+            </vue-select>
         </template>
     </core-style-selector>
 </template>
@@ -27,7 +19,7 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTable } from '@fortawesome/free-solid-svg-icons';
-import { Dropdown, DropdownItem } from '@enso-ui/dropdown/bulma';
+import { VueSelect } from '@enso-ui/select/bulma';
 import CoreStyleSelector from '../../../renderless/parts/top/CoreStyleSelector.vue';
 
 library.add(faTable);
@@ -35,18 +27,21 @@ library.add(faTable);
 export default {
     name: 'StyleSelector',
 
-    components: { CoreStyleSelector, Dropdown, DropdownItem },
+    components: { CoreStyleSelector, VueSelect },
 };
 </script>
 
 <style lang="scss">
-    .vue-table .style-selector {
-        .dropdown-item {
-            padding: .5em .8em;
+    .vue-table .style-selector.dropdown {
+        width: unset;
+
+        .icon:first-child:last-child {
+            margin-left: unset;
+            margin-right: unset;
         }
 
-        .button .icon:first-child:not(:last-child) {
-            margin: unset;
+        .dropdown-menu {
+            width: unset;
         }
     }
 </style>

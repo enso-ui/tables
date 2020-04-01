@@ -1,82 +1,49 @@
 <template>
-    <dropdown class="column-visibility"
-        manual>
-        <template v-slot:label>
-            <span class="icon is-small">
-                <fa icon="eye"/>
-            </span>
-        </template>
-        <template v-slot:controls>
-            <div class="has-padding-medium-bottom">
-                <div class="level is-mobile">
-                    <div class="level-item">
-                        <a class="button is-small"
-                            :class="{ 'is-info': invisibleColumns().length === 0 }"
-                            @click="all">
-                            {{ i18n('all') }}
-                        </a>
+    <core-column-visibility>
+        <template v-slot:default="{ bindings, events }">
+            <vue-select class="column-visibility"
+                v-bind="bindings"
+                v-on="events">
+                <template v-slot:selection>
+                    <div class="has-vertically-centered-content">
+                        <span class="icon is-small">
+                            <fa icon="eye"/>
+                        </span>
                     </div>
-                    <div class="level-item">
-                        <a class="button is-small"
-                            :class="{ 'is-info': visibleColumns().length === invisibleColumns().length }"
-                            @click="none">
-                            {{ i18n('none') }}
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <hr class="dropdown-divider">
+                </template>
+            </vue-select>
         </template>
-        <template v-slot:items>
-            <dropdown-item v-for="column in visibleColumns()"
-                :key="column.name">
-                <label class="checkbox">
-                    <input type="checkbox"
-                        v-model="column.meta.visible">
-                    {{ i18n(column.label) }}
-                </label>
-            </dropdown-item>
-        </template>
-    </dropdown>
+    </core-column-visibility>
 </template>
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { Dropdown, DropdownItem } from '@enso-ui/dropdown/bulma';
+import { VueSelect } from '@enso-ui/select/bulma';
+import CoreColumnVisibility from '../../../renderless/parts/top/CoreColumnVisibility.vue';
 
 library.add(faEye);
 
 export default {
     name: 'ColumnVisibility',
 
-    components: { Dropdown, DropdownItem },
+    components: { CoreColumnVisibility, VueSelect },
 
     inject: ['i18n', 'visibleColumns', 'invisibleColumns'],
-
-    methods: {
-        all() {
-            this.visibleColumns().forEach(column => (column.meta.visible = true));
-        },
-        none() {
-            this.visibleColumns().forEach(column => (column.meta.visible = false));
-        },
-    },
 };
 </script>
 
 <style lang="scss">
-    .vue-table .column-visibility {
-        .items {
-            max-height: 250px;
+    .vue-table .column-visibility.dropdown {
+        width: unset;
 
-            .dropdown-item {
-                padding: .5em .8em;
-            }
+        .icon:first-child:last-child {
+            margin-left: unset;
+            margin-right: unset;
         }
 
-        .button .icon:first-child:not(:last-child) {
-            margin: unset;
+        .dropdown-menu {
+            width: unset;
         }
     }
 </style>
