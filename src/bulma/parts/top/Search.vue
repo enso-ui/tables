@@ -1,11 +1,11 @@
 <template>
     <core-search>
         <template v-slot:default="{
-                clearEvents, modeBindings, modeEvents, i18n, modeSelector,
+                clearEvents, filterable, modeBindings, modeEvents, i18n, modeSelector,
                 search, searchable, searchBindings, searchEvents,
             }">
             <div class="field has-addons">
-                <filters/>
+                <filters v-if="filterable"/>
                 <p class="control is-expanded has-icons-left has-icons-right"
                     v-if="searchable">
                     <input class="input has-text-centered"

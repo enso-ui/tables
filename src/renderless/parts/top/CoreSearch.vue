@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 export default {
     name: 'CoreSearch',
 
-    inject: ['fetch', 'filterableColumns', 'state', 'i18n'],
+    inject: ['fetch', 'state', 'i18n'],
 
     computed: {
         meta() {
@@ -37,7 +37,7 @@ export default {
                     this.$el.querySelector('input').focus();
                 },
             },
-            filterableColumns: this.filterableColumns(),
+            filterable: this.meta.filterable,
             i18n: this.i18n,
             modeBindings: {
                 modes: this.template.searchModes,
