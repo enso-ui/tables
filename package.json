@@ -32,6 +32,8 @@
     "@enso-ui/modal": "1.0.x",
     "@enso-ui/search-mode": "1.0.x",
     "@enso-ui/select": "1.2.x",
+    "@enso-ui/strings": "1.0.x",
+    "@enso-ui/switch": "1.0.x",
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.2",
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
