@@ -15,10 +15,12 @@ export default {
             bindings: {
                 disableClear: true,
                 i18n: this.i18n,
+                label: 'label',
                 multiple: true,
                 objects: true,
                 options: this.visibleColumns(),
                 trackBy: 'name',
+                translated: true,
                 value: this.selection,
             },
             events: {

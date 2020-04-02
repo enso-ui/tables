@@ -39,6 +39,7 @@ export default {
                 multiple: true,
                 options: this.options,
                 trackBy: 'value',
+                translated: true,
                 value: this.selection,
             },
             events: {
