@@ -2,11 +2,20 @@
 export default {
     name: 'CoreControls',
 
-    inject: ['buttonAction', 'fetch', 'i18n', 'reset', 'state'],
+    inject: ['activeScenario', 'buttonAction', 'fetch', 'i18n', 'reset', 'state'],
 
     computed: {
         meta() {
             return this.state.meta;
+        },
+        activeScenario() {
+            return this.state.filterScenarios.find(({ active }) => active);
+        },
+        filterLabels() {
+            return this.activeScenario() && this.activeScenario().edit;
+        },
+        filterScenarios() {
+            return this.state.filterScenarios.length > 0;
         },
     },
 
@@ -20,14 +29,8 @@ export default {
             controlEvents: button => ({
                 click: () => this.buttonAction(button),
             }),
-            filteredEvents: {
-                configure: (filter) => {
-                    const filters = this.$children.find(child => child.$options.name === 'Search')
-                        .$children[0].$children.find(child => child.$options.name === 'Filters');
-
-                    filters.configure(filter);
-                },
-            },
+            filterLabels: this.filterLabels,
+            filterScenarios: this.filterScenarios,
             forceInfoEvents: {
                 click: () => {
                     this.meta.forceInfo = true;

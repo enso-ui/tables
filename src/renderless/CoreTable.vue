@@ -43,7 +43,7 @@ export default {
         },
     },
 
-    data: () => ({
+    data: v => ({
         ongoingRequest: null,
         state: {
             action: {
@@ -54,7 +54,7 @@ export default {
             body: {},
             confirmation: false,
             expanded: [],
-            filters: [],
+            filterScenarios: [],
             highlighted: [],
             meta: {},
             pageSelected: false,
@@ -65,17 +65,16 @@ export default {
     }),
 
     computed: {
-        template() {
-            return this.state.template;
-        },
-        meta() {
-            return this.state.meta;
-        },
         body() {
             return this.state.body;
         },
-        preferencesKey() {
-            return `VueTable_${this.id}_preferences`;
+        internalFilters() {
+            return this.activeScenario()
+                ? this.activeScenario().filters
+                : [];
+        },
+        meta() {
+            return this.state.meta;
         },
         preferences() {
             return this.state.ready && {
@@ -101,12 +100,19 @@ export default {
                         });
                         return collector;
                     }, []),
+                filterScenarios: this.state.filterScenarios,
             };
+        },
+        preferencesKey() {
+            return `VueTable_${this.id}_preferences`;
         },
         slots() {
             return this.bodySlots()
                 .concat(...this.controlSlots())
                 .concat(...this.customTotals());
+        },
+        template() {
+            return this.state.template;
         },
     },
 
@@ -114,6 +120,7 @@ export default {
         return {
             action: this.action,
             actionPath: this.actionPath,
+            activeScenario: this.activeScenario,
             ajax: this.ajax,
             bodySlots: this.bodySlots,
             buttonAction: this.buttonAction,
@@ -124,7 +131,6 @@ export default {
             doButtonAction: this.doButtonAction,
             exportData: this.exportData,
             fetch: this.fetch,
-            filterableColumns: this.filterableColumns,
             hasContent: this.hasContent,
             hasEntries: this.hasEntries,
             hasFooter: this.hasFooter,
@@ -152,6 +158,10 @@ export default {
             handler: 'filterUpdate',
             deep: true,
         },
+        internalFilters: {
+            handler: 'filterUpdate',
+            deep: true,
+        },
         intervals: {
             handler: 'filterUpdate',
             deep: true,
@@ -161,11 +171,11 @@ export default {
             handler: 'filterUpdate',
             deep: true,
         },
-        search: 'filterUpdate',
-        'state.filters': {
-            handler: 'filterUpdate',
+        preferences: {
+            handler: 'savePreferences',
             deep: true,
         },
+        search: 'filterUpdate',
     },
 
     created() {
@@ -173,6 +183,9 @@ export default {
     },
 
     methods: {
+        activeScenario() {
+            return this.state.filterScenarios.find(({ active }) => active);
+        },
         init() {
             axios.get(this.path, { params: { params: this.initParams } })
                 .then(({ data }) => {
@@ -210,6 +223,8 @@ export default {
                     .find(({ name }) => name === source.name);
                 this.matchProperties(source.meta, dest.meta);
             });
+
+            this.state.filterScenarios = preferences.filterScenarios;
         },
         matchProperties(source, dest) {
             Object.keys(source).forEach((key) => {
@@ -239,7 +254,11 @@ export default {
             this.$emit('reset');
             this.clearPreferences();
             this.meta.search = '';
-            this.state.filters = [];
+
+            if (this.activeScenario()) {
+                this.activeScenario().active = false;
+            }
+
             this.init();
         },
         request() {
@@ -295,7 +314,7 @@ export default {
         },
         readRequest(method, exportMode = false) {
             const params = {
-                internalFilters: this.state.filters,
+                internalFilters: this.internalFilters,
                 filters: this.filters,
                 intervals: this.intervals,
                 params: this.params,
@@ -372,10 +391,6 @@ export default {
             return this.meta.total
                 && this.body
                 && this.body.fullRecordInfo;
-        },
-        filterableColumns() {
-            return this.template.columns
-                .filter(({ meta }) => meta.filterable);
         },
         visibleColumns() {
             return this.template.columns

@@ -1,8 +1,8 @@
 <template>
     <core-controls>
         <template v-slot:default="{
-                controlBindings, controlEvents, filteredEvents, forceInfoEvents,
-                i18n, reloadEvents, resetEvents, state
+                controlBindings, controlEvents, filterLabels, filterScenarios,
+                forceInfoEvents, i18n, reloadEvents, resetEvents, state,
             }">
             <div class="wrapper">
             <div class="top-controls has-background-light">
@@ -63,7 +63,10 @@
                     </div>
                 </div>
             </div>
-            <filtered v-on="filteredEvents"/>
+            <scenarios class="has-padding-left-medium has-padding-right-medium"
+                v-if="filterScenarios"/>
+            <labels class="has-padding-left-medium has-padding-right-medium"
+                v-if="filterLabels"/>
             </div>
         </template>
     </core-controls>
@@ -79,7 +82,8 @@ import CoreControls from '../../../renderless/parts/top/CoreControls.vue';
 import LengthMenu from './LengthMenu.vue';
 import ColumnVisibility from './ColumnVisibility.vue';
 import StyleSelector from './StyleSelector.vue';
-import Filtered from './Filtered.vue';
+import Labels from './filters/Labels.vue';
+import Scenarios from './filters/Scenarios.vue';
 
 library.add(faSync, faUndo, faSearch, faInfoCircle);
 
@@ -87,7 +91,7 @@ export default {
     name: 'Controls',
 
     components: {
-        CoreControls, LengthMenu, ColumnVisibility, StyleSelector, Search, Filtered,
+        CoreControls, LengthMenu, ColumnVisibility, StyleSelector, Search, Labels, Scenarios,
     },
 };
 </script>
