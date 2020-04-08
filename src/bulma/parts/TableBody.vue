@@ -94,7 +94,7 @@
                                         class="button is-small is-table-button has-margin-left-small"
                                         :key="idx"
                                         :class="button.class"
-                                        v-tooltip="button.tooltip ? i18n(button.tooltip) : null"
+                                        v-tooltip.left="button.tooltip ? i18n(button.tooltip) : null"
                                         v-bind="actionBindings(button, row)"
                                         v-on="actionEvents(button, row)">
                                         <span v-if="button.label">
