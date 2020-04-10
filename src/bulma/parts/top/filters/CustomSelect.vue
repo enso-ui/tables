@@ -5,7 +5,9 @@
             :i18n="i18n"
             :source="filter.path"
             :multiple="filter.multiple"
-            :translated="filter.translated"/>
+            :translated="filter.translated"
+            :params="filter.params"
+            :pivot-params="filter.pivotParams"/>
     </p>
 </template>
 
