@@ -4,3 +4,5 @@
 npm-debug.log
 .DS_STORE
 ._*
+yarn.lock
+yarn-error.log
