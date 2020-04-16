@@ -8,7 +8,9 @@
             <tbody>
                 <tr v-for="(row, index) in state.body.data"
                     :key="row[state.template.dtRowId]"
-                    :class="{ [state.template.highlight]: isHighlighted(row[state.template.dtRowId]) }">
+                    :class="{
+                        [state.template.highlight]: isHighlighted(row[state.template.dtRowId])
+                    }">
                     <td v-if="isChild(row)"
                         :colspan="hiddenColspan()"
                         :class="state.template.align">
@@ -65,8 +67,10 @@
                         </td>
                         <template v-for="column in state.template.columns">
                             <td :key="column.name"
-                                :class="[{ 'is-money' : column.money }, columnAlignment(column), column.class]"
-                                v-if="visibleColumn(column)">
+                                :class="[
+                                    {'is-money' : column.money},
+                                    columnAlignment(column), column.class
+                                ]" v-if="visibleColumn(column)">
                                 <table-cell v-bind="cellBindings(row, column)"
                                     v-on="cellEvents(row, column)">
                                     <template v-slot:[column.name]

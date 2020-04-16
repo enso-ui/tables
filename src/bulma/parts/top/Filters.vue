@@ -53,7 +53,10 @@
                             </a>
                             <a class="button is-small is-bold"
                                 @click.stop="apply"
-                                v-if="$refs.filter && $refs.filter.applicable || $refs.custom && $refs.custom.applicable">
+                                v-if="
+                                    $refs.filter && $refs.filter.applicable
+                                    || $refs.custom && $refs.custom.applicable
+                                ">
                                 {{ i18n('Apply') }}
                             </a>
                         </div>
@@ -112,7 +115,9 @@ library.add(faFilter);
 export default {
     name: 'Filters',
 
-    components: { Dropdown, DropdownItem, Boolean, String, Enum, Money, Date, CustomSelect },
+    components: {
+        Dropdown, DropdownItem, Boolean, String, Enum, Money, Date, CustomSelect,
+    },
 
     inject: ['activeScenario', 'i18n', 'state'],
 
@@ -131,28 +136,34 @@ export default {
 
             if (this.column.meta.boolean) {
                 return 'boolean';
-            } else if (this.column.meta.date || this.column.meta.datetime) {
-                return 'date';
-            } else if (this.column. enum) {
-                return 'enum';
-            } else if (this.column.money) {
-                return 'money'
             }
-            
+
+            if (this.column.meta.date || this.column.meta.datetime) {
+                return 'date';
+            }
+
+            if (this.column.enum) {
+                return 'enum';
+            }
+
+            if (this.column.money) {
+                return 'money';
+            }
+
             return 'string';
         },
         customComponent() {
             if (!this.custom) {
-                return;
+                return null;
             }
 
             switch (this.custom.type) {
-                case 'select':
-                    return 'custom-select';
-                case 'boolean':
-                    return 'custom-boolean';
-                default:
-                    throw Error;
+            case 'select':
+                return 'custom-select';
+            case 'boolean':
+                return 'custom-boolean';
+            default:
+                throw Error;
             }
         },
         filterable() {
@@ -182,7 +193,7 @@ export default {
 
             if (this.custom) {
                 if (Array.isArray(this.custom.value)) {
-                    this.custom.selection = this.custom.value.map(({ name }) => name).join(', ')
+                    this.custom.selection = this.custom.value.map(({ name }) => name).join(', ');
                     this.custom.value = this.custom.value.map(({ id }) => id);
                 } else {
                     this.custom.selection = this.custom.value.name;
@@ -214,7 +225,7 @@ export default {
             this.column = column;
             this.filter = this.filterFactory();
 
-           if (this.isSelect) {
+            if (this.isSelect) {
                 this.filter.type = 'select';
                 this.filter.value = this.column.filter.multiple ? [] : null;
             }
@@ -233,7 +244,7 @@ export default {
     .vue-table .filters.dropdown {
         > .dropdown-menu > .dropdown-content {
             width: 12em;
-            
+
             ul.filters > li {
                 padding: 0.2em 0.4em;
             }

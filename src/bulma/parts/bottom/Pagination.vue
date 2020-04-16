@@ -1,6 +1,8 @@
 <template>
     <core-pagination v-on="$listeners">
-        <template v-slot:default="{ atStart, atEnd, fetch, i18n, jumpTo, middlePages, page, pages, state }">
+        <template v-slot:default="{
+                atStart, atEnd, fetch, i18n, jumpTo, middlePages, page, pages, state
+            }">
             <nav class="pagination is-small"
                 role="navigation"
                 aria-label="pagination">
