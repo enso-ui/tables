@@ -58,7 +58,7 @@ export default {
                 value: this.meta.search,
             },
             searchEvents: {
-                input: e => {
+                input: (e) => {
                     this.meta.search = e.target.value;
                     this.fetchData();
                 },

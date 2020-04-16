@@ -8,7 +8,7 @@ export default {
 
     props: {
         errorHandler: {
-            default: error => {
+            default: (error) => {
                 throw error;
             },
             type: Function,
@@ -43,7 +43,7 @@ export default {
         },
     },
 
-    data: () => ({
+    data: v => ({
         ongoingRequest: null,
         state: {
             action: {
@@ -190,11 +190,9 @@ export default {
             axios.get(this.path, { params: { params: this.initParams } })
                 .then(({ data }) => {
                     this.prepare(data);
-                    this.$nextTick(() => {
-                        this.state.ready = true;
-                        this.$emit('ready');
-                        this.fetch();
-                    });
+                    this.state.ready = true;
+                    this.$emit('ready');
+                    this.fetch();
                 }).catch(this.errorHandler);
         },
         prepare({ apiVersion, template, meta }) {
@@ -217,9 +215,10 @@ export default {
             }
 
             this.matchProperties(preferences.meta, this.meta);
+
             this.matchProperties(preferences.template, this.template);
 
-            preferences.columns.forEach(source => {
+            preferences.columns.forEach((source) => {
                 const dest = this.template.columns
                     .find(({ name }) => name === source.name);
                 this.matchProperties(source.meta, dest.meta);
@@ -228,7 +227,7 @@ export default {
             this.state.filterScenarios = preferences.filterScenarios;
         },
         matchProperties(source, dest) {
-            Object.keys(source).forEach(key => {
+            Object.keys(source).forEach((key) => {
                 this.$set(dest, key, source[key]);
             });
         },
@@ -287,7 +286,7 @@ export default {
             this.state.expanded = [];
             this.$emit('fetching');
 
-            return this.request().then(response => {
+            return this.request().then((response) => {
                 const body = response.data;
                 this.meta.loading = false;
                 this.meta.forceInfo = false;
@@ -305,7 +304,7 @@ export default {
                 this.$emit('fetched');
 
                 this.$nextTick(this.refreshPageSelected);
-            }).catch(error => {
+            }).catch((error) => {
                 this.meta.loading = false;
 
                 if (!axios.isCancel(error)) {
@@ -356,7 +355,7 @@ export default {
         processMoney(body) {
             this.template.columns
                 .filter(column => !!column.money)
-                .forEach(column => {
+                .forEach((column) => {
                     const total = this.meta.total
                         && Object.keys(body.total).includes(column.name);
 
@@ -418,7 +417,7 @@ export default {
                 if (postEvent) {
                     this.$emit(postEvent, data);
                 }
-            }).catch(error => {
+            }).catch((error) => {
                 this.meta.loading = false;
                 this.errorHandler(error);
             });
@@ -430,7 +429,7 @@ export default {
                 if (postEvent) {
                     this.$emit(postEvent, data);
                 }
-            }).catch(error => {
+            }).catch((error) => {
                 this.meta.loading = false;
                 this.errorHandler(error);
             });
@@ -444,7 +443,7 @@ export default {
                     if (postEvent) {
                         this.$emit(postEvent, data);
                     }
-                }).catch(error => {
+                }).catch((error) => {
                     this.meta.loading = false;
                     this.errorHandler(error);
                 });

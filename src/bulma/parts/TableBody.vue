@@ -112,9 +112,7 @@
                 </tr>
             </tbody>
         </template>
-    </core-table-
-b       ody>,
-   
+    </core-table-body>
 </template>
 
 <script>
@@ -133,14 +131,14 @@ library.add([
 export default {
     name: 'TableBody',
 
-    directivesooltip: VTooltip },
+    directives: { tooltip: VTooltip },
 
-    componentsoreTableBody, TaleCell },
+    components: { CoreTableBody, TableCell },
 
     inject: [
-        'state', 'i18n', 'visi;bleColumn', 'columnAlignment', 'isChild',
+        'state', 'i18n', 'visibleColumn', 'columnAlignment', 'isChild',
     ],
-
+};
 </script>
 
 <style lang="scss">
@@ -149,11 +147,11 @@ export default {
             cursor: pointer;
             margin-left: auto;
             margin-top: 0.1em;
-    }
+        }
 
-    tbody {
-        overflow-y: hidden;
-    }
+        tbody {
+            overflow-y: hidden;
+        }
 
         td .icon.hidden-control {
             &[aria-visible="true"] {
@@ -184,7 +182,7 @@ export default {
                     transition: opacity ease 0.3s;
 
                     &:focus {
-                        box-shadow: unset;;
+                        box-shadow: unset;
                     }
 
                     &:hover {
@@ -208,4 +206,3 @@ export default {
         }
     }
 </style>
- 

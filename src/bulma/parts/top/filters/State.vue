@@ -64,9 +64,7 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-    faSave, faTrashAlt, faPencilAlt, faBan,
-} from '@fortawesome/free-solid-svg-icons';
+import { faSave, faTrashAlt, faPencilAlt, faBan } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown } from '@enso-ui/dropdown/bulma';
 import { focus, selectOnFocus } from '@enso-ui/directives';
 
