@@ -37,6 +37,6 @@ export default {
     created() {
         this.filter.type = 'enum';
         this.filter.value = [];
-    }
+    },
 };
 </script>

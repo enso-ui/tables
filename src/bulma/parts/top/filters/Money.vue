@@ -46,7 +46,7 @@ import { focus } from '@enso-ui/directives';
 export default {
     name: 'Money',
 
-    directives:{ focus },
+    directives: { focus },
 
     inject: ['i18n', 'state'],
 

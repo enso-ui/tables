@@ -33,13 +33,13 @@ export default {
 
     computed: {
         applicable() {
-            return true
+            return true;
         },
     },
 
     created() {
         this.filter.type = 'boolean';
         this.filter.value = true;
-    }
+    },
 };
 </script>

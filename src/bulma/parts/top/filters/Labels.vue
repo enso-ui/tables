@@ -21,6 +21,7 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 library.add(faTimes);
 export default {
     name: 'Labels',
@@ -70,7 +71,8 @@ export default {
             return `${filter.label} ${preposition}: ${filter.selection}`;
         },
         moneyOrDate(filter) {
-            let value, preposition;
+            let value; let
+                preposition;
             if (filter.mode === 'interval') {
                 if (filter.value.min !== null && filter.value.max !== null) {
                     value = `${filter.value.min} ${this.i18n('and')} ${filter.value.max}`;

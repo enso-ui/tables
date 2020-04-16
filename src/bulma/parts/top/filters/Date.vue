@@ -45,7 +45,7 @@ import { focus } from '@enso-ui/directives';
 export default {
     name: 'Date',
 
-    directives:{ focus },
+    directives: { focus },
 
     components: { Datepicker },
 
@@ -62,7 +62,7 @@ export default {
         applicable() {
             return typeof this.filter.value === 'object' && !!this.filter.value
                 ? !!this.filter.value.min || !!this.filter.value.max
-                : !!this.filter.value
+                : !!this.filter.value;
         },
     },
 

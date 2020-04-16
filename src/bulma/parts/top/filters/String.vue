@@ -44,7 +44,7 @@ export default {
         this.filter.type = 'string';
         this.filter.value = '';
         this.filter.mode = 'full';
-    }
+    },
 };
 </script>
 

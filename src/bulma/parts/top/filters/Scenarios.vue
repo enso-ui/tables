@@ -7,7 +7,7 @@
                     @click="all">
                     {{ i18n('all') }}
                 </a>
-            </div>    
+            </div>
         </div>
         <div class="control"
             v-for="(scenario, index) in state.filterScenarios"
@@ -67,7 +67,9 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSave, faTrashAlt, faPencilAlt, faBan, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+    faSave, faTrashAlt, faPencilAlt, faBan, faCheck, faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { focus, selectOnFocus, resize } from '@enso-ui/directives';
 
 library.add(faSave, faTrashAlt, faPencilAlt, faBan, faCheck, faTimes);
