@@ -17,20 +17,23 @@
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
-                        <datepicker :placeholder="i18n('Min')"
+                        <datepicker :locale="lang"
+                            :placeholder="i18n('Min')"
                             v-focus
                             v-model="filter.value.min"/>
                     </div>
                 </div>
                 <div class="level-right">
                     <div class="level-item">
-                        <datepicker :placeholder="i18n('Max')"
+                        <datepicker :locale="lang"
+                            :placeholder="i18n('Min')"
                             v-model="filter.value.max"/>
                     </div>
                 </div>
             </div>
         </div>
         <datepicker class="has-margin-top-medium"
+            :locale="lang"
             :placeholder="i18n('Filter')"
             v-focus
             v-model="filter.value"
@@ -59,6 +62,7 @@ export default {
     },
 
     computed: {
+        ...mapGetters('preferences', ['lang']),
         applicable() {
             return typeof this.filter.value === 'object' && !!this.filter.value
                 ? !!this.filter.value.min || !!this.filter.value.max
