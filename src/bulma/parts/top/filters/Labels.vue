@@ -50,24 +50,24 @@ export default {
         },
         boolean(filter) {
             const value = filter.value ? this.i18n('true') : this.i18n('false');
-            return `${this.i18n(filter.label)} ${this.i18n('is')}: ${value}`;
+            return `${filter.label} ${this.i18n('is')}: ${value}`;
         },
         enum(filter) {
             const column = this.state.template.columns.find(({ data }) => data === filter.data);
             const preposition = filter.value.length > 1 ? this.i18n('in') : this.i18n('is');
             const value = filter.value.map(value => column.enum._get(value)).join(', ');
 
-            return `${this.i18n(filter.label)} ${preposition}: ${value}`;
+            return `${filter.label} ${preposition}: ${value}`;
         },
         string(filter) {
-            return `${this.i18n(filter.label)} ${this.searchMode(filter.mode)}: ${filter.value}`;
+            return `${filter.label} ${this.searchMode(filter.mode)}: ${filter.value}`;
         },
         select(filter) {
             const preposition = filter.multiple && filter.value.length > 1
                 ? this.i18n('in')
                 : this.i18n('is');
 
-            return `${this.i18n(filter.label)} ${preposition}: ${filter.selection}`;
+            return `${filter.label} ${preposition}: ${filter.selection}`;
         },
         moneyOrDate(filter) {
             let value, preposition;
@@ -87,7 +87,7 @@ export default {
                 preposition = this.i18n('is');
             }
 
-            return `${this.i18n(filter.label)} ${preposition}: ${value}`;
+            return `${filter.label} ${preposition}: ${value}`;
         },
         searchMode(mode) {
             switch (mode) {
