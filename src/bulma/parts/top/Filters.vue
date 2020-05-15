@@ -161,7 +161,7 @@ export default {
             case 'select':
                 return 'custom-select';
             case 'boolean':
-                return 'custom-boolean';
+                return 'boolean';
             default:
                 throw Error;
             }
