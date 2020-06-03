@@ -35,5 +35,18 @@ export default {
                 : this.filter.value !== null;
         },
     },
+
+    created() {
+        this.filter.params = this.filter.params instanceof Array
+            ? {}
+            : this.filter.params;
+    },
+
+    methods: {
+        transform() {
+            this.filter.selection = this.filter.value.map(({ name }) => name);
+            this.filter.value = this.filter.value.map(({ id }) => id);
+        }
+    }
 };
 </script>

@@ -15,7 +15,7 @@
             <div class="tags has-addons">
                 <a class="tag is-bold"
                     :class="scenario.active ? 'is-info' : 'is-warning'"
-                    v-if="scenario.edit">
+                    v-if="scenario.edit && scenario.active">
                     <input class="input is-small has-background-info has-text-white is-bold"
                         :class="{ 'has-background-danger': duplicate }"
                         v-model="scenario.name"
@@ -89,7 +89,7 @@ export default {
         },
         duplicate() {
             return this.state.filterScenarios
-                .filter(({ name }) => name === this.activeScenario().name).length > 1;
+                .filter(({ name }) => name === this.activeScenario()?.name).length > 1;
         },
         none() {
             return !this.activeScenario();

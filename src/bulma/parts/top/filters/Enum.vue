@@ -2,7 +2,7 @@
     <p class="control">
         <vue-select v-model="filter.value"
             :i18n="i18n"
-            :options="column.enum._select()"
+            :options='filter.column.enum._select()'
             multiple/>
     </p>
 </template>
@@ -18,10 +18,6 @@ export default {
     inject: ['i18n'],
 
     props: {
-        column: {
-            type: Object,
-            required: true,
-        },
         filter: {
             type: Object,
             required: true,

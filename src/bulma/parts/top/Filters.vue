@@ -1,7 +1,7 @@
 <template>
     <div class="field is-grouped">
         <dropdown class="filters"
-            :class="{ 'has-select': hasSelect, 'has-filter': filter || custom }"
+            :class="{ 'has-select': hasSelect, 'has-filter': filter }"
             manual
             @hide="reset"
             ref="dropdown">
@@ -11,52 +11,26 @@
                 </span>
             </template>
             <template v-slot:controls>
-                <div class="has-text-centered"
-                    v-if="mode && !column && !custom">
-                    <button class="button is-small is-bold"
-                        @click.stop="reset">
-                        {{ i18n('Back') }}
-                    </button>
-                    <hr class="is-dropdown-divider has-margin-medium">
-                </div>
-                <ul class="filters"
-                    v-else-if="!column && !custom">
-                    <li v-if="filterable.length">
-                        <button class="button is-fullwidth"
-                            @click.stop="mode = 'column'">
-                            {{ i18n('Columns') }}
-                        </button>
-                    </li>
-                    <li v-if="state.template.filters">
-                        <button class="button is-fullwidth"
-                            @click.stop="mode = 'custom'">
-                            {{ i18n('Custom') }}
-                        </button>
-                    </li>
-                </ul>
-                <template v-else-if="column || custom">
+                <template v-if="filter">
                     <div class="level is-marginless">
                         <div class="level-item">
                             <span class="tag is-bold is-info"
-                                v-if="column">
-                                {{ i18n('Column') }}: {{ i18n(column.label) }}
+                                v-if="filter">
+                                {{ i18n('Column') }}: {{ i18n(filter.label) }}
                             </span>
                             <span class="tag is-bold is-info"
                                 v-else>
-                                {{ i18n('Filter') }}: {{ i18n(custom.label) }}
+                                {{ i18n('Filter') }}: {{ i18n(filter.label) }}
                             </span>
                         </div>
                         <div class="level-item">
                             <a class="button is-small is-bold"
-                                @click.stop="column = null; filter = null; custom = null">
+                                @click.stop="filter = null;">
                                 {{ i18n('Clear') }}
                             </a>
                             <a class="button is-small is-bold"
                                 @click.stop="apply"
-                                v-if="
-                                    $refs.filter && $refs.filter.applicable
-                                    || $refs.custom && $refs.custom.applicable
-                                ">
+                                v-if="$refs.filter && $refs.filter.applicable">
                                 {{ i18n('Apply') }}
                             </a>
                         </div>
@@ -65,35 +39,18 @@
                 </template>
             </template>
             <template v-slot:items>
-                <template v-if="mode === 'column'">
-                    <div class="has-padding-medium"
-                        v-if="filter">
-                        <component :is="filterComponent"
-                            :filter="filter"
-                            :column="column"
-                            ref="filter"/>
-                    </div>
-                    <dropdown-item v-for="filterableColumn in filterable"
-                        :key="filterableColumn.name"
-                        @click.native.stop="select(filterableColumn)"
-                        v-else>
-                        {{ i18n(filterableColumn.label) }}
-                    </dropdown-item>
-                </template>
-                <template v-else-if="mode === 'custom'">
-                    <div class="has-padding-medium"
-                        v-if="custom">
-                        <component :is="customComponent"
-                            :filter="custom"
-                            ref="custom"/>
-                    </div>
-                    <dropdown-item v-for="filter in state.template.filters"
-                        :key="filter.name"
-                        @click.native.stop="custom = JSON.parse(JSON.stringify(filter))"
-                        v-else>
-                        {{ i18n(filter.label) }}
-                    </dropdown-item>
-                </template>
+                <div class="has-padding-medium"
+                    v-if="filter">
+                    <component :is="component"
+                        :filter="filter"
+                        ref="filter"/>
+                </div>
+                <dropdown-item v-for="filter in filters"
+                    :key="filter.name"
+                    @click.native.stop="select(filter)"
+                    v-else>
+                    {{ i18n(filter.label) }}
+                </dropdown-item>
             </template>
         </dropdown>
     </div>
@@ -122,92 +79,95 @@ export default {
     inject: ['activeScenario', 'i18n', 'state'],
 
     data: () => ({
-        column: null,
-        custom: null,
-        mode: null,
         filter: null,
     }),
 
     computed: {
-        filterComponent() {
-            if (!this.column) {
-                return null;
+        type() {
+            if (this.filter.type) {
+                return this.filter.type;
             }
 
-            if (this.column.meta.boolean) {
+            if (this.filter.column.meta.boolean) {
                 return 'boolean';
             }
 
-            if (this.column.meta.date || this.column.meta.datetime) {
+            if (this.filter.column.meta.date || this.filter.column.meta.datetime) {
                 return 'date';
             }
 
-            if (this.column.enum) {
+            if (this.filter.column.enum) {
                 return 'enum';
             }
 
-            if (this.column.money) {
+            if (this.filter.column.money) {
                 return 'money';
             }
 
             return 'string';
         },
-        customComponent() {
-            if (!this.custom) {
-                return null;
-            }
-
-            switch (this.custom.type) {
-            case 'select':
-                return 'custom-select';
-            case 'boolean':
-                return 'boolean';
-            default:
-                throw Error;
-            }
+        component() {
+            return this.type === 'select'
+                ? 'custom-select'
+                : this.type;
         },
         filterable() {
             return this.state.template.columns
                 .filter(({ meta }) => meta.filterable);
         },
         hasSelect() {
-            return this.custom && this.custom.type === 'select'
-                || this.filter && this.filter.type === 'enum';
+            return this.filter
+                && ['enum', 'select'].includes(this.type);
         },
-        isIcon() {
-            return this.column && this.column.meta.icon;
+        customs() {
+            return this.state.template.filters.map(filter => {
+                return {
+                    column: {},
+                    ...filter,
+                };
+            });
         },
-        isSelect() {
-            return this.column && !!this.column.filter;
+        columns() {
+            return this.filterable.map(column => {
+                return this.filterFactory(column);
+            });
         },
+        filters () {
+            return [
+                ...this.customs,
+                ...this.columns,
+            ];
+        }
     },
 
     methods: {
         apply() {
+            this.transform();
+            this.addFilter();
+            this.reset();
+        },
+        transform() {
+            if (this.$refs.filter.transform) {
+                this.$refs.filter.transform();
+            }
+        },
+        addFilter() {
             if (!this.activeScenario()) {
                 this.state.filterScenarios.push(this.scenarioFactory());
-            } else if (!this.activeScenario().edit) {
+            }
+
+            if (!this.activeScenario().edit) {
                 this.activeScenario().active = false;
                 this.state.filterScenarios.push(this.scenarioFactory());
             }
 
-            if (this.custom) {
-                if (Array.isArray(this.custom.value)) {
-                    this.custom.selection = this.custom.value.map(({ name }) => name).join(', ');
-                    this.custom.value = this.custom.value.map(({ id }) => id);
-                } else {
-                    this.custom.selection = this.custom.value.name;
-                }
-            }
-
-            this.activeScenario().filters.push(this.filter || this.custom);
-            this.$refs.dropdown.hide();
-            this.reset();
+            this.activeScenario().filters.push({...this.filter});
         },
-        filterFactory() {
+        filterFactory(column) {
             return {
-                label: this.column.label,
-                data: this.column.data,
+                column,
+                label: column.label,
+                data: column.data,
                 mode: null,
                 value: null,
                 type: null,
@@ -221,20 +181,12 @@ export default {
                 filters: [],
             };
         },
-        select(column) {
-            this.column = column;
-            this.filter = this.filterFactory();
-
-            if (this.isSelect) {
-                this.filter.type = 'select';
-                this.filter.value = this.column.filter.multiple ? [] : null;
-            }
+        select(filter) {
+            this.filter = filter;
         },
         reset() {
-            this.mode = null;
-            this.column = null;
+            this.$refs.dropdown.hide();
             this.filter = null;
-            this.custom = null;
         },
     },
 };

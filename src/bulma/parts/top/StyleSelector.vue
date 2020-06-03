@@ -44,4 +44,8 @@ export default {
             width: unset;
         }
     }
+
+    .dropdown.vue-select .dropdown-trigger .button.input {
+        min-height: 34px;
+    }
 </style>

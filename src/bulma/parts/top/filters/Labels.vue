@@ -66,8 +66,9 @@ export default {
             const preposition = filter.multiple && filter.value.length > 1
                 ? this.i18n('in')
                 : this.i18n('is');
+            const value = filter.selection.join(', ');
 
-            return `${filter.label} ${preposition}: ${filter.selection}`;
+            return `${filter.label} ${preposition}: ${value}`;
         },
         moneyOrDate(filter) {
             let value, preposition;
