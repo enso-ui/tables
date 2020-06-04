@@ -32,6 +32,11 @@ export default {
             type: Object,
             required: true,
         },
+        isEdit: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
 
     computed: {
@@ -41,9 +46,11 @@ export default {
     },
 
     created() {
-        this.filter.type = 'string';
-        this.filter.value = '';
-        this.filter.mode = 'full';
+        if (! this.isEdit) {
+            this.filter.type = 'string';
+            this.filter.value = '';
+            this.filter.mode = 'full';
+        }
     }
 };
 </script>

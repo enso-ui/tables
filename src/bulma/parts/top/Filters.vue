@@ -41,7 +41,7 @@
             <template v-slot:items>
                 <div class="has-padding-medium"
                     v-if="filter">
-                    <component :is="component"
+                    <component :is="filter.component"
                         :filter="filter"
                         ref="filter"/>
                 </div>
@@ -66,11 +66,14 @@ import Enum from './filters/Enum.vue';
 import Money from './filters/Money.vue';
 import Date from './filters/Date.vue';
 import CustomSelect from './filters/CustomSelect.vue';
+import {clickOutside} from "@enso-ui/directives";
 
 library.add(faFilter);
 
 export default {
     name: 'Filters',
+
+    directives: { clickOutside },
 
     components: {
         Dropdown, DropdownItem, Boolean, String, Enum, Money, Date, CustomSelect,
@@ -83,54 +86,24 @@ export default {
     }),
 
     computed: {
-        type() {
-            if (this.filter.type) {
-                return this.filter.type;
-            }
-
-            if (this.filter.column.meta.boolean) {
-                return 'boolean';
-            }
-
-            if (this.filter.column.meta.date || this.filter.column.meta.datetime) {
-                return 'date';
-            }
-
-            if (this.filter.column.enum) {
-                return 'enum';
-            }
-
-            if (this.filter.column.money) {
-                return 'money';
-            }
-
-            return 'string';
-        },
-        component() {
-            return this.type === 'select'
-                ? 'custom-select'
-                : this.type;
-        },
-        filterable() {
-            return this.state.template.columns
-                .filter(({ meta }) => meta.filterable);
-        },
         hasSelect() {
             return this.filter
-                && ['enum', 'select'].includes(this.type);
+                && ['enum', 'select'].includes(this.filter.type);
         },
         customs() {
             return this.state.template.filters.map(filter => {
                 return {
-                    column: {},
                     ...filter,
+                    component: this.component(filter),
                 };
             });
         },
         columns() {
-            return this.filterable.map(column => {
-                return this.filterFactory(column);
-            });
+            return this.state.template.columns
+                .filter(({ meta }) => meta.filterable)
+                .map(column => {
+                    return this.filterFactory(column);
+                });
         },
         filters () {
             return [
@@ -141,6 +114,32 @@ export default {
     },
 
     methods: {
+        type(column) {
+            if (column.meta.boolean) {
+                return 'boolean';
+            }
+
+            if (column.meta.date || column.meta.datetime) {
+                return 'date';
+            }
+
+            if (column.enum) {
+                return 'enum';
+            }
+
+            if (column.money) {
+                return 'money';
+            }
+
+            return 'string';
+        },
+        component(column) {
+            const type = column.type || this.type(column);
+
+            return type === 'select'
+                ? 'custom-select'
+                : type;
+        },
         apply() {
             this.transform();
             this.addFilter();
@@ -165,12 +164,12 @@ export default {
         },
         filterFactory(column) {
             return {
-                column,
                 label: column.label,
                 data: column.data,
                 mode: null,
                 value: null,
-                type: null,
+                type: this.type(column),
+                component: this.component(column),
             };
         },
         scenarioFactory() {

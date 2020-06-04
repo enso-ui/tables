@@ -55,6 +55,11 @@ export default {
             type: Object,
             required: true,
         },
+        isEdit: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
 
     computed: {
@@ -68,9 +73,11 @@ export default {
     },
 
     created() {
-        this.filter.type = 'money';
-        this.filter.value = null;
-        this.filter.mode = 'value';
+        if (!this.isEdit) {
+            this.filter.type = 'money';
+            this.filter.value = null;
+            this.filter.mode = 'value';
+        }
     },
 
     methods: {

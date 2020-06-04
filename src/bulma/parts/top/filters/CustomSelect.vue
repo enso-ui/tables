@@ -26,6 +26,11 @@ export default {
             type: Object,
             required: true,
         },
+        isEdit: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
 
     computed: {
@@ -40,6 +45,13 @@ export default {
         this.filter.params = this.filter.params instanceof Array
             ? {}
             : this.filter.params;
+        
+        if (this.isEdit) {
+            this.filter.value = this.filter.value.map((id, i) => ({
+                id: id,
+                name: this.filter.selection[i],
+            }));
+        }
     },
 
     methods: {
