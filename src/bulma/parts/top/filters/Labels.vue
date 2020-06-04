@@ -63,8 +63,11 @@ export default {
                 return;
             }
 
-            this.transform(index);
-            this.activeScenario().filters.splice(this.selectedIndex, 1, this.filter);
+            if (this.applicable(index)) {
+                this.transform(index);
+                this.activeScenario().filters.splice(this.selectedIndex, 1, this.filter);
+            }
+
             this.filter = null;
             this.selectedIndex = null;
         },
@@ -74,6 +77,11 @@ export default {
             if (component.transform) {
                 component.transform();
             }
+        },
+        applicable(index) {
+            const component = this.$refs[`filter-${index}`][0];
+
+            return component.applicable;
         }
     },
 };

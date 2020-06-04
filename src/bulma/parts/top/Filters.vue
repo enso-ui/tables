@@ -14,12 +14,7 @@
                 <template v-if="filter">
                     <div class="level is-marginless">
                         <div class="level-item">
-                            <span class="tag is-bold is-info"
-                                v-if="filter">
-                                {{ i18n('Column') }}: {{ i18n(filter.label) }}
-                            </span>
-                            <span class="tag is-bold is-info"
-                                v-else>
+                            <span class="tag is-bold is-info">
                                 {{ i18n('Filter') }}: {{ i18n(filter.label) }}
                             </span>
                         </div>
