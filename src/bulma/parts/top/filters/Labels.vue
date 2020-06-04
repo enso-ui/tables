@@ -3,7 +3,7 @@
         <div class="control"
             v-for="(internalFilter, index) in activeScenario().filters"
             :key="`${internalFilter} ${index}`"
-            v-click-outside="() => hide(index)">
+            v-click-outside.deep="() => hide(index)">
             <label-filter :filter="internalFilter"
                 @select="select(internalFilter, index)"
                 @delete="clear(index)"/>
@@ -51,8 +51,7 @@ export default {
     methods: {
         clear(index) {
             this.activeScenario().filters.splice(index, 1);
-            this.selectedIndex = null;
-            this.filter = null;
+            this.reset();
         },
         select(filter, index) {
             this.filter = JSON.parse(JSON.stringify(filter));
@@ -68,8 +67,7 @@ export default {
                 this.activeScenario().filters.splice(this.selectedIndex, 1, this.filter);
             }
 
-            this.filter = null;
-            this.selectedIndex = null;
+            this.reset();
         },
         transform(index) {
             const component = this.$refs[`filter-${index}`][0];
@@ -82,6 +80,10 @@ export default {
             const component = this.$refs[`filter-${index}`][0];
 
             return component.applicable;
+        },
+        reset() {
+            this.selectedIndex = null;
+            this.filter = null;
         }
     },
 };

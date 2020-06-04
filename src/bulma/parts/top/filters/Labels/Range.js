@@ -1,10 +1,13 @@
 export default class {
-    constructor(filter) {
+    constructor(filter, state, i18n) {
         this.filter = filter;
+        this.i18n = i18n;
     }
-    label () {
+
+    label() {
         return this.filter.label;
     }
+
     proposition() {
         switch (this.type()) {
         case 'range':
@@ -17,10 +20,11 @@ export default class {
             return 'is';
         }
     }
-    value () {
+
+    value() {
         switch (this.type()) {
         case 'range':
-            return `${this.filter.value.min} and ${this.filter.value.max}`; //TODO:: 118n for and!
+            return `${this.filter.value.min} ${this.i18n('and')} ${this.filter.value.max}`;
         case 'greater':
             return this.filter.value.min;
         case 'lower':
@@ -33,7 +37,7 @@ export default class {
     type() {
         if (this.filter.mode === 'interval') {
             if (this.filter.value.min !== null && this.filter.value.max !== null) {
-                return 'range'
+                return 'range';
             }
 
             if (this.filter.value.min !== null) {

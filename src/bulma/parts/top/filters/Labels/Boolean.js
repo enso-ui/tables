@@ -2,13 +2,16 @@ export default class {
     constructor(filter) {
         this.filter = filter;
     }
-    label () {
+
+    label() {
         return this.filter.label;
     }
-    proposition () {
+
+    proposition() {
         return 'is';
     }
-    value () {
+
+    value() {
         return this.filter.value
             ? 'true'
             : 'false';

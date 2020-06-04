@@ -3,7 +3,7 @@
         <dropdown class="filters"
             :class="{ 'has-select': hasSelect, 'has-filter': filter }"
             manual
-            @hide="reset"
+            @hide="close"
             ref="dropdown">
             <template v-slot:label>
                 <span class="icon">
@@ -61,14 +61,11 @@ import Enum from './filters/Enum.vue';
 import Money from './filters/Money.vue';
 import Date from './filters/Date.vue';
 import CustomSelect from './filters/CustomSelect.vue';
-import {clickOutside} from "@enso-ui/directives";
 
 library.add(faFilter);
 
 export default {
     name: 'Filters',
-
-    directives: { clickOutside },
 
     components: {
         Dropdown, DropdownItem, Boolean, String, Enum, Money, Date, CustomSelect,
@@ -138,7 +135,7 @@ export default {
         apply() {
             this.transform();
             this.addFilter();
-            this.reset();
+            this.close();
         },
         transform() {
             if (this.$refs.filter.transform) {
@@ -155,7 +152,7 @@ export default {
                 this.state.filterScenarios.push(this.scenarioFactory());
             }
 
-            this.activeScenario().filters.push({...this.filter});
+            this.activeScenario().filters.push(this.filter);
         },
         filterFactory(column) {
             return {
@@ -178,7 +175,7 @@ export default {
         select(filter) {
             this.filter = filter;
         },
-        reset() {
+        close() {
             this.$refs.dropdown.hide();
             this.filter = null;
         },

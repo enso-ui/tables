@@ -2,15 +2,18 @@ export default class {
     constructor(filter) {
         this.filter = filter;
     }
-    label () {
+
+    label() {
         return this.filter.label;
     }
+
     proposition() {
         return this.filter.multiple && this.filter.value.length > 1
             ? 'in'
-            : 'is'
+            : 'is';
     }
-    value () {
+
+    value() {
         return this.filter.selection.join(', ');
     }
 }

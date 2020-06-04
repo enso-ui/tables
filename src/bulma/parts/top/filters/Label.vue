@@ -47,7 +47,7 @@ export default {
         },
         formatter() {
             if (this.types[this.filter.type]) {
-                return new this.types[this.filter.type](this.filter, this.state);
+                return new this.types[this.filter.type](this.filter, this.state, this.i18n);
             }
 
             throw Error;
