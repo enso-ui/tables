@@ -45,13 +45,17 @@ import { focus } from '@enso-ui/directives';
 export default {
     name: 'Date',
 
-    directives:{ focus },
+    directives: { focus },
 
     components: { Datepicker },
 
     inject: ['i18n', 'state'],
 
     props: {
+        edit: {
+            type: Boolean,
+            default: false,
+        },
         filter: {
             type: Object,
             required: true,
@@ -62,14 +66,17 @@ export default {
         applicable() {
             return typeof this.filter.value === 'object' && !!this.filter.value
                 ? !!this.filter.value.min || !!this.filter.value.max
-                : !!this.filter.value
+                : !!this.filter.value;
         },
     },
 
     created() {
-        this.filter.type = 'date';
-        this.filter.value = null;
-        this.filter.mode = 'value';
+        if (this.edit) {
+            const { value } = this.filter;
+            this.filter.mode = value && (value.min || value.max) ? 'interval' : 'value';
+        } else {
+            this.filter.type = 'date';
+        }
     },
 
     methods: {

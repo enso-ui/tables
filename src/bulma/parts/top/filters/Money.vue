@@ -46,19 +46,18 @@ import { focus } from '@enso-ui/directives';
 export default {
     name: 'Money',
 
-    directives:{ focus },
+    directives: { focus },
 
     inject: ['i18n', 'state'],
 
     props: {
+        edit: {
+            type: Boolean,
+            default: false,
+        },
         filter: {
             type: Object,
             required: true,
-        },
-        isEdit: {
-            type: Boolean,
-            required: false,
-            default: false,
         },
     },
 
@@ -73,7 +72,7 @@ export default {
     },
 
     created() {
-        if (!this.isEdit) {
+        if (!this.edit) {
             this.filter.type = 'money';
             this.filter.value = null;
             this.filter.mode = 'value';

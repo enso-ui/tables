@@ -26,9 +26,8 @@ export default {
             type: Object,
             required: true,
         },
-        isEdit: {
+        edit: {
             type: Boolean,
-            required: false,
             default: false,
         },
     },
@@ -42,14 +41,9 @@ export default {
     },
 
     created() {
-        this.filter.params = this.filter.params instanceof Array
-            ? {}
-            : this.filter.params;
-        
-        if (this.isEdit) {
+        if (this.edit) {
             this.filter.value = this.filter.value.map((id, i) => ({
-                id: id,
-                name: this.filter.selection[i],
+                id, name: this.filter.selection[i],
             }));
         }
     },
@@ -58,7 +52,7 @@ export default {
         transform() {
             this.filter.selection = this.filter.value.map(({ name }) => name);
             this.filter.value = this.filter.value.map(({ id }) => id);
-        }
-    }
+        },
+    },
 };
 </script>

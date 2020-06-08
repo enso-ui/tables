@@ -1,14 +1,11 @@
-export default class {
-    constructor(filter, state) {
-        this.filter = filter;
+import Label from './Label';
+
+class Enum extends Label {
+    state(state) {
         this.state = state;
     }
 
-    label() {
-        return this.filter.label;
-    }
-
-    proposition() {
+    preposition() {
         return this.filter.value.length > 1
             ? 'in'
             : 'is';
@@ -21,3 +18,5 @@ export default class {
         return this.filter.value.map(value => column.enum._get(value)).join(', ');
     }
 }
+
+export default Enum;

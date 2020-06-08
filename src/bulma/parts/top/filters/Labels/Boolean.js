@@ -1,13 +1,8 @@
-export default class {
-    constructor(filter) {
-        this.filter = filter;
-    }
+import Label from './Label';
 
-    label() {
-        return this.filter.label;
-    }
-
-    proposition() {
+class Boolean extends Label {
+    // eslint-disable-next-line class-methods-use-this
+    preposition() {
         return 'is';
     }
 
@@ -17,3 +12,5 @@ export default class {
             : 'false';
     }
 }
+
+export default Boolean;

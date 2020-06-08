@@ -28,14 +28,13 @@ export default {
     inject: ['i18n', 'state'],
 
     props: {
+        edit: {
+            type: Boolean,
+            default: false,
+        },
         filter: {
             type: Object,
             required: true,
-        },
-        isEdit: {
-            type: Boolean,
-            required: false,
-            default: false,
         },
     },
 
@@ -46,12 +45,12 @@ export default {
     },
 
     created() {
-        if (! this.isEdit) {
+        if (!this.edit) {
             this.filter.type = 'string';
             this.filter.value = '';
             this.filter.mode = 'full';
         }
-    }
+    },
 };
 </script>
 

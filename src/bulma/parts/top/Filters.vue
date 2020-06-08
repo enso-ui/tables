@@ -78,31 +78,23 @@ export default {
     }),
 
     computed: {
+        custom() {
+            return this.state.template.filters.map(filter => ({
+                ...filter, component: this.component(filter),
+            }));
+        },
+        dynamic() {
+            return this.state.template.columns
+                .filter(({ meta }) => meta.filterable)
+                .map(column => this.filterFactory(column));
+        },
+        filters() {
+            return [...this.custom, ...this.dynamic];
+        },
         hasSelect() {
             return this.filter
                 && ['enum', 'select'].includes(this.filter.type);
         },
-        customs() {
-            return this.state.template.filters.map(filter => {
-                return {
-                    ...filter,
-                    component: this.component(filter),
-                };
-            });
-        },
-        columns() {
-            return this.state.template.columns
-                .filter(({ meta }) => meta.filterable)
-                .map(column => {
-                    return this.filterFactory(column);
-                });
-        },
-        filters () {
-            return [
-                ...this.customs,
-                ...this.columns,
-            ];
-        }
     },
 
     methods: {
@@ -152,7 +144,7 @@ export default {
                 this.state.filterScenarios.push(this.scenarioFactory());
             }
 
-            this.activeScenario().filters.push(this.filter);
+            this.activeScenario().filters.push(JSON.parse(JSON.stringify(this.filter)));
         },
         filterFactory(column) {
             return {
@@ -178,6 +170,8 @@ export default {
         close() {
             this.$refs.dropdown.hide();
             this.filter = null;
+            this.filters
+                .forEach(filter => (filter.value = Array.isArray(filter.value) ? [] : null));
         },
     },
 };

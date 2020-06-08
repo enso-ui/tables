@@ -2,7 +2,7 @@
     <div class="tags has-addons">
         <a class="tag is-warning"
            @click="$emit('select')">
-            {{ label }} {{ proposition }}: {{ value }}
+            {{ label }} {{ preposition }}: {{ value }}
         </a>
         <a class="tag has-background-warning"
            @click="$emit('delete')">
@@ -16,18 +16,29 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { clickOutside } from '@enso-ui/directives';
 import Boolean from './Labels/Boolean.js';
 import Enum from './Labels/Enum.js';
 import String from './Labels/String.js';
 import Select from './Labels/Select.js';
 import Range from './Labels/Range.js';
-import {clickOutside} from "@enso-ui/directives";
+
+const Types = {
+    boolean: Boolean,
+    string: String,
+    enum: Enum,
+    select: Select,
+    money: Range,
+    date: Range,
+};
 
 library.add(faTimes);
+
 export default {
-    name: 'Label',
+    name: 'FilterLabel',
 
     inject: ['i18n', 'state'],
+
     props: {
         filter: {
             type: Object,
@@ -35,28 +46,28 @@ export default {
         },
     },
     computed: {
-        types() {
-            return {
-                'boolean': Boolean,
-                'string': String,
-                'enum': Enum,
-                'select': Select,
-                'money': Range,
-                'date': Range,
-            };
-        },
         formatter() {
-            if (this.types[this.filter.type]) {
-                return new this.types[this.filter.type](this.filter, this.state, this.i18n);
+            if (!Types[this.filter.type]) {
+                throw Error;
             }
 
-            throw Error;
+            const filter = new Types[this.filter.type](this.filter);
+
+            if (typeof filter.state === 'function') {
+                filter.state(this.state);
+            }
+
+            if (typeof filter.i18n === 'function') {
+                filter.i18n(this.i18n);
+            }
+
+            return filter;
         },
         label() {
             return this.formatter.label();
         },
-        proposition() {
-            return this.i18n(this.formatter.proposition());
+        preposition() {
+            return this.i18n(this.formatter.preposition());
         },
         value() {
             return this.i18n(this.formatter.value());
@@ -64,20 +75,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-    .labels {
-        a.tag:hover {
-            text-decoration: none;
-        }
-        .filter-container{
-            position: absolute;
-            top: 20px;
-            z-index: 1000;
-            padding: 10px;
-            min-width: 250px;
-            max-width: 375px;
-            width: 100%;
-        }
-    }
-</style>

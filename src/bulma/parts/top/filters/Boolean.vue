@@ -25,6 +25,10 @@ export default {
     inject: ['i18n'],
 
     props: {
+        edit: {
+            type: Boolean,
+            default: false,
+        },
         filter: {
             type: Object,
             required: true,
@@ -33,13 +37,16 @@ export default {
 
     computed: {
         applicable() {
-            return true
+            return true;
         },
     },
 
     created() {
-        this.filter.type = 'boolean';
-        this.filter.value = true;
-    }
+        if (this.edit) {
+            this.filter.value = true;
+        } else {
+            this.filter.type = 'boolean';
+        }
+    },
 };
 </script>

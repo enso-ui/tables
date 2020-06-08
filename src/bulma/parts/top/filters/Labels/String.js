@@ -1,13 +1,7 @@
-export default class {
-    constructor(filter) {
-        this.filter = filter;
-    }
+import Label from './Label';
 
-    label() {
-        return this.filter.label;
-    }
-
-    proposition() {
+class String extends Label {
+    preposition() {
         switch (this.filter.mode) {
         case 'full':
             return 'contains';
@@ -28,3 +22,5 @@ export default class {
         return this.filter.value;
     }
 }
+
+export default String;

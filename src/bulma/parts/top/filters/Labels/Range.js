@@ -1,14 +1,11 @@
-export default class {
-    constructor(filter, state, i18n) {
-        this.filter = filter;
+import Label from './Label';
+
+class Range extends Label {
+    i18n(i18n) {
         this.i18n = i18n;
     }
 
-    label() {
-        return this.filter.label;
-    }
-
-    proposition() {
+    preposition() {
         switch (this.type()) {
         case 'range':
             return 'is between';
@@ -50,3 +47,5 @@ export default class {
         return 'point';
     }
 }
+
+export default Range;

@@ -1,13 +1,7 @@
-export default class {
-    constructor(filter) {
-        this.filter = filter;
-    }
+import Label from './Label';
 
-    label() {
-        return this.filter.label;
-    }
-
-    proposition() {
+class Select extends Label {
+    preposition() {
         return this.filter.multiple && this.filter.value.length > 1
             ? 'in'
             : 'is';
@@ -17,3 +11,5 @@ export default class {
         return this.filter.selection.join(', ');
     }
 }
+
+export default Select;
