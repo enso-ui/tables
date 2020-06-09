@@ -42,10 +42,9 @@ export default {
     },
 
     created() {
-        if (this.edit) {
-            this.filter.value = true;
-        } else {
+        if (!this.edit) {
             this.filter.type = 'boolean';
+            this.filter.value = true;
         }
     },
 };

@@ -79,9 +79,9 @@ export default {
 
     computed: {
         custom() {
-            return this.state.template.filters.map(filter => ({
+            return this.state.template.filters?.map(filter => ({
                 ...filter, component: this.component(filter),
-            }));
+            })) || [];
         },
         dynamic() {
             return this.state.template.columns

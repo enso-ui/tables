@@ -97,7 +97,7 @@ export default {
 
         .filter-container {
             position: absolute;
-            top: 1.5em;
+            top: 1.7em;
             z-index: 100;
             min-width: 18em;
             max-width: 24em;
