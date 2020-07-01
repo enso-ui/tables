@@ -17,21 +17,27 @@
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
-                        <datepicker :placeholder="i18n('Min')"
+                        <datepicker alt-input
+                            :placeholder="i18n('Min')"
+                            :alt-format="state.meta.dateFormat"
                             v-focus
                             v-model="filter.value.min"/>
                     </div>
                 </div>
                 <div class="level-right">
                     <div class="level-item">
-                        <datepicker :placeholder="i18n('Max')"
+                        <datepicker alt-input
+                            :placeholder="i18n('Max')"
+                            :alt-format="state.meta.dateFormat"
                             v-model="filter.value.max"/>
                     </div>
                 </div>
             </div>
         </div>
         <datepicker class="has-margin-top-medium"
+            alt-input
             :placeholder="i18n('Filter')"
+            :alt-format="state.meta.dateFormat"
             v-focus
             v-model="filter.value"
             v-else/>

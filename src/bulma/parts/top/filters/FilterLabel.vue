@@ -16,12 +16,12 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { clickOutside } from '@enso-ui/directives';
 import Boolean from './Labels/Boolean.js';
 import Enum from './Labels/Enum.js';
 import String from './Labels/String.js';
 import Select from './Labels/Select.js';
 import Range from './Labels/Range.js';
+import Date from './Labels/Date.js';
 
 const Types = {
     boolean: Boolean,
@@ -29,7 +29,7 @@ const Types = {
     enum: Enum,
     select: Select,
     money: Range,
-    date: Range,
+    date: Date,
 };
 
 library.add(faTimes);
