@@ -1,6 +1,5 @@
 <template>
-    <modal show
-        @close="closeConfirmation">
+    <modal @close="closeConfirmation">
         <div class="box">
             <h5 class="subtitle is-5">
                 {{ i18n(state.action.button.message || "Are you sure?") }}
