@@ -1,5 +1,5 @@
 import Range from './Range';
-import format from '@enso-ui/ui/src/modules/plugins/date-fns/format';
+import format from '@enso-ui/date/src/format';
 
 class Date extends Range {
     constructor(filter) {
@@ -23,8 +23,8 @@ class Date extends Range {
         }
     }
 
-    dateFormat(date){
-        return format(date, this.state.meta.dateFormat);
+    dateFormat(date) {
+        return format(date, this.state.template.dateFormat);
     }
 }
 
