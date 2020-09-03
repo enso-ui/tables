@@ -35,6 +35,7 @@
     "@enso-ui/strings": "^1.0",
     "@enso-ui/switch": "^1.0",
     "@enso-ui/date": "^1.0",
+    "@enso-ui/datepicker": "^1.1",
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.2",
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
