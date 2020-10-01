@@ -46,6 +46,10 @@ export default {
         isExpanded(row) {
             return this.state.expanded.includes(row[this.template.dtRowId]);
         },
+        shouldRender(row, button) {
+            // eslint-disable-next-line no-underscore-dangle
+            return !row._actions || row._actions.includes(button.name);
+        },
         toggleHidden(row, index) {
             if (!this.isExpanded(row)) {
                 this.state.expanded.push(row[this.template.dtRowId]);
@@ -123,6 +127,7 @@ export default {
             i18n: this.i18n,
             isChild: this.isChild,
             isExpanded: this.isExpanded,
+            shouldRender: this.shouldRender,
             isHighlighted: this.isHighlighted,
             rowCrtNo: this.rowCrtNo,
             selectBindings: row => ({
