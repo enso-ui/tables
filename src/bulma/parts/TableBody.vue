@@ -2,7 +2,7 @@
     <core-table-body v-on="$listeners">
         <template v-slot:default="{
                 actionBindings, actionEvents, cellBindings, cellEvents, hiddenColspan, hiddenCount,
-                isExpanded, canRenderAction, rowCrtNo, selectEvents, hiddenEvents, isHighlighted,
+                isExpanded, shouldRender, rowCrtNo, selectEvents, hiddenEvents, isHighlighted,
                 selectBindings, columnAlignment, isChild, i18n, visibleColumn, state,
             }">
             <tbody>
@@ -88,7 +88,7 @@
                             v-if="state.template.actions && !isChild(row)">
                             <span class="action-buttons">
                                 <template v-for="(button, idx) in state.template.buttons.row">
-                                    <template v-if="canRenderAction(row, button)">
+                                    <template v-if="shouldRender(row, button)">
                                         <slot :name="button.slot"
                                             :icon="button.icon"
                                             :label="button.label"

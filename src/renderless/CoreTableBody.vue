@@ -46,7 +46,7 @@ export default {
         isExpanded(row) {
             return this.state.expanded.includes(row[this.template.dtRowId]);
         },
-        canRenderAction(row, button) {
+        shouldRender(row, button) {
             // eslint-disable-next-line no-underscore-dangle
             return !row._actions || row._actions.includes(button.name);
         },
@@ -127,7 +127,7 @@ export default {
             i18n: this.i18n,
             isChild: this.isChild,
             isExpanded: this.isExpanded,
-            canRenderAction: this.canRenderAction,
+            shouldRender: this.shouldRender,
             isHighlighted: this.isHighlighted,
             rowCrtNo: this.rowCrtNo,
             selectBindings: row => ({
