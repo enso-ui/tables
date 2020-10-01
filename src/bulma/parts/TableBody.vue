@@ -2,8 +2,8 @@
     <core-table-body v-on="$listeners">
         <template v-slot:default="{
                 actionBindings, actionEvents, cellBindings, cellEvents, hiddenColspan, hiddenCount,
-                isExpanded, rowCrtNo, selectEvents, hiddenEvents, isHighlighted, selectBindings,
-                columnAlignment, isChild, i18n, visibleColumn, state,
+                isExpanded, canRenderAction, rowCrtNo, selectEvents, hiddenEvents, isHighlighted,
+                selectBindings, columnAlignment, isChild, i18n, visibleColumn, state,
             }">
             <tbody>
                 <tr v-for="(row, index) in state.body.data"
@@ -88,26 +88,30 @@
                             v-if="state.template.actions && !isChild(row)">
                             <span class="action-buttons">
                                 <template v-for="(button, idx) in state.template.buttons.row">
-                                    <slot :name="button.slot"
-                                        :icon="button.icon"
-                                        :label="button.label"
-                                        :css-class="button.class"
-                                        :row="row"
-                                        v-if="button.slot"/>
-                                    <a v-else
-                                        class="button is-small is-table-button has-margin-left-small"
-                                        :key="idx"
-                                        :class="button.class"
-                                        v-tooltip.left="button.tooltip ? i18n(button.tooltip) : null"
-                                        v-bind="actionBindings(button, row)"
-                                        v-on="actionEvents(button, row)">
-                                        <span v-if="button.label">
-                                            {{ i18n(button.label) }}
-                                        </span>
-                                        <span class="icon is-small">
-                                            <fa :icon="button.icon"/>
-                                        </span>
-                                    </a>
+                                    <template v-if="canRenderAction(row, button)">
+                                        <slot :name="button.slot"
+                                            :icon="button.icon"
+                                            :label="button.label"
+                                            :route="button.route"
+                                            :event="button.event"
+                                            :css-class="button.class"
+                                            :row="row"
+                                            v-if="button.slot"/>
+                                        <a v-else
+                                            class="button is-small is-table-button has-margin-left-small"
+                                            :key="idx"
+                                            :class="button.class"
+                                            v-tooltip.left="button.tooltip ? i18n(button.tooltip) : null"
+                                            v-bind="actionBindings(button, row)"
+                                            v-on="actionEvents(button, row)">
+                                            <span v-if="button.label">
+                                                {{ i18n(button.label) }}
+                                            </span>
+                                            <span class="icon is-small">
+                                                <fa :icon="button.icon"/>
+                                            </span>
+                                        </a>
+                                    </template>
                                 </template>
 
                             </span>
