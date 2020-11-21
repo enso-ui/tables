@@ -3,6 +3,7 @@
         <vue-select v-model="filter.value"
             objects
             :i18n="i18n"
+            :label="filter.selectLabel"
             :source="filter.path"
             :multiple="filter.multiple"
             :translated="filter.translated"
