@@ -270,18 +270,46 @@ export default {
 
             this.ongoingRequest = axios.CancelToken.source();
 
+            const payload = this.readRequest(this.template.method);
+
             return this.template.method === 'GET'
                 ? axios[this.template.method.toLowerCase()](
                     this.template.readPath, {
-                        ...this.readRequest(this.template.method),
+                        ...payload, a: {foo: 'x'},
                         cancelToken: this.ongoingRequest.token,
                     },
                 )
                 : axios[this.template.method.toLowerCase()](
                     this.template.readPath,
-                    this.readRequest(this.template.method),
+                    payload,
                     { cancelToken: this.ongoingRequest.token },
                 );
+        },
+        fetchRow(dtRowId) {
+          this.meta.loading = true;
+          this.$emit('fetching');
+
+          return this.readRowRequest(this.template.method, dtRowId)
+              .then(response => {
+                  const row = response.data;
+                  this.meta.loading = false;
+
+                  // if(this.meta.money)
+                  //     ? this.processMoney([row])
+                  //     : body;
+
+                  // find index + splice
+
+                  this.$emit('fetched-row');
+
+                  // update totals
+                }).catch(error => {
+                  this.meta.loading = false;
+
+                  if (!axios.isCancel(error)) {
+                    this.errorHandler(error);
+                  }
+                });
         },
         fetch() {
             this.meta.loading = true;
@@ -329,6 +357,21 @@ export default {
                     forceInfo: this.meta.forceInfo,
                     searchMode: this.meta.searchMode,
                 },
+            };
+
+            return method === 'GET'
+                ? { params }
+                : params;
+        },
+        readRowRequest(method, dtRowId) {
+            const params = {
+                internalFilters: this.internalFilters,
+                filters: this.filters,
+                intervals: this.intervals,
+                params: this.params,
+                columns: this.requestColumns(false),
+                dtRowId,
+                meta: {  },
             };
 
             return method === 'GET'
