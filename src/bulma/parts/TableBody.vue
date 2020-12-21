@@ -68,7 +68,7 @@
                         <template v-for="column in state.template.columns">
                             <td :key="column.name"
                                 :class="[
-                                    {'is-money' : column.money},
+                                    { 'is-number' : column.money || column.number },
                                     columnAlignment(column), column.class
                                 ]" v-if="visibleColumn(column)">
                                 <table-cell v-bind="cellBindings(row, column)"
@@ -208,7 +208,7 @@ export default {
             padding: 0.5em 0;
         }
 
-        .is-money {
+        .is-number {
             white-space: pre;
             font-family: monospace;
         }

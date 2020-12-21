@@ -17,14 +17,15 @@
             </td>
             <template v-for="i in columns.length - 1">
                 <td class="is-bold"
-                    :class="[{ 'is-money' : columns[i].money }, columnAlignment(columns[i])]"
+                    :class="[{ 'is-number' : columns[i].money || columns[i].number },
+                        columnAlignment(columns[i])]"
                     :key="i"
                     v-if="visibleColumn(columns[i])">
                     <span v-if="
                         columns[i].meta.total || columns[i].meta.rawTotal
                         || columns[i].meta.average
                     ">{{
-                        columns[i].money
+                        columns[i].money || columns[i].number
                             ? state.body.total[columns[i].name]
                             : totalFormat(state.body.total[columns[i].name])
                     }}</span>
@@ -41,11 +42,12 @@
                 <ul>
                     <li v-for="cell in hiddenTotals"
                         class="is-bold"
-                        :class="[{ 'is-money' : cell.money }, columnAlignment(cell)]"
+                        :class="[{ 'is-money' : cell.money || cell.number },
+                            columnAlignment(cell)]"
                         :key="cell.name">
                         <span>{{ i18n(cell.label) }}:</span>
                         <span v-if="cell.meta.total || cell.meta.rawTotal ">{{
-                            cell.money
+                            cell.money || cell.number
                                 ? state.body.total[cell.name]
                                 : totalFormat(state.body.total[cell.name])
                         }}</span>

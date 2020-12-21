@@ -1,6 +1,7 @@
 <script>
 import accounting from 'accounting-js';
 import Enum from '@enso-ui/enums';
+import NumberFormatter from './services/NumberFormatter';
 
 export default {
 
@@ -303,6 +304,10 @@ export default {
                     ? this.processMoney(body)
                     : body;
 
+                if (this.meta.number) {
+                    this.processNumber();
+                }
+
                 this.$emit('fetched');
 
                 this.$nextTick(this.refreshPageSelected);
@@ -379,6 +384,11 @@ export default {
                     }
                 });
             return body;
+        },
+        processNumber() {
+            this.template.columns
+                .filter(column => !!column.number)
+                .forEach(column => (new NumberFormatter(this, column)).handle());
         },
         isEmpty() {
             return this.body && this.body.count === 0;

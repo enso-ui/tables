@@ -16,12 +16,12 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import Boolean from './Labels/Boolean.js';
-import Enum from './Labels/Enum.js';
-import String from './Labels/String.js';
-import Select from './Labels/Select.js';
-import Range from './Labels/Range.js';
-import Date from './Labels/Date.js';
+import Boolean from './Labels/Boolean';
+import Enum from './Labels/Enum';
+import String from './Labels/String';
+import Select from './Labels/Select';
+import Range from './Labels/Range';
+import Date from './Labels/Date';
 
 const Types = {
     boolean: Boolean,
@@ -29,6 +29,7 @@ const Types = {
     enum: Enum,
     select: Select,
     money: Range,
+    number: Range,
     date: Date,
 };
 

@@ -1,27 +1,28 @@
 <template>
     <core-pagination v-on="$listeners">
         <template v-slot:default="{
-                atStart, atEnd, fetch, i18n, jumpTo, middlePages, page, pages, state
+                fullRecordInfo, loading, atStart, atEnd,
+                i18n, jumpTo, middlePages, page, pages
             }">
             <nav class="pagination is-small"
                 role="navigation"
                 aria-label="pagination">
                 <a class="pagination-previous"
-                    :disabled="page === 1 || state.meta.loading"
+                    :disabled="page === 1 || loading"
                     @click="jumpTo(page - 1)">
                     {{ i18n('Previous') }}
                 </a>
                 <a class="pagination-next"
-                    :disabled="page === pages || state.meta.loading"
+                    :disabled="page === pages || loading"
                     @click="jumpTo(page + 1)">
                     {{ i18n('Next') }}
                 </a>
                 <ul class="pagination-list"
-                    v-if="state.body.fullRecordInfo">
+                    v-if="fullRecordInfo">
                     <li>
                         <a class="pagination-link"
                             :class="{ 'is-current': page === 1 }"
-                            :disabled="state.meta.loading"
+                            :disabled="loading"
                             @click="jumpTo(1)">
                             1
                         </a>
@@ -35,7 +36,7 @@
                         :key="i">
                         <a class="pagination-link"
                             :class="{ 'is-current': page === i }"
-                            :disabled="state.meta.loading"
+                            :disabled="loading"
                             @click="jumpTo(i)">
                             {{ i }}
                         </a>
@@ -48,7 +49,7 @@
                     <li v-if="pages > 1">
                         <a class="pagination-link"
                             :class="{ 'is-current': page === pages }"
-                            :disabled="state.meta.loading"
+                            :disabled="loading"
                             @click="jumpTo(pages)">
                             {{ pages }}
                         </a>

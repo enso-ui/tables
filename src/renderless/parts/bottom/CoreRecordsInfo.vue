@@ -24,12 +24,12 @@ export default {
         },
         filteredInfo() {
             return this.hasFilters
-                ? `${this.i18n('of')} ${this.body.fullRecordInfo ? this.body.filtered : '...'} \
+                ? `${this.i18n('of')} ${this.body.fullRecordInfo ? this.body.formattedFiltered : '...'} \
                  ${this.i18n('entries')}`
-                : `${this.i18n('of')} ${this.body.count} ${this.i18n('entries')}`;
+                : `${this.i18n('of')} ${this.body.formattedCount} ${this.i18n('entries')}`;
         },
         fromInfo() {
-            return `(${this.i18n('filtered from')} ${this.body.count} ${this.i18n('total records')})`;
+            return `(${this.i18n('filtered from')} ${this.body.formattedCount} ${this.i18n('total records')})`;
         },
         selectedInfo() {
             return `(${this.state.selected.length} ${this.i18n('selected')})`;

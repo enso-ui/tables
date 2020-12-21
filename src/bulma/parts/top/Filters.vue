@@ -59,6 +59,7 @@ import Boolean from './filters/Boolean.vue';
 import String from './filters/String.vue';
 import Enum from './filters/Enum.vue';
 import Money from './filters/Money.vue';
+import Number from './filters/Number.vue';
 import Date from './filters/Date.vue';
 import CustomSelect from './filters/CustomSelect.vue';
 
@@ -68,7 +69,7 @@ export default {
     name: 'Filters',
 
     components: {
-        Dropdown, DropdownItem, Boolean, String, Enum, Money, Date, CustomSelect,
+        Dropdown, DropdownItem, Boolean, String, Enum, Money, Number, Date, CustomSelect,
     },
 
     inject: ['activeScenario', 'i18n', 'state'],
@@ -113,6 +114,10 @@ export default {
 
             if (column.money) {
                 return 'money';
+            }
+
+            if (column.number) {
+                return 'number';
             }
 
             return 'string';

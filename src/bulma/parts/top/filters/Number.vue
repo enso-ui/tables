@@ -1,5 +1,5 @@
 <template>
-    <div class="date-filter">
+    <div class="number-filter">
         <div class="has-text-centered">
             <a class="button is-small is-bold"
                 :class="{ 'is-success': filter.mode !== 'interval'}"
@@ -17,43 +17,36 @@
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
-                        <datepicker alt-input
+                        <input class="input"
                             :placeholder="i18n('Min')"
-                            :alt-format="state.template.dateFormat || ''"
                             v-focus
-                            v-model="filter.value.min"/>
+                            v-model.number="filter.value.min">
                     </div>
                 </div>
                 <div class="level-right">
                     <div class="level-item">
-                        <datepicker alt-input
+                        <input class="input"
                             :placeholder="i18n('Max')"
-                            :alt-format="state.template.dateFormat"
-                            v-model="filter.value.max"/>
+                            v-model.number="filter.value.max">
                     </div>
                 </div>
             </div>
         </div>
-        <datepicker class="has-margin-top-medium"
-            alt-input
+        <input class="input has-margin-top-medium"
             :placeholder="i18n('Filter')"
-            :alt-format="state.template.dateFormat"
             v-focus
-            v-model="filter.value"
-            v-else/>
+            v-model.number="filter.value"
+            v-else>
     </div>
 </template>
 
 <script>
-import { Datepicker } from '@enso-ui/datepicker/bulma';
 import { focus } from '@enso-ui/directives';
 
 export default {
-    name: 'Date',
+    name: 'Money',
 
     directives: { focus },
-
-    components: { Datepicker },
 
     inject: ['i18n', 'state'],
 
@@ -70,18 +63,19 @@ export default {
 
     computed: {
         applicable() {
-            return typeof this.filter.value === 'object' && !!this.filter.value
-                ? !!this.filter.value.min || !!this.filter.value.max
-                : !!this.filter.value;
+            const invalid = ['', null];
+
+            return typeof this.filter.value === 'object' && this.filter.value !== null
+                ? !invalid.includes(this.filter.value.min) || !invalid.includes(this.filter.value.max)
+                : !invalid.includes(this.filter.value);
         },
     },
 
     created() {
-        if (this.edit) {
-            const { value } = this.filter;
-            this.filter.mode = value && (value.min || value.max) ? 'interval' : 'value';
-        } else {
-            this.filter.type = 'date';
+        if (!this.edit) {
+            this.filter.type = 'number';
+            this.filter.value = null;
+            this.filter.mode = 'value';
         }
     },
 
@@ -97,7 +91,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .date-filter {
+    .number-filter {
         .level-left, .level-right {
             width: 49%;
             .level-item {
