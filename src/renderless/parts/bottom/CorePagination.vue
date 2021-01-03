@@ -6,9 +6,12 @@ export default {
 
     methods: {
         jumpTo(page) {
-            const { pagination } = this.state.body;
+            const { fullRecordInfo, pagination } = this.state.body;
 
-            if (page === pagination.page || page < 1 || page > pagination.pages) {
+            const shouldIgnore = page === pagination.page || page < 1
+                || (fullRecordInfo && page > pagination.pages);
+
+            if (shouldIgnore) {
                 return;
             }
 
