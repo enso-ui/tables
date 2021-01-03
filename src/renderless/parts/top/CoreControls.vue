@@ -2,7 +2,10 @@
 export default {
     name: 'CoreControls',
 
-    inject: ['activeScenario', 'buttonAction', 'fetch', 'i18n', 'reset', 'state'],
+    inject: [
+        'activeScenario', 'buttonAction', 'fetch',
+        'hasSelection', 'i18n', 'reset', 'state',
+    ],
 
     computed: {
         meta() {
@@ -37,6 +40,7 @@ export default {
                     this.fetch();
                 },
             },
+            hasSelection: this.hasSelection,
             i18n: this.i18n,
             reloadEvents: {
                 click: this.fetch,

@@ -2,7 +2,7 @@
     <core-controls>
         <template v-slot:default="{
                 controlBindings, controlEvents, filterLabels, filterScenarios,
-                forceInfoEvents, i18n, reloadEvents, resetEvents, state,
+                forceInfoEvents, hasSelection,i18n, reloadEvents, resetEvents, state,
             }">
             <div class="wrapper">
                 <div class="top-controls has-background-light">
@@ -44,20 +44,16 @@
                                     :label="button.label"
                                     :css-class="button.class"
                                     v-if="button.slot"/>
-                                <a class="button has-margin-left-small"
-                                    :class="button.class"
+                                <control :button="button"
                                     :key="`${button.label}-${button.icon}`"
                                     v-bind="controlBindings(button)"
                                     v-on="controlEvents(button)"
-                                    v-else>
-                                <span class="is-hidden-mobile">
-                                    {{ i18n(button.label) }}
-                                </span>
-                                    <span class="icon is-small">
-                                    <fa :icon="button.icon"/>
-                                </span>
-                                <span class="is-hidden-mobile"/>
-                                </a>
+                                    v-else-if="!button.selection"/>
+                                <control :button="button"
+                                    :key="`${button.label}-${button.icon}`"
+                                    v-bind="controlBindings(button)"
+                                    v-on="controlEvents(button)"
+                                    v-else-if="hasSelection()"/>
                             </template>
                         </div>
                         <div class="column search">
@@ -86,6 +82,7 @@ import ColumnVisibility from './ColumnVisibility.vue';
 import StyleSelector from './StyleSelector.vue';
 import Labels from './filters/Labels.vue';
 import Scenarios from './filters/Scenarios.vue';
+import Control from './Control.vue';
 
 library.add(faSync, faUndo, faSearch, faInfoCircle);
 
@@ -93,7 +90,14 @@ export default {
     name: 'Controls',
 
     components: {
-        CoreControls, LengthMenu, ColumnVisibility, StyleSelector, Search, Labels, Scenarios,
+        CoreControls,
+        LengthMenu,
+        ColumnVisibility,
+        Control,
+        StyleSelector,
+        Search,
+        Labels,
+        Scenarios,
     },
 };
 </script>

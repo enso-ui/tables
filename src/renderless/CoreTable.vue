@@ -135,6 +135,7 @@ export default {
             hasContent: this.hasContent,
             hasEntries: this.hasEntries,
             hasFooter: this.hasFooter,
+            hasSelection: this.hasSelection,
             hiddenColspan: this.hiddenColspan,
             hiddenColumns: this.hiddenColumns,
             i18n: this.i18n,
@@ -319,22 +320,24 @@ export default {
                 }
             });
         },
-        readRequest(method, exportMode = false) {
-            const params = {
-                internalFilters: this.internalFilters,
-                filters: this.filters,
-                intervals: this.intervals,
-                params: this.params,
-                columns: this.requestColumns(exportMode),
-                meta: {
-                    start: this.meta.start,
-                    length: this.meta.length,
-                    sort: this.meta.sort,
-                    search: this.meta.search,
-                    forceInfo: this.meta.forceInfo,
-                    searchMode: this.meta.searchMode,
-                },
-            };
+        readRequest(method, exportMode = false, selection = false) {
+            const params = selection
+                ? { selection: this.state.selected }
+                : {
+                    internalFilters: this.internalFilters,
+                    filters: this.filters,
+                    intervals: this.intervals,
+                    params: this.params,
+                    columns: this.requestColumns(exportMode),
+                    meta: {
+                        start: this.meta.start,
+                        length: this.meta.length,
+                        sort: this.meta.sort,
+                        search: this.meta.search,
+                        forceInfo: this.meta.forceInfo,
+                        searchMode: this.meta.searchMode,
+                    },
+                };
 
             return method === 'GET'
                 ? { params }
@@ -404,6 +407,9 @@ export default {
                 && this.body
                 && this.body.fullRecordInfo;
         },
+        hasSelection() {
+            return this.state.selected.length > 0;
+        },
         visibleColumns() {
             return this.template.columns
                 .filter(({ meta }) => !meta.rogue);
@@ -446,10 +452,12 @@ export default {
                 this.errorHandler(error);
             });
         },
-        action({ method, path, postEvent }) {
+        action({
+            method, path, postEvent, selection = false,
+        }) {
             this.meta.loading = true;
 
-            axios[method.toLowerCase()](path, this.readRequest(method))
+            axios[method.toLowerCase()](path, this.readRequest(method, false, selection))
                 .then(({ data }) => {
                     this.meta.loading = false;
                     if (postEvent) {
