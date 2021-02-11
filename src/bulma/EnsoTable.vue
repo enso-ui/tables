@@ -61,6 +61,9 @@ export default {
         fetch() {
             return this.ready && this.$refs.table.fetch();
         },
+        fetchRow(dtRowId) {
+            return this.ready && this.$refs.table.fetchRow(dtRowId);
+        },
         highlight(dtRowId) {
             return this.ready && this.$refs.table.highlight(dtRowId);
         },

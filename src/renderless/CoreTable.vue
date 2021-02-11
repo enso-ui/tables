@@ -132,6 +132,7 @@ export default {
             doButtonAction: this.doButtonAction,
             exportData: this.exportData,
             fetch: this.fetch,
+            fetchRow: this.fetchRow,
             hasContent: this.hasContent,
             hasEntries: this.hasEntries,
             hasFooter: this.hasFooter,
@@ -265,7 +266,7 @@ export default {
 
             this.init();
         },
-        request() {
+        request(dtRowId = null) {
             if (this.ongoingRequest) {
                 this.ongoingRequest.cancel();
             }
@@ -275,13 +276,13 @@ export default {
             return this.template.method === 'GET'
                 ? axios[this.template.method.toLowerCase()](
                     this.template.readPath, {
-                        ...this.readRequest(this.template.method),
+                        ...this.readRequest(this.template.method, false, false, dtRowId),
                         cancelToken: this.ongoingRequest.token,
                     },
                 )
                 : axios[this.template.method.toLowerCase()](
                     this.template.readPath,
-                    this.readRequest(this.template.method),
+                    this.readRequest(this.template.method, false, false, dtRowId),
                     { cancelToken: this.ongoingRequest.token },
                 );
         },
@@ -320,14 +321,65 @@ export default {
                 }
             });
         },
-        readRequest(method, exportMode = false, selection = false) {
+        fetchRow(dtRowId) {
+            const index = this.state.body.data
+                .findIndex((item) => item[this.template.dtRowId] === dtRowId);
+
+            if (index === -1) {
+                throw new Error(`${dtRowId} is not exist`);
+            }
+
+            const selectedRow = { ...this.state.body.data[index] };
+            this.meta.loading = true;
+            this.state.expanded = [];
+            this.$emit('fetching');
+
+            return this.request(dtRowId).then(({ data }) => {
+                const body = data;
+                this.meta.loading = false;
+                this.meta.forceInfo = false;
+
+                if (body.data.length === 0) {
+                    return this.fetch();
+                }
+
+                const proccessdMoney = this.meta.money
+                    ? this.processMoney(body)
+                    : body;
+
+                this.state.body.data[index] = proccessdMoney.data[0];
+
+                if (this.meta.number) {
+                    this.processNumber();
+                }
+
+                const changedTotal = Object.keys(this.state.body.total)
+                    .filter((key) => selectedRow[key] !== this.state.body.data[index][key])
+                    .length > 0;
+
+                if (changedTotal) {
+                    return this.fetch();
+                }
+
+                this.$emit('fetched');
+                this.$nextTick(this.refreshPageSelected);
+            }).catch(error => {
+                this.meta.loading = false;
+
+                if (!axios.isCancel(error)) {
+                    this.errorHandler(error);
+                }
+            });
+        },
+        readRequest(method, exportMode = false, selection = false, dtRowId = null) {
             const params = selection
                 ? { selection: this.state.selected }
                 : {
+                    withMeta: !dtRowId,
                     internalFilters: this.internalFilters,
-                    filters: this.filters,
-                    intervals: this.intervals,
-                    params: this.params,
+                    filters: dtRowId ? { [`${this.template.table}`]: { [`${this.template.dtRowId}`]: dtRowId } } : this.filters,
+                    intervals: dtRowId ? {} : this.intervals,
+                    params: dtRowId ? this.params : {},
                     columns: this.requestColumns(exportMode),
                     meta: {
                         start: this.meta.start,
@@ -367,7 +419,7 @@ export default {
                 .filter(column => !!column.money)
                 .forEach(column => {
                     const total = this.meta.total
-                        && Object.keys(body.total).includes(column.name);
+                        && Object.keys(body?.total ?? []).includes(column.name);
 
                     let money = body.data.map(row => Number.parseFloat(row[column.name]) || 0);
 
