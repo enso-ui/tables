@@ -25,7 +25,6 @@ import { clickOutside } from '@enso-ui/directives';
 import Boolean from './Boolean.vue';
 import String from './String.vue';
 import Enum from './Enum.vue';
-import Money from './Money.vue';
 import Number from './Number.vue';
 import Date from './Date.vue';
 import FilterLabel from './FilterLabel.vue';
@@ -39,7 +38,7 @@ export default {
     directives: { clickOutside },
 
     components: {
-        Boolean, String, Enum, Money, Number, Date, CustomSelect, FilterLabel,
+        Boolean, String, Enum, Number, Date, CustomSelect, FilterLabel,
     },
 
     inject: ['activeScenario', 'i18n', 'state'],

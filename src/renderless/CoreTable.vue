@@ -302,9 +302,7 @@ export default {
                     return;
                 }
 
-                this.state.body = this.meta.money
-                    ? this.processMoney(body)
-                    : body;
+                this.state.body = body;
 
                 if (this.meta.number) {
                     this.processNumber();
@@ -343,11 +341,7 @@ export default {
                     return this.fetch();
                 }
 
-                const proccessdMoney = this.meta.money
-                    ? this.processMoney(body)
-                    : body;
-
-                this.state.body.data[index] = proccessdMoney.data[0];
+                this.state.body.data[index] = body.data[0];
 
                 if (this.meta.number) {
                     this.processNumber();
@@ -413,32 +407,6 @@ export default {
 
                 return columns;
             }, []);
-        },
-        processMoney(body) {
-            this.template.columns
-                .filter(column => !!column.money)
-                .forEach(column => {
-                    const total = this.meta.total
-                        && Object.keys(body?.total ?? []).includes(column.name);
-
-                    let money = body.data.map(row => Number.parseFloat(row[column.name]) || 0);
-
-                    if (total) {
-                        money.push(Number.parseFloat(body.total[column.name]) || 0);
-                    }
-
-                    money = accounting.formatColumn(money, column.money);
-
-                    body.data = body.data.map((row, index) => {
-                        row[column.name] = money[index];
-                        return row;
-                    });
-
-                    if (total) {
-                        body.total[column.name] = money.pop();
-                    }
-                });
-            return body;
         },
         processNumber() {
             this.template.columns
