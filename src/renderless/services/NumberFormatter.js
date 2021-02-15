@@ -1,12 +1,24 @@
 class NumberFormatter {
-    constructor(vm, column) {
+    constructor(vm, column, index = null) {
         this.vm = vm;
         this.column = column;
+        this.index = index;
         this.hasTotal = this.hasTotal();
     }
 
     handle() {
-        this.replace(this.format(this.number()));
+        if(this.index === null) {
+            this.replace(this.format(this.number()));
+
+            return;
+        }
+
+        this.singleRow();
+    }
+
+    singleRow() {
+        const input = [this.vm.body.data[this.index][this.column.name]];
+        this.vm.body.data[this.index][this.column.name] = this.format(input)[0];
     }
 
     replace(number) {

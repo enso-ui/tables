@@ -329,22 +329,22 @@ export default {
 
             const selectedRow = { ...this.state.body.data[index] };
             this.meta.loading = true;
-            this.state.expanded = [];
             this.$emit('fetching');
 
             return this.request(dtRowId).then(({ data }) => {
                 const body = data;
                 this.meta.loading = false;
-                this.meta.forceInfo = false;
 
                 if (body.data.length === 0) {
-                    return this.fetch();
+                    this.fetch();
+
+                    return;
                 }
 
                 this.state.body.data[index] = body.data[0];
 
                 if (this.meta.number) {
-                    this.processNumber();
+                    this.processNumber(index);
                 }
 
                 const changedTotal = Object.keys(this.state.body.total)
@@ -352,7 +352,9 @@ export default {
                     .length > 0;
 
                 if (changedTotal) {
-                    return this.fetch();
+                    this.fetch();
+
+                    return;
                 }
 
                 this.$emit('fetched');
@@ -408,10 +410,10 @@ export default {
                 return columns;
             }, []);
         },
-        processNumber() {
+        processNumber(index = null) {
             this.template.columns
                 .filter(column => !!column.number)
-                .forEach(column => (new NumberFormatter(this, column)).handle());
+                .forEach(column => (new NumberFormatter(this, column, index)).handle());
         },
         isEmpty() {
             return this.body && this.body.count === 0;
