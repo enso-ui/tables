@@ -34,11 +34,7 @@ class NumberFormatter {
 
     format(number) {
         const { template, symbol } = this.column.number;
-        const cleanUp = (value) => value.replace(symbol, '').trim();
         const max = (max, value) => Math.max(value.length, max);
-
-        number = number.map(cleanUp);
-
         const length = number.reduce(max, 0);
         const pad = value => value.padStart(length, ' ');
         const formatter = value => template.replace('%s', symbol)
