@@ -33,9 +33,9 @@ class NumberFormatter {
     }
 
     format(number) {
-        const { template, symbol } = this.column.number;
         const max = (max, value) => Math.max(value.length, max);
         const length = number.reduce(max, 0);
+        const { template, symbol } = this.column.number;
         const pad = value => value.padStart(length, ' ');
         const formatter = value => template.replace('%s', symbol)
             .replace('%v', pad(value));
