@@ -49,6 +49,7 @@ export default {
         boolean() {
             return this.meta.boolean && !this.meta.slot
                 ? ['tag is-table-tag icon', this.value ? 'is-success' : 'is-danger']
+                    .join(' ')
                 : null;
         },
         clickable() {
