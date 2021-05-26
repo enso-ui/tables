@@ -13,7 +13,7 @@
             <td v-if="state.template.crtNo"/>
             <td class="has-text-centered is-bold"
                 v-if="visibleColumn(state.template.columns[0])">
-                {{ i18n("Total") }}
+                {{ i18n(state.template.totalLabel) }}
             </td>
             <template v-for="i in columns.length - 1">
                 <td class="is-bold"
