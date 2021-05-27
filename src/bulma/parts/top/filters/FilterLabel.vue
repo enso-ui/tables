@@ -28,7 +28,6 @@ const Types = {
     string: String,
     enum: Enum,
     select: Select,
-    money: Range,
     number: Range,
     date: Date,
 };
