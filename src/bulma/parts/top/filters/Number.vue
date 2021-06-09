@@ -44,7 +44,7 @@
 import { focus } from '@enso-ui/directives';
 
 export default {
-    name: 'Money',
+    name: 'Number',
 
     directives: { focus },
 

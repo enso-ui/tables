@@ -13,11 +13,11 @@
             <td v-if="state.template.crtNo"/>
             <td class="has-text-centered is-bold"
                 v-if="visibleColumn(state.template.columns[0])">
-                {{ i18n("Total") }}
+                {{ i18n(state.template.totalLabel) }}
             </td>
             <template v-for="i in columns.length - 1">
                 <td class="is-bold"
-                    :class="[{ 'is-number' : columns[i].money || columns[i].number },
+                    :class="[{ 'is-number' : columns[i].number },
                         columnAlignment(columns[i])]"
                     :key="i"
                     v-if="visibleColumn(columns[i])">
@@ -25,7 +25,7 @@
                         columns[i].meta.total || columns[i].meta.rawTotal
                         || columns[i].meta.average
                     ">{{
-                        columns[i].money || columns[i].number
+                        columns[i].number
                             ? state.body.total[columns[i].name]
                             : totalFormat(state.body.total[columns[i].name])
                     }}</span>
@@ -41,19 +41,20 @@
                 :colspan="hiddenColspan()">
                 <ul>
                     <li v-for="cell in hiddenTotals"
-                        class="is-bold"
-                        :class="[{ 'is-money' : cell.money || cell.number },
-                            columnAlignment(cell)]"
+                        :class="['is-bold', columnAlignment(cell)]"
                         :key="cell.name">
-                        <span>{{ i18n(cell.label) }}:</span>
-                        <span v-if="cell.meta.total || cell.meta.rawTotal ">{{
-                            cell.money || cell.number
-                                ? state.body.total[cell.name]
-                                : totalFormat(state.body.total[cell.name])
+                        <span>{{ i18n(cell.label) }}:</span>&nbsp;
+                        <span v-if="cell.meta.total || cell.meta.rawTotal"
+                            :class="{ 'is-number' : cell.number }">{{
+                                cell.number
+                                    ? state.body.total[cell.name]
+                                    : totalFormat(state.body.total[cell.name])
                         }}</span>
-                        <slot :name="`${cell.name}_custom_total`"
-                            :total="state.body.total"
-                            v-else-if="cell.meta.customTotal"/>
+                        <span v-else-if="cell.meta.customTotal"
+                            :class="{ 'is-number' : cell.number }">
+                            <slot :name="`${cell.name}_custom_total`"
+                                :total="state.body.total"/>
+                        </span>
                     </li>
                 </ul>
             </td>
