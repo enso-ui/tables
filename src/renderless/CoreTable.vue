@@ -457,7 +457,7 @@ export default {
             if (!this.isChild(row)) {
                 const index = this.state.selected
                     .findIndex(id => id === row[this.template.dtRowId]);
-                if(! this.state.pageSelected) {
+                if(!this.state.pageSelected) {
                     if(index !== -1) {
                         this.state.selected.splice(index, 1);
                     }
