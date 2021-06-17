@@ -454,14 +454,17 @@ export default {
             this.$emit(event, this.state.selected);
         },
         toggleRowSelect(row) {
-            if (!this.isChild(row)) {
-                const index = this.state.selected
-                    .findIndex(id => id === row[this.template.dtRowId]);
-                if (!this.state.pageSelected) {
-                    this.state.selected.splice(index, 1);
-                } else if (index === -1) {
-                    this.state.selected.push(row[this.template.dtRowId]);
-                }
+            if (this.isChild(row)) {
+                return;
+            }
+
+            const index = this.state.selected
+                .findIndex(id => id === row[this.template.dtRowId]);
+
+            if (index === -1 && this.state.pageSelected) {
+                this.state.selected.push(row[this.template.dtRowId]);
+            } else if (index !== -1 && !this.state.pageSelected) {
+                this.state.selected.splice(index, 1);
             }
         },
         refreshPageSelected() {
