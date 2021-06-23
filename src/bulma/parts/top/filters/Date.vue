@@ -12,7 +12,7 @@
                 {{ i18n('Interval') }}
             </a>
         </div>
-        <div class="has-margin-top-medium"
+        <div class="mt-2"
             v-if="filter.mode === 'interval'">
             <div class="level">
                 <div class="level-left">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <datepicker class="has-margin-top-medium"
+        <datepicker class="mt-2"
             alt-input
             :placeholder="i18n('Filter')"
             :alt-format="state.template.dateFormat"

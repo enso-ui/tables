@@ -12,7 +12,7 @@
                 {{ i18n('Interval') }}
             </a>
         </div>
-        <div class="has-margin-top-medium"
+        <div class="mt-2"
             v-if="filter.mode === 'interval'">
             <div class="level">
                 <div class="level-left">
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <input class="input has-margin-top-medium"
+        <input class="input mt-2"
             :placeholder="i18n('Filter')"
             v-focus
             v-model.number="filter.value"
