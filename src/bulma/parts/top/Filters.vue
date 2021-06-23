@@ -30,11 +30,11 @@
                             </a>
                         </div>
                     </div>
-                    <hr class="is-dropdown-divider has-margin-medium">
+                    <hr class="is-dropdown-divider m-2">
                 </template>
             </template>
             <template v-slot:items>
-                <div class="has-padding-medium"
+                <div class="p-2"
                     v-if="filter">
                     <component :is="filter.component"
                         :filter="filter"

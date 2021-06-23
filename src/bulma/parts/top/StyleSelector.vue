@@ -5,7 +5,7 @@
                 v-bind="bindings"
                 v-on="events">
                 <template v-slot:selection>
-                    <div class="has-vertically-centered-content">
+                    <div class="is-flex is-align-items-center">
                         <span class="icon">
                             <fa icon="table"/>
                         </span>

@@ -61,9 +61,9 @@
                         </div>
                     </div>
                 </div>
-                <scenarios class="has-padding-left-medium has-padding-right-medium"
+                <scenarios class="px-2"
                     v-if="filterScenarios"/>
-                <labels class="has-padding-left-medium has-padding-right-medium"
+                <labels class="px-2"
                     v-if="filterLabels"/>
             </div>
         </template>
@@ -128,7 +128,7 @@ export default {
                 }
             }
 
-            .has-vertically-centered-content {
+            .is-flex is-align-items-center {
                 display:flex;
                 align-items: center;
             }

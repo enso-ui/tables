@@ -98,7 +98,7 @@
                                             :row="row"
                                             v-if="button.slot"/>
                                         <a v-else
-                                            class="button is-small is-table-button has-margin-left-small"
+                                            class="button is-small is-table-button ml-1"
                                             :key="idx"
                                             :class="button.class"
                                             v-tooltip.left="button.tooltip ? i18n(button.tooltip) : null"

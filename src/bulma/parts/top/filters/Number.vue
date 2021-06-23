@@ -6,7 +6,7 @@
                 @click="filter.mode = null; filter.value = null">
                 {{ i18n('Value') }}
             </a>
-            <a class="button is-small is-bold has-margin-left-medium"
+            <a class="button is-small is-bold ml-2"
                 :class="{ 'is-success': filter.mode === 'interval'}"
                 @click="filter.mode = 'interval'; filter.value = interval()">
                 {{ i18n('Interval') }}

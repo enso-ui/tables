@@ -7,7 +7,7 @@
             <filter-label :filter="filter"
                 @select="select(filter, index)"
                 @delete="clear(index)"/>
-            <div class="filter-container dropdown-content has-padding-medium"
+            <div class="filter-container dropdown-content p-2"
                 v-if="selectedIndex === index">
                 <component :is="selectedFilter.component"
                     edit
