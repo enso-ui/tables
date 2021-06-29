@@ -3,6 +3,7 @@
         v-bind="$attrs"
         v-on="$listeners"
         :error-handler="errorHandler"
+        :router-error-handler="routerErrorHandler"
         :i18n="i18n"
         @ready="ready = true"
         ref="table">
@@ -20,7 +21,7 @@ import VueTable from './VueTable.vue';
 export default {
     name: 'EnsoTable',
 
-    inject: ['errorHandler', 'i18n'],
+    inject: ['errorHandler', 'i18n', 'routerErrorHandler'],
 
     components: { VueTable },
 

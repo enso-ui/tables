@@ -1,5 +1,4 @@
 <script>
-import accounting from 'accounting-js';
 import Enum from '@enso-ui/enums';
 import NumberFormatter from './services/NumberFormatter';
 
@@ -41,6 +40,12 @@ export default {
         path: {
             required: true,
             type: String,
+        },
+        routerErrorHandler: {
+            default: error => {
+                throw error;
+            },
+            type: Function,
         },
     },
 
@@ -529,7 +534,7 @@ export default {
                 this.$router.push({
                     name: button.route,
                     params: row ? this.routeParams(button, row) : {},
-                });
+                }).catch(this.routerErrorHandler);
                 break;
             case 'ajax':
                 if (row) {
