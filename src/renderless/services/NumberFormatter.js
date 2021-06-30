@@ -2,7 +2,7 @@ class NumberFormatter {
     constructor(vm, column) {
         this.vm = vm;
         this.column = column;
-        this.hasTotal = this.hasTotal();
+        this.totals = this.hasTotal();
     }
 
     handle() {
@@ -15,7 +15,7 @@ class NumberFormatter {
             return row;
         });
 
-        if (this.hasTotal) {
+        if (this.totals) {
             this.vm.body.total[this.column.name] = number.pop();
         }
     }
@@ -34,7 +34,7 @@ class NumberFormatter {
     number() {
         const number = this.vm.body.data.map(row => row[this.column.name]);
 
-        if (this.hasTotal) {
+        if (this.totals) {
             number.push(this.vm.body.total[this.column.name]);
         }
 
