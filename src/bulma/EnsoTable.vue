@@ -1,6 +1,6 @@
 <template>
-    <vue-table :path="path"
-        v-bind="$attrs"
+    <vue-table v-bind="$attrs"
+        :path="path"
         v-on="$listeners"
         :error-handler="errorHandler"
         :router-error-handler="routerErrorHandler"
