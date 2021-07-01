@@ -43,6 +43,7 @@ class NumberFormatter {
 
     hasTotal() {
         return this.vm.meta.total
+            && this.vm.body.fullRecordInfo
             && Object.keys(this.vm.body.total)
                 .includes(this.column.name);
     }
