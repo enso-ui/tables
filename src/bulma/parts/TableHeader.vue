@@ -11,8 +11,8 @@
                     <th class="table-header has-text-centered"
                         v-if="selectable">
                         <label class="checkbox">
-                            <input type="checkbox"
-                                v-bind="selectBindings"
+                            <input v-bind="selectBindings"
+                                type="checkbox"
                                 v-on="selectEvents">
                         </label>
                     </th>

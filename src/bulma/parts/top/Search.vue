@@ -9,8 +9,8 @@
                 <p class="control is-expanded has-icons-left has-icons-right"
                     v-if="searchable">
                     <input class="input has-text-centered"
-                        type="text"
                         v-bind="searchBindings"
+                        type="text"
                         v-on="searchEvents"
                         :placeholder="i18n('Search')">
                     <span class="icon is-small is-left">

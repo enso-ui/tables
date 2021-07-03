@@ -46,8 +46,8 @@
                             :class="state.template.align">
                             <div class="selectable">
                                 <label class="checkbox">
-                                    <input type="checkbox"
-                                        v-bind="selectBindings(row)"
+                                    <input v-bind="selectBindings(row)"
+                                        type="checkbox"
                                         v-on="selectEvents(row)">
                                 </label>
                             </div>
@@ -97,13 +97,13 @@
                                             :css-class="button.class"
                                             :row="row"
                                             v-if="button.slot"/>
-                                        <a v-else
-                                            class="button is-small is-table-button ml-1"
-                                            :key="idx"
+                                        <a class="button is-small is-table-button ml-1"
                                             :class="button.class"
-                                            v-tooltip.left="button.tooltip ? i18n(button.tooltip) : null"
                                             v-bind="actionBindings(button, row)"
-                                            v-on="actionEvents(button, row)">
+                                            :key="idx"
+                                            v-tooltip.left="button.tooltip ? i18n(button.tooltip) : null"
+                                            v-on="actionEvents(button, row)"
+                                            v-else>
                                             <span v-if="button.label">
                                                 {{ i18n(button.label) }}
                                             </span>

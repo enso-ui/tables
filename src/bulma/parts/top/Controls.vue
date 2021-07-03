@@ -44,14 +44,14 @@
                                     :label="button.label"
                                     :css-class="button.class"
                                     v-if="button.slot"/>
-                                <control :button="button"
+                                <control v-bind="controlBindings(button)"
                                     :key="`${button.label}-${button.icon}`"
-                                    v-bind="controlBindings(button)"
+                                    :button="button"
                                     v-on="controlEvents(button)"
                                     v-else-if="!button.selection"/>
-                                <control :button="button"
+                                <control v-bind="controlBindings(button)"
                                     :key="`${button.label}-${button.icon}`"
-                                    v-bind="controlBindings(button)"
+                                    :button="button"
                                     v-on="controlEvents(button)"
                                     v-else-if="hasSelection()"/>
                             </template>
