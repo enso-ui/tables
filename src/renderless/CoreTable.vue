@@ -189,6 +189,12 @@ export default {
         this.init();
     },
 
+    beforeDestroy() {
+        if (this.ongoingRequest) {
+            this.ongoingRequest.cancel();
+        }
+    },
+
     methods: {
         activeScenario() {
             return this.state.filterScenarios.find(({ active }) => active);

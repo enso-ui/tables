@@ -6,39 +6,39 @@ class NumberFormatter {
     }
 
     handle() {
-        this.replace(this.format(this.number()));
+        this.replace(this.format(this.column()));
     }
 
-    replace(number) {
+    replace(column) {
         this.vm.body.data = this.vm.body.data.map((row, index) => {
-            row[this.column.name] = number[index];
+            row[this.column.name] = column[index];
             return row;
         });
 
         if (this.totals) {
-            this.vm.body.total[this.column.name] = number.pop();
+            this.vm.body.total[this.column.name] = column.pop();
         }
     }
 
-    format(number) {
+    format(column) {
         const max = (max, value) => Math.max(value.length, max);
-        const length = number.reduce(max, 0);
+        const length = column.reduce(max, 0);
         const { template, symbol } = this.column.number;
         const pad = value => value.padStart(length, ' ');
         const formatter = value => template.replace('%s', symbol)
             .replace('%v', pad(value));
 
-        return number.map(formatter);
+        return column.map(formatter);
     }
 
-    number() {
-        const number = this.vm.body.data.map(row => row[this.column.name]);
+    column() {
+        const column = this.vm.body.data.map(row => row[this.column.name]);
 
         if (this.totals) {
-            number.push(this.vm.body.total[this.column.name]);
+            column.push(this.vm.body.total[this.column.name]);
         }
 
-        return number;
+        return column;
     }
 
     hasTotal() {
