@@ -6,7 +6,7 @@ class NumberFormatter {
     }
 
     handle() {
-        this.replace(this.format(this.column()));
+        this.replace(this.format(this.numbers()));
     }
 
     replace(column) {
@@ -31,7 +31,7 @@ class NumberFormatter {
         return column.map(formatter);
     }
 
-    column() {
+    numbers() {
         const column = this.vm.body.data.map(row => row[this.column.name]);
 
         if (this.totals) {
