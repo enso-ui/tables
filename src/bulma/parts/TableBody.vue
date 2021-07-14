@@ -100,7 +100,7 @@
                                         <a class="button is-small is-table-button ml-1"
                                             :class="button.class"
                                             v-bind="actionBindings(button, row)"
-                                            :key="idx"
+                                            :key="`action-${idx}`"
                                             v-tooltip.left="button.tooltip ? i18n(button.tooltip) : null"
                                             v-on="actionEvents(button, row)"
                                             v-else>
