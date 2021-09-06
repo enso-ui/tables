@@ -23,7 +23,7 @@
                     </th>
                     <template v-for="column in columns">
                         <th class="table-header has-text-centered"
-                            :key="column.label"
+                            :key="`${column.label}-${column.name}`"
                             v-if="visibleColumn(column)">
                             <span class="is-clickable"
                                 v-on="sortEvents(column)"
