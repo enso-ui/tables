@@ -13,6 +13,10 @@ export default {
             },
             type: Function,
         },
+        hasFilters: {
+            type: Boolean,
+            default: null,
+        },
         filters: {
             default: null,
             type: Object,
@@ -139,6 +143,7 @@ export default {
             fetch: this.fetch,
             hasContent: this.hasContent,
             hasEntries: this.hasEntries,
+            hasFilters: () => this.hasFilters ?? this.body.filters,
             hasFooter: this.hasFooter,
             hasSelection: this.hasSelection,
             hiddenColspan: this.hiddenColspan,

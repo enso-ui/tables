@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 export default {
     name: 'CoreSearch',
 
-    inject: ['fetch', 'state', 'i18n'],
+    inject: ['fetch', 'hasFilters', 'state', 'i18n'],
 
     computed: {
         meta() {
@@ -38,6 +38,7 @@ export default {
                 },
             },
             filterable: this.meta.filterable,
+            hasFilters: this.hasFilters,
             i18n: this.i18n,
             modeBindings: {
                 modes: this.template.searchModes,

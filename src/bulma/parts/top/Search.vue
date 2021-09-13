@@ -1,8 +1,8 @@
 <template>
     <core-search>
         <template v-slot:default="{
-                clearEvents, filterable, modeBindings, modeEvents, i18n, modeSelector,
-                search, searchable, searchBindings, searchEvents,
+                clearEvents, hasFilters, filterable, modeBindings, modeEvents, i18n,
+                modeSelector, search, searchable, searchBindings, searchEvents,
             }">
             <div class="field has-addons">
                 <filters v-if="filterable"/>
@@ -13,7 +13,12 @@
                         type="text"
                         v-on="searchEvents"
                         :placeholder="i18n('Search')">
-                    <span class="icon is-small is-left">
+                    <span class="icon is-small is-left"
+                        v-if="hasFilters()">
+                        <fa icon="filter"/>
+                    </span>
+                    <span class="icon is-small is-left"
+                        v-else>
                         <fa icon="search"/>
                     </span>
                     <span class="is-right icon is-small"
@@ -33,15 +38,15 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilter } from '@fortawesome/free-solid-svg-icons';
 import SearchMode from '@enso-ui/search-mode/bulma';
 import CoreSearch from '../../../renderless/parts/top/CoreSearch.vue';
 import Filters from './Filters.vue';
 
-library.add(faSearch);
+library.add(faSearch, faFilter);
 
 export default {
-    name: 'Controls',
+    name: 'Search',
 
     components: { CoreSearch, Filters, SearchMode },
 };
