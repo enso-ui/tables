@@ -13,7 +13,7 @@
                         type="text"
                         v-on="searchEvents"
                         :placeholder="i18n('Search')">
-                    <span class="icon is-small is-left"
+                    <span class="icon is-small is-left has-text-danger"
                         v-if="hasFilters()">
                         <fa icon="filter"/>
                     </span>
