@@ -21,7 +21,7 @@
                                     <fa icon="sync"/>
                                 </span>
                             </a>
-                            <a class="button"
+                            <a class="button mr-1"
                                 v-on="resetEvents"
                                 v-if="state.template.controls.includes('reset')">
                                 <span class="icon is-small">
