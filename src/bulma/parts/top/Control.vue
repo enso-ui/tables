@@ -1,5 +1,5 @@
 <template>
-    <a class="button ml-1"
+    <a class="button"
         :class="button.class"
         v-bind="$attrs"
         v-on="$listeners">

@@ -38,18 +38,21 @@
                         </div>
                         <div class="column table-buttons is-narrow-desktop is-half-touch has-text-right"
                             v-if="state.template.buttons">
+                            <dropdown-actions v-if="state.template.buttons.dropdown.length > 0"/>
                             <template v-for="button in state.template.buttons.global">
                                 <slot :name="button.slot"
                                     :icon="button.icon"
                                     :label="button.label"
                                     :css-class="button.class"
                                     v-if="button.slot"/>
-                                <control v-bind="controlBindings(button)"
+                                <control class="ml-1"
+                                    v-bind="controlBindings(button)"
                                     :key="`${button.label}-${button.icon}`"
                                     :button="button"
                                     v-on="controlEvents(button)"
                                     v-else-if="!button.selection"/>
-                                <control v-bind="controlBindings(button)"
+                                <control class="ml-1"
+                                    v-bind="controlBindings(button)"
                                     :key="`${button.label}-${button.icon}`"
                                     :button="button"
                                     v-on="controlEvents(button)"
@@ -75,13 +78,14 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faSync, faUndo, faSearch, faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import Search from './Search';
+import Search from './Search.vue';
 import CoreControls from '../../../renderless/parts/top/CoreControls.vue';
 import LengthMenu from './LengthMenu.vue';
 import ColumnVisibility from './ColumnVisibility.vue';
 import StyleSelector from './StyleSelector.vue';
 import Labels from './filters/Labels.vue';
 import Scenarios from './filters/Scenarios.vue';
+import DropdownActions from './DropdownActions.vue';
 import Control from './Control.vue';
 
 library.add(faSync, faUndo, faSearch, faInfoCircle);
@@ -97,6 +101,7 @@ export default {
         StyleSelector,
         Search,
         Labels,
+        DropdownActions,
         Scenarios,
     },
 };

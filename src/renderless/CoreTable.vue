@@ -447,14 +447,11 @@ export default {
 
             axios[method.toLowerCase()](path, this.readRequest(method, false, selection))
                 .then(({ data }) => {
-                    this.meta.loading = false;
                     if (postEvent) {
                         this.$emit(postEvent, data);
                     }
-                }).catch(error => {
-                    this.meta.loading = false;
-                    this.errorHandler(error);
-                });
+                }).catch(this.errorHandler)
+                .finally(() => (this.meta.loading = false));
         },
         filterUpdate() {
             if (this.state.ready) {
