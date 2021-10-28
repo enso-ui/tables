@@ -1,4 +1,5 @@
 <script>
+import { debounce } from 'lodash';
 import Enum from '@enso-ui/enums';
 import NumberFormatter from './services/NumberFormatter';
 
@@ -191,6 +192,7 @@ export default {
     },
 
     created() {
+        this.fetch = debounce(this.fetch, this.template.debounce);
         this.init();
     },
 
