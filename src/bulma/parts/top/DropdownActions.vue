@@ -1,16 +1,16 @@
 <template>
     <core-dropdown-actions>
-        <template v-slot:default="{ buttons, disabled, controlBindings,
+        <template #:default="{ buttons, disabled, controlBindings,
             controlEvents, hasSelection }">
              <dropdown class="dropdown-actions is-right"
                 ref="dropdown"
                 :disabled="disabled">
-                <template v-slot:label>
+                <template #:label>
                     <span class="icon is-small">
                         <fa icon="cogs"/>
                     </span>
                 </template>
-                <template v-slot:items>
+                <template #:items>
                     <dropdown-item v-for="button in buttons"
                         :key="button.name"
                         @mouseup="$refs.dropdown.hide()">

@@ -5,12 +5,12 @@
             manual
             @hide="close"
             ref="dropdown">
-            <template v-slot:label>
+            <template #label>
                 <span class="icon">
                     <fa icon="filter"/>
                 </span>
             </template>
-            <template v-slot:controls>
+            <template #controls>
                 <template v-if="filter">
                     <div class="level is-marginless">
                         <div class="level-item">
@@ -33,7 +33,7 @@
                     <hr class="is-dropdown-divider m-2">
                 </template>
             </template>
-            <template v-slot:items>
+            <template #items>
                 <div class="p-2"
                     v-if="filter">
                     <component :is="filter.component"
@@ -42,7 +42,7 @@
                 </div>
                 <dropdown-item v-for="filter in filters"
                     :key="filter.name"
-                    @click.native.stop="select(filter)"
+                    @click.stop="select(filter)"
                     v-else>
                     {{ i18n(filter.label) }}
                 </dropdown-item>

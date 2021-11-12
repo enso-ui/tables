@@ -1,10 +1,10 @@
 <template>
     <core-column-visibility>
-        <template v-slot:default="{ bindings, events }">
+        <template #:default="{ bindings, events }">
             <vue-select class="column-visibility"
                 v-bind="bindings"
                 v-on="events">
-                <template v-slot:selection>
+                <template #:selection>
                     <div class="is-flex is-align-items-center">
                         <span class="icon is-small">
                             <fa icon="eye"/>

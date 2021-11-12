@@ -1,7 +1,7 @@
 <template>
     <div class="vue-table">
         <top-controls v-on="$listeners">
-            <template v-slot:[slot]="props"
+            <template #:[slot]="props"
                 v-for="slot in controlSlots()">
                 <slot :name="slot"
                     v-bind="props"/>
@@ -15,14 +15,14 @@
                 v-if="hasContent()">
                 <table-header ref="header"/>
                 <table-body v-on="$listeners">
-                    <template v-slot:[slot]="props"
+                    <template #:[slot]="props"
                         v-for="slot in bodySlots()">
                         <slot :name="slot"
                             v-bind="props"/>
                     </template>
                 </table-body>
                 <table-footer v-if="hasFooter()">
-                    <template v-slot:[customTotal]="props"
+                    <template #:[customTotal]="props"
                         v-for="customTotal in customTotals()">
                         <slot :name="customTotal"
                             v-bind="props"/>

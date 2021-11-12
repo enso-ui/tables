@@ -3,10 +3,10 @@
         v-on="$listeners"
         @ready="ready = true"
         ref="table">
-        <template v-slot:default
+        <template #:default
             v-if="ready">
             <table-content v-on="$listeners">
-                <template v-slot:[slot]="props"
+                <template #:[slot]="props"
                     v-for="slot in slots">
                     <slot :name="slot"
                         v-bind="props"/>

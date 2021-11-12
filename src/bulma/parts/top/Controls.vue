@@ -1,6 +1,6 @@
 <template>
     <core-controls>
-        <template v-slot:default="{
+        <template #:default="{
                 controlBindings, controlEvents, filterLabels, filterScenarios,
                 forceInfoEvents, hasSelection,i18n, reloadEvents, resetEvents, state,
             }">

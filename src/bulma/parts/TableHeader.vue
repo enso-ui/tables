@@ -1,6 +1,6 @@
 <template>
     <core-table-header>
-        <template v-slot:default="{
+        <template #:default="{
                 actions, actionsLabel, clearSortEvents, columns, crtNo, crtNoLabel,
                 hiddenColumns, i18n, preview, selectBindings, selectEvents,
                 selectable, sortEvents, style, visibleColumn,

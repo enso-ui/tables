@@ -7,7 +7,7 @@
         :i18n="i18n"
         @ready="ready = true"
         ref="table">
-        <template v-slot:[slot]="props"
+        <template #:[slot]="props"
             v-for="slot in slots">
             <slot :name="slot"
                 v-bind="props"/>
@@ -21,9 +21,9 @@ import VueTable from './VueTable.vue';
 export default {
     name: 'EnsoTable',
 
-    inject: ['errorHandler', 'i18n', 'routerErrorHandler'],
-
     components: { VueTable },
+
+    inject: ['errorHandler', 'i18n', 'routerErrorHandler'],
 
     props: {
         path: {

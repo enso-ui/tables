@@ -1,6 +1,6 @@
 <template>
     <core-pagination v-on="$listeners">
-        <template v-slot:default="{
+        <template #:default="{
                 fullRecordInfo, loading, atStart, atEnd,
                 i18n, jumpTo, middlePages, page, pages
             }">
