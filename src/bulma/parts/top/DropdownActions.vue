@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCogs } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown, DropdownItem } from '@enso-ui/dropdown/bulma';
@@ -46,7 +47,11 @@ export default {
     name: 'DropdownActions',
 
     components: {
-        CoreDropdownActions, Dropdown, DropdownItem, Control,
+        Control,
+        CoreDropdownActions,
+        Dropdown,
+        DropdownItem,
+        Fa,
     },
 };
 </script>

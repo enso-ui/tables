@@ -125,6 +125,7 @@
 
 <script>
 import { VTooltip } from 'v-tooltip';
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faChevronRight, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
@@ -141,7 +142,7 @@ export default {
 
     directives: { tooltip: VTooltip },
 
-    components: { CoreTableBody, TableCell },
+    components: { CoreTableBody, Fa, TableCell },
 
     inject: [
         'state', 'i18n', 'visibleColumn', 'columnAlignment', 'isChild',

@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faSync, faUndo, faSearch, faInfoCircle,
@@ -95,14 +96,15 @@ export default {
 
     components: {
         CoreControls,
-        LengthMenu,
         ColumnVisibility,
         Control,
-        StyleSelector,
-        Search,
-        Labels,
         DropdownActions,
+        Fa,
+        LengthMenu,
+        Labels,
         Scenarios,
+        Search,
+        StyleSelector,
     },
 };
 </script>

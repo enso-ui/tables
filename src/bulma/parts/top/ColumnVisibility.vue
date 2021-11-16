@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { VueSelect } from '@enso-ui/select/bulma';
@@ -27,7 +28,7 @@ library.add(faEye);
 export default {
     name: 'ColumnVisibility',
 
-    components: { CoreColumnVisibility, VueSelect },
+    components: { CoreColumnVisibility, Fa, VueSelect },
 
     inject: ['i18n', 'visibleColumns', 'invisibleColumns'],
 };

@@ -38,6 +38,7 @@
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.2",
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "@fortawesome/vue-fontawesome": "3.0.0-5",
     "css-element-queries": "^1.1.1",
     "lodash": "^4.17.11",
     "v-tooltip": "4.0.0-alpha.1",

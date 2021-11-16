@@ -7,7 +7,7 @@
                     @click="all">
                     {{ i18n('all') }}
                 </a>
-            </div>    
+            </div>
         </div>
         <div class="control"
             v-for="(scenario, index) in state.filterScenarios"
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSave, faTrashAlt, faPencilAlt, faBan, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { focus, selectOnFocus, resize } from '@enso-ui/directives';
@@ -78,6 +79,8 @@ export default {
     directives: { focus, selectOnFocus, resize },
 
     inject: ['activeScenario', 'i18n', 'state'],
+
+    components: { Fa },
 
     data: () => ({
         original: null,

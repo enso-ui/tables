@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSearch, faFilter } from '@fortawesome/free-solid-svg-icons';
 import SearchMode from '@enso-ui/search-mode/bulma';
@@ -48,7 +49,7 @@ library.add(faSearch, faFilter);
 export default {
     name: 'Search',
 
-    components: { CoreSearch, Filters, SearchMode },
+    components: { CoreSearch, Fa, Filters, SearchMode },
 };
 </script>
 

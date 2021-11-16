@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTable } from '@fortawesome/free-solid-svg-icons';
 import { VueSelect } from '@enso-ui/select/bulma';
@@ -27,7 +28,7 @@ library.add(faTable);
 export default {
     name: 'StyleSelector',
 
-    components: { CoreStyleSelector, VueSelect },
+    components: { CoreStyleSelector, Fa,VueSelect },
 };
 </script>
 

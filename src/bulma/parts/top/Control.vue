@@ -13,10 +13,14 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
+
 export default {
     name: 'Control',
 
     inject: ['i18n'],
+
+    components: { Fa },
 
     props: {
         button: {

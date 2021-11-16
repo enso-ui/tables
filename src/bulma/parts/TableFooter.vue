@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -75,6 +76,8 @@ export default {
         'hiddenColspan', 'hiddenColumns', 'i18n', 'totalFormat',
         'visibleColumn', 'visibleColumns', 'columnAlignment', 'state',
     ],
+
+    components: { Fa },
 
     data: () => ({
         isExpanded: false,
