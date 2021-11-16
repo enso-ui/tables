@@ -97,7 +97,7 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             actionBindings: (button, row) => ({
                 href: button.action === 'href' ? this.actionPath(button, row[this.template.dtRowId]) : null,
             }),

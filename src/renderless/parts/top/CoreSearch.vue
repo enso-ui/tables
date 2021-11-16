@@ -29,7 +29,7 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             clearEvents: {
                 click: () => {
                     this.meta.search = '';

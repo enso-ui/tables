@@ -1,6 +1,6 @@
 <template>
     <core-length-menu>
-        <template #:default="{ bindings, events }">
+        <template #default="{ bindings, events }">
             <vue-select class="length-menu"
                 v-bind="bindings"
                 v-on="events"/>

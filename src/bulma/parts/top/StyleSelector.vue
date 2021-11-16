@@ -1,10 +1,10 @@
 <template>
     <core-style-selector>
-        <template #:default="{ bindings, events }">
+        <template #default="{ bindings, events }">
             <vue-select class="style-selector"
                 v-bind="bindings"
                 v-on="events">
-                <template #:selection>
+                <template #selection>
                     <div class="is-flex is-align-items-center">
                         <span class="icon">
                             <fa icon="table"/>

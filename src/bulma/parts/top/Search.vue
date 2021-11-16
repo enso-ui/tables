@@ -1,6 +1,6 @@
 <template>
     <core-search>
-        <template #:default="{
+        <template #default="{
                 clearEvents, hasFilters, filterable, modeBindings, modeEvents, i18n,
                 modeSelector, search, searchable, searchBindings, searchEvents,
             }">

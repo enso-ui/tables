@@ -26,7 +26,7 @@ export default {
             atEnd, atMiddle, atStart, middlePages, page, pages,
         } = this.state.body.pagination;
 
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             i18n: this.i18n,
             jumpTo: this.jumpTo,
             fullRecordInfo: this.state.body.fullRecordInfo,

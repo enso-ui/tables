@@ -42,7 +42,7 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             chunkInfo: this.chunkInfo,
             fromInfo: this.fromInfo,
             hasFilters: this.hasFilters,

@@ -23,7 +23,7 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             controlBindings: button => ({
                 href: button.action === 'href'
                     ? button.path

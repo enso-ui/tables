@@ -1,12 +1,11 @@
 <template>
     <core-table v-bind="$attrs"
-        v-on="$listeners"
         @ready="ready = true"
         ref="table">
-        <template #:default
+        <template #default
             v-if="ready">
-            <table-content v-on="$listeners">
-                <template #:[slot]="props"
+            <table-content>
+                <template #[slot]="props"
                     v-for="slot in slots">
                     <slot :name="slot"
                         v-bind="props"/>

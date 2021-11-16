@@ -18,7 +18,7 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             bindings: {
                 disableClear: true,
                 i18n: this.i18n,

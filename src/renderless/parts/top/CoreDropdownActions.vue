@@ -5,7 +5,7 @@ export default {
     inject: ['i18n', 'state', 'buttonAction'],
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             buttons: this.state.template.buttons.dropdown,
             disabled: this.state.meta.loading,
             controlBindings: button => ({

@@ -1,13 +1,12 @@
 <template>
     <vue-table v-bind="$attrs"
-        :path="path"
-        v-on="$listeners"
+        :path="path"   
         :error-handler="errorHandler"
         :router-error-handler="routerErrorHandler"
         :i18n="i18n"
         @ready="ready = true"
         ref="table">
-        <template #:[slot]="props"
+        <template #[slot]="props"
             v-for="slot in slots">
             <slot :name="slot"
                 v-bind="props"/>

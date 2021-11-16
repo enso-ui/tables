@@ -1,6 +1,6 @@
 <template>
     <core-controls>
-        <template #:default="{
+        <template #default="{
                 controlBindings, controlEvents, filterLabels, filterScenarios,
                 forceInfoEvents, hasSelection,i18n, reloadEvents, resetEvents, state,
             }">

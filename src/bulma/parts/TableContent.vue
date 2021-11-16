@@ -1,7 +1,7 @@
 <template>
     <div class="vue-table">
-        <top-controls v-on="$listeners">
-            <template #:[slot]="props"
+        <top-controls>
+            <template #[slot]="props"
                 v-for="slot in controlSlots()">
                 <slot :name="slot"
                     v-bind="props"/>
@@ -14,15 +14,15 @@
                 :id="id"
                 v-if="hasContent()">
                 <table-header ref="header"/>
-                <table-body v-on="$listeners">
-                    <template #:[slot]="props"
+                <table-body>
+                    <template #[slot]="props"
                         v-for="slot in bodySlots()">
                         <slot :name="slot"
                             v-bind="props"/>
                     </template>
                 </table-body>
                 <table-footer v-if="hasFooter()">
-                    <template #:[customTotal]="props"
+                    <template #[customTotal]="props"
                         v-for="customTotal in customTotals()">
                         <slot :name="customTotal"
                             v-bind="props"/>
@@ -31,8 +31,7 @@
             </table>
             <loader v-if="state.meta.loading === true"/>
         </div>
-        <bottom-controls v-on="$listeners"
-            v-if="hasContent()"/>
+        <bottom-controls     v-if="hasContent()"/>
         <div class="has-text-centered no-records-found"
             v-if="isEmpty()">
             {{ i18n('No records were found') }}
