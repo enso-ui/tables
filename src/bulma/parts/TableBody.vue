@@ -23,7 +23,7 @@
                                     <b>{{ i18n(cell.column.label) }}</b>:
                                     <table-cell :i18n="i18n"
                                         :column="cell.column"
-                                        :value="cell.value"
+                                        :model-value="cell.value"
                                         v-on="cellEvents(state.body.data[index - 1], cell.column)">
                                         <template #[cell.column.name]
                                             v-if="cell.column.meta.slot">

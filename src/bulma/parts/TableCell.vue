@@ -3,20 +3,20 @@
         @click="meta.clickable ? $emit('clicked') : null">
         <slot v-if="meta.slot"
             :name="column.name">
-            {{ value }}
+            {{ modelValue }}
         </slot>
-        <fa :icon="value ? 'check' : 'times'"
+        <fa :icon="modelValue ? 'check' : 'times'"
             size="sm"
             v-else-if="meta.boolean"/>
-        <fa :icon="value"
-            v-else-if="meta.icon && value"/>
+        <fa :icon="modelValue"
+            v-else-if="meta.icon && modelValue"/>
         <template v-else-if="column.enum">
-            {{ column.enum._get(value) }}
+            {{ column.enum._get(modelValue) }}
         </template>
         <template v-else-if="meta.translatable">
-            {{ i18n(value) }}
+            {{ i18n(modelValue) }}
         </template>
-        <template v-else>{{ value }}</template>
+        <template v-else>{{ modelValue }}</template>
     </span>
 </template>
 
@@ -39,7 +39,7 @@ export default {
             default: false,
             type: Boolean,
         },
-        value: {
+        modelValue: {
             required: true,
             type: null,
         },
@@ -52,7 +52,7 @@ export default {
         },
         boolean() {
             return this.meta.boolean && !this.meta.slot
-                ? ['tag is-table-tag icon', this.value ? 'is-success' : 'is-danger']
+                ? ['tag is-table-tag icon', this.modelValue ? 'is-success' : 'is-danger']
                     .join(' ')
                 : null;
         },

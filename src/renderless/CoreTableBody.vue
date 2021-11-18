@@ -106,7 +106,7 @@ export default {
             }),
             cellBindings: (row, column) => ({
                 column,
-                value: this.cellValue(row, column),
+                modelValue: this.cellValue(row, column),
             }),
             cellEvents: (row, column) => ({
                 clicked: () => {
