@@ -24,16 +24,6 @@ export default {
 
     inject: ['errorHandler', 'i18n', 'routerErrorHandler'],
 
-    props: {
-        path: {
-            type: String,
-            default() {
-                return `/${`api/${this.$route.path}/initTable`
-                    .split('/').filter(v => v).join('/')}`;
-            },
-        },
-    },
-
     data: () => ({
         ready: false,
     }),
@@ -43,6 +33,11 @@ export default {
             return this.ready
                 ? this.$refs.table.body
                 : null;
+        },
+        path() {
+            return this.$attrs.path
+                ?? `/${`api/${this.$route.path}/initTable`
+                    .split('/').filter(v => v).join('/')}`
         },
         slots() {
             return this.ready
