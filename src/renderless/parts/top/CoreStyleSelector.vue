@@ -40,7 +40,7 @@ export default {
                 options: this.options,
                 trackBy: 'value',
                 translated: true,
-                value: this.selection,
+                modelValue: this.selection,
             },
             events: {
                 select: this.select,

@@ -25,10 +25,10 @@ export default {
                 label: 'value',
                 options: this.options,
                 trackBy: 'value',
-                value: this.state.meta.length,
+                modelValue: this.state.meta.length,
             },
             events: {
-                input: this.update,
+                'update:modelValue': this.update,
             },
         });
     },

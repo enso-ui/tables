@@ -21,7 +21,7 @@ export default {
                 options: this.visibleColumns(),
                 trackBy: 'name',
                 translated: true,
-                value: this.selection,
+                modelValue: this.selection,
             },
             events: {
                 select: column => (column.meta.visible = true),

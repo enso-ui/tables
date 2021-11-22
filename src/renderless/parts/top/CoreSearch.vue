@@ -43,10 +43,10 @@ export default {
             modeBindings: {
                 modes: this.template.searchModes,
                 query: this.meta.search,
-                value: this.meta.searchMode,
+                modelValue: this.meta.searchMode,
             },
             modeEvents: {
-                input: event => (this.state.meta.searchMode = event),
+                'update:modelValue': event => (this.state.meta.searchMode = event),
                 change: () => {
                     this.fetchData();
                     this.$el.querySelector('input').focus();
@@ -56,10 +56,10 @@ export default {
             search: this.meta.search,
             searchable: this.meta.searchable,
             searchBindings: {
-                value: this.meta.search,
+                modelValue: this.meta.search,
             },
             searchEvents: {
-                input: e => {
+                'update:modelValue': e => {
                     this.meta.search = e.target.value;
                     this.fetchData();
                 },
