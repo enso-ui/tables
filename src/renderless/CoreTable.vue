@@ -196,7 +196,7 @@ export default {
         this.init();
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.ongoingRequest) {
             this.ongoingRequest.cancel();
         }
