@@ -1,10 +1,10 @@
 <template>
-    <core-search>
-        <template #default="{
+    <div class="field has-addons">
+        <core-search>
+            <template #default="{
                 clearEvents, hasFilters, filterable, modeBindings, modeEvents, i18n,
                 modeSelector, search, searchable, searchBindings, searchEvents,
             }">
-            <div class="field has-addons">
                 <filters v-if="filterable"/>
                 <p class="control is-expanded has-icons-left has-icons-right"
                     v-if="searchable">
@@ -31,9 +31,9 @@
                         v-on="modeEvents"
                         v-if="modeSelector"/>
                 </p>
-            </div>
-        </template>
-    </core-search>
+            </template>
+        </core-search>
+    </div>
 </template>
 
 <script>

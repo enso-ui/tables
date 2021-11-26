@@ -1,11 +1,11 @@
 <template>
-    <core-table-header>
-        <template #default="{
+    <thead>
+        <core-table-header>
+            <template #default="{
                 actions, actionsLabel, clearSortEvents, columns, crtNo, crtNoLabel,
                 hiddenColumns, i18n, preview, selectBindings, selectEvents,
                 selectable, sortEvents, style, visibleColumn,
-            }">
-            <thead>
+                }">
                 <tr class="has-background-light"
                     :class="style">
                     <th class="table-header has-text-centered"
@@ -66,9 +66,9 @@
                         {{ i18n(actionsLabel) }}
                     </th>
                 </tr>
-            </thead>
-        </template>
-    </core-table-header>
+            </template>
+        </core-table-header>
+    </thead>
 </template>
 
 <script>

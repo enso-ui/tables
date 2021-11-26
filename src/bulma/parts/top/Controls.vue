@@ -1,10 +1,10 @@
 <template>
-    <core-controls>
-        <template #default="{
+    <div class="wrapper">
+        <core-controls>
+            <template #default="{
                 controlBindings, controlEvents, filterLabels, filterScenarios,
                 forceInfoEvents, hasSelection,i18n, reloadEvents, resetEvents, state,
             }">
-            <div class="wrapper">
                 <div class="top-controls has-background-light">
                     <div class="columns is-multiline is-mobile is-variable is-1">
                         <div class="column table-controls is-narrow-desktop is-half-touch">
@@ -68,9 +68,9 @@
                     v-if="filterScenarios"/>
                 <labels class="px-2"
                     v-if="filterLabels"/>
-            </div>
-        </template>
-    </core-controls>
+            </template>
+        </core-controls>
+    </div>
 </template>
 
 <script>
@@ -135,7 +135,7 @@ export default {
                 }
             }
 
-            .is-flex is-align-items-center {
+            .is-flex .is-align-items-center {
                 display:flex;
                 align-items: center;
             }

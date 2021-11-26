@@ -1,7 +1,9 @@
 <template>
-    <core-records-info>
-        <template #default="{ chunkInfo, fromInfo, hasFilters, hasSelected, selectedInfo }">
-            <div class="records-info has-text-centered-touch">
+    <div class="records-info has-text-centered-touch">
+        <core-records-info>
+            <template #default="{
+                chunkInfo, fromInfo, hasFilters, hasSelected, selectedInfo
+            }">
                 {{ chunkInfo }}
                 <span v-if="hasFilters">
                     {{ fromInfo }}
@@ -9,9 +11,9 @@
                 <span v-if="hasSelected">
                     {{ selectedInfo }}
                 </span>
-            </div>
-        </template>
-    </core-records-info>
+            </template>
+        </core-records-info>
+    </div>
 </template>
 
 <script>

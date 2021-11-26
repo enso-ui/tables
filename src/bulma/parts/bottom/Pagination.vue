@@ -1,12 +1,12 @@
 <template>
-    <core-pagination>
-        <template #default="{
-                fullRecordInfo, loading, atStart, atEnd,
-                i18n, jumpTo, middlePages, page, pages
-            }">
-            <nav class="pagination is-small"
-                role="navigation"
-                aria-label="pagination">
+    <nav class="pagination is-small"
+        role="navigation"
+        aria-label="pagination">
+            <core-pagination>
+                <template #default="{
+                    fullRecordInfo, loading, atStart, atEnd,
+                    i18n, jumpTo, middlePages, page, pages
+                }">
                 <a class="pagination-previous"
                     :disabled="page === 1 || loading"
                     @click="jumpTo(page - 1)">
@@ -55,9 +55,9 @@
                         </a>
                     </li>
                 </ul>
-            </nav>
-        </template>
-    </core-pagination>
+            </template>
+        </core-pagination>
+    </nav>
 </template>
 
 <script>
