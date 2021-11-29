@@ -3,16 +3,18 @@ import { ResizeSensor } from 'css-element-queries';
 import ResponsiveTable from './ResponsiveTable';
 
 export default {
-    inserted: (el, binding, { context }) => {
+    mounted: (el, binding, vnode) => {
         if (binding.value) {
+            const context= binding.instance;
+
             const table = new ResponsiveTable(el, context);
             context._resizeSensor = new ResizeSensor(el, debounce(() => table && table.fit(), 16));
         }
     },
 
-    unbind: (el, binding, { context }) => {
+    unmounted: (el, binding, vnode) => {
         if (binding.value) {
-            context._resizeSensor = null;
+            binding.instance._resizeSensor = null;
         }
     },
 };

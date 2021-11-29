@@ -2,6 +2,7 @@
     <core-column-visibility>
         <template #default="{ bindings, events }">
             <vue-select class="column-visibility"
+                :class="$attrs.class"
                 v-bind="bindings"
                 v-on="events">
                 <template #selection>
@@ -35,7 +36,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .vue-table .column-visibility.dropdown {
+    .vue-table .column-visibility .dropdown {
         width: unset;
 
         .icon:first-child:last-child {

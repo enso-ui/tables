@@ -2,6 +2,7 @@
     <core-style-selector>
         <template #default="{ bindings, events }">
             <vue-select class="style-selector"
+                :class="$attrs.class"
                 v-bind="bindings"
                 v-on="events">
                 <template #selection>
@@ -33,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .vue-table .style-selector.dropdown {
+    .vue-table .style-selector .dropdown {
         width: unset;
 
         .icon:first-child:last-child {
@@ -46,7 +47,7 @@ export default {
         }
     }
 
-    .dropdown.vue-select .dropdown-trigger .button.input {
+    .dropdown.vue-dropdown .dropdown-trigger .button.input {
         min-height: 34px;
     }
 </style>

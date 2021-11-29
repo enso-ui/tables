@@ -54,6 +54,10 @@ export default {
         },
     },
 
+    emits: ['ready' ,'reset', 'fetching', 'fetched'],
+
+    inheritAttrs: false,
+
     data: () => ({
         ongoingRequest: null,
         state: {
@@ -250,7 +254,7 @@ export default {
         },
         matchProperties(source, dest) {
             Object.keys(source).forEach(key => {
-                this.$set(dest, key, source[key]);
+                dest.key = source[key];
             });
         },
         userPreferences() {
@@ -643,7 +647,7 @@ export default {
     },
 
     render() {
-        return this.$slots.default;
+        return this.$slots.default();
     },
 };
 </script>

@@ -1,18 +1,19 @@
 <template>
-    <core-table v-bind="$attrs"
-        @ready="ready = true"
-        ref="table">
-        <template #default
-            v-if="ready">
-            <table-content>
-                <template #[slot]="props"
-                    v-for="slot in slots">
-                    <slot :name="slot"
-                        v-bind="props"/>
-                </template>
-            </table-content>
-        </template>
-    </core-table>
+    <div class="vue-table">
+        <core-table v-bind="$attrs"
+            @ready="ready = true"
+            ref="table">
+            <template #default>
+                <table-content v-if="ready">
+                    <template #[slot]="props"
+                        v-for="slot in slots">
+                        <slot :name="slot"
+                            v-bind="props"/>
+                    </template>
+                </table-content>
+            </template>
+        </core-table>
+    </div>
 </template>
 
 <script>

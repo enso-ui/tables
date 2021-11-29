@@ -11,9 +11,6 @@ export default {
         meta() {
             return this.state.meta;
         },
-        activeScenario() {
-            return this.state.filterScenarios.find(({ active }) => active);
-        },
         filterLabels() {
             return this.activeScenario() && this.activeScenario().edit;
         },
