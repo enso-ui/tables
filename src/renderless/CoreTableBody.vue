@@ -8,6 +8,8 @@ export default {
         'state', 'visibleColumn',
     ],
 
+    emits: ['click'],
+
     data: () => ({
         row: null,
     }),

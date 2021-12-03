@@ -4,16 +4,16 @@
         aria-label="pagination">
             <core-pagination>
                 <template #default="{
-                    fullRecordInfo, loading, atStart, atEnd,
+                    disabledNext, disabledPrevious, fullRecordInfo, loading, atStart, atEnd,
                     i18n, jumpTo, middlePages, page, pages
                 }">
                 <a class="pagination-previous"
-                    :disabled="page === 1 || loading"
+                    :disabled="disabledPrevious"
                     @click="jumpTo(page - 1)">
                     {{ i18n('Previous') }}
                 </a>
                 <a class="pagination-next"
-                    :disabled="page === pages || loading"
+                    :disabled="disabledNext"
                     @click="jumpTo(page + 1)">
                     {{ i18n('Next') }}
                 </a>
@@ -22,7 +22,7 @@
                     <li>
                         <a class="pagination-link"
                             :class="{ 'is-current': page === 1 }"
-                            :disabled="loading"
+                            :disabled="loading || null"
                             @click="jumpTo(1)">
                             1
                         </a>
@@ -36,7 +36,7 @@
                         :key="i">
                         <a class="pagination-link"
                             :class="{ 'is-current': page === i }"
-                            :disabled="loading"
+                            :disabled="loading || null"
                             @click="jumpTo(i)">
                             {{ i }}
                         </a>
@@ -49,7 +49,7 @@
                     <li v-if="pages > 1">
                         <a class="pagination-link"
                             :class="{ 'is-current': page === pages }"
-                            :disabled="loading"
+                            :disabled="loading || null"
                             @click="jumpTo(pages)">
                             {{ pages }}
                         </a>

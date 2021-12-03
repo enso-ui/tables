@@ -48,6 +48,9 @@ export default {
             required: true,
         },
     },
+
+    emits: ['delete', 'select'],
+
     computed: {
         formatter() {
             if (!Types[this.filter.type]) {

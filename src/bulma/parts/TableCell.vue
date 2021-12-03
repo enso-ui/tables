@@ -45,6 +45,8 @@ export default {
         },
     },
 
+    emits: ['clicked'],
+
     computed: {
         cssClass() {
             return [this.boolean, this.clickable, this.icon]

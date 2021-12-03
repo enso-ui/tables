@@ -4,6 +4,24 @@ export default {
 
     inject: ['i18n', 'fetch', 'state'],
 
+    emits: ['page-changed'],
+
+    computed: {
+        pagination() {
+            return this.state.body.pagination;
+        },
+        disabledNext() {
+            return this.pagination.page === this.pagination.pages || this.state.meta.loading
+                ? true
+                : null;
+        },
+        disabledPrevious() {
+            return this.pagination.page === 1 || this.state.meta.loading
+                ? true
+                : null;
+        },
+    },
+
     methods: {
         jumpTo(page) {
             const { fullRecordInfo, pagination } = this.state.body;
@@ -27,6 +45,8 @@ export default {
         } = this.state.body.pagination;
 
         return this.$slots.default({
+            disabledNext: this.disabledNext,
+            disabledPrevious: this.disabledPrevious,
             i18n: this.i18n,
             jumpTo: this.jumpTo,
             fullRecordInfo: this.state.body.fullRecordInfo,

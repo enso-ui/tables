@@ -34,7 +34,7 @@ export default {
                 click: () => {
                     this.meta.search = '';
                     this.fetchData();
-                    this.$el.querySelector('input').focus();
+                    this.$parent.$el.querySelector('input').focus();
                 },
             },
             filterable: this.meta.filterable,
@@ -49,17 +49,17 @@ export default {
                 'update:modelValue': event => (this.state.meta.searchMode = event),
                 change: () => {
                     this.fetchData();
-                    this.$el.querySelector('input').focus();
+                    this.$parent.$el.querySelector('input').focus();
                 },
             },
             modeSelector: this.modeSelector,
             search: this.meta.search,
             searchable: this.meta.searchable,
             searchBindings: {
-                modelValue: this.meta.search,
+                value: this.meta.search,
             },
             searchEvents: {
-                'update:modelValue': e => {
+                input: e => {
                     this.meta.search = e.target.value;
                     this.fetchData();
                 },

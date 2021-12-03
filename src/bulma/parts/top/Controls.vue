@@ -123,7 +123,6 @@ export default {
                 @media screen and (min-width: 1024px) {
                     .table-controls {
                         display: flex;
-                        align-items: center;
                         order: 1;
                     }
 
