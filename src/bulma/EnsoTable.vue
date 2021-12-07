@@ -37,7 +37,7 @@ export default {
         path() {
             return this.$attrs.path
                 ?? `/${`api/${this.$route.path}/initTable`
-                    .split('/').filter(v => v).join('/')}`
+                    .split('/').filter(v => v).join('/')}`;
         },
         slots() {
             return this.ready

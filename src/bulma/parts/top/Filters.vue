@@ -20,12 +20,12 @@
                         </div>
                         <div class="level-item">
                             <a class="button is-small is-bold"
-                                @click.stop="filter = null;">
+                                @click.stop="filter = null; ready = false;">
                                 {{ i18n('Clear') }}
                             </a>
                             <a class="button is-small is-bold"
                                 @click.stop="apply"
-                                v-if="$refs.filter && $refs.filter.applicable">
+                                v-if="ready && $refs.filter.applicable">
                                 {{ i18n('Apply') }}
                             </a>
                         </div>
@@ -38,6 +38,7 @@
                     v-if="filter">
                     <component :is="filter.component"
                         :filter="filter"
+                        @vnode-mounted="ready = true"
                         ref="filter"/>
                 </div>
                 <dropdown-item v-for="filter in filters"
@@ -83,6 +84,7 @@ export default {
     inject: ['activeScenario', 'i18n', 'state'],
 
     data: () => ({
+        ready: false,
         filter: null,
     }),
 
@@ -178,6 +180,7 @@ export default {
         },
         close() {
             this.$refs.dropdown.hide();
+            this.ready = false;
             this.filter = null;
             this.filters
                 .forEach(filter => (filter.value = Array.isArray(filter.value) ? [] : null));
