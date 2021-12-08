@@ -1,13 +1,16 @@
 <template>
-    <span :class="cssClass"
-        @click="meta.clickable ? $emit('clicked') : null">
-        <slot v-if="meta.slot"
-            :name="column.name">
+    <slot v-if="meta.slot"
+        :name="column.name">
+        <span>
             {{ modelValue }}
-        </slot>
+        </span>
+    </slot>
+    <span :class="cssClass"
+        @click="meta.clickable ? $emit('clicked') : null"
+        v-else>
         <fa :icon="modelValue ? 'check' : 'times'"
             size="sm"
-            v-else-if="meta.boolean"/>
+            v-if="meta.boolean"/>
         <fa :icon="modelValue"
             v-else-if="meta.icon && modelValue"/>
         <template v-else-if="column.enum">
