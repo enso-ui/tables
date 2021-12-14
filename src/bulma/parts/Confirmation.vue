@@ -1,27 +1,29 @@
 <template>
     <modal @close="closeConfirmation">
-        <div class="box">
-            <h5 class="subtitle is-5">
-                {{ i18n(state.action.button.message || "Are you sure?") }}
-            </h5>
-            <hr>
-            <div class="level">
-                <div class="level-left"/>
-                <div class="level-right">
-                    <div class="level-item">
-                        <button class="button is-outlined"
-                            @click="closeConfirmation">
-                            {{ i18n("Cancel") }}
-                        </button>
-                        <button class="button is-danger ml-1"
-                            v-focus
-                            @click="doButtonAction">
-                            {{ i18n("Yes") }}
-                        </button>
+        <template #default="{ close }">
+            <div class="box">
+                <h5 class="subtitle is-5">
+                    {{ i18n(state.action.button.message || "Are you sure?") }}
+                </h5>
+                <hr>
+                <div class="level">
+                    <div class="level-left"/>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <button class="button is-outlined"
+                                @click="close">
+                                {{ i18n("Cancel") }}
+                            </button>
+                            <button class="button is-danger ml-1"
+                                v-focus
+                                @click="doButtonAction(); close();">
+                                {{ i18n("Yes") }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
     </modal>
 </template>
 
