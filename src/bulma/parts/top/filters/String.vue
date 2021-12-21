@@ -9,7 +9,7 @@
             v-model="filter.mode"
             :modes="state.template.searchModes"
             :query="filter.value"
-            @input="$refs.input.focus()"
+            @update:modelValue="$refs.input.focus()"
             v-if="filter.value"/>
     </p>
 </template>
