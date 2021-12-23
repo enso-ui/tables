@@ -16,6 +16,8 @@ import CoreLengthMenu from '../../../renderless/parts/top/CoreLengthMenu.vue';
 export default {
     name: 'LengthMenu',
 
+    inject: ['http'],
+
     components: { CoreLengthMenu, VueSelect },
 };
 </script>

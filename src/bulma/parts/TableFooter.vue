@@ -73,8 +73,8 @@ export default {
     name: 'TableFooter',
 
     inject: [
-        'hiddenColspan', 'hiddenColumns', 'i18n', 'totalFormat',
-        'visibleColumn', 'visibleColumns', 'columnAlignment', 'state',
+        'columnAlignment', 'hiddenColspan', 'hiddenColumns', 'i18n', 'state',
+        'totalFormat', 'visibleColumn', 'visibleColumns',
     ],
 
     components: { Fa },

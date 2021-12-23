@@ -2,6 +2,7 @@
     <p class="control">
         <vue-select v-model="filter.value"
             objects
+            :http="http"
             :i18n="i18n"
             :label="filter.selectLabel"
             :source="filter.path"
@@ -20,7 +21,7 @@ export default {
 
     components: { VueSelect },
 
-    inject: ['i18n'],
+    inject: ['http', 'i18n'],
 
     props: {
         filter: {

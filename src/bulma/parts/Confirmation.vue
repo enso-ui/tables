@@ -38,6 +38,6 @@ export default {
 
     directives: { focus },
 
-    inject: ['state', 'i18n', 'closeConfirmation', 'doButtonAction'],
+    inject: ['closeConfirmation', 'doButtonAction', 'i18n', 'state'],
 };
 </script>

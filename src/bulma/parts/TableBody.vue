@@ -146,7 +146,7 @@ export default {
     components: { CoreTableBody, Fa, TableCell },
 
     inject: [
-        'state', 'i18n', 'visibleColumn', 'columnAlignment', 'isChild',
+        'columnAlignment', 'i18n', 'isChild', 'state', 'visibleColumn',
     ],
 };
 </script>

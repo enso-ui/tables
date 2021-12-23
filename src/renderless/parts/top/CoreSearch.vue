@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 export default {
     name: 'CoreSearch',
 
-    inject: ['fetch', 'hasFilters', 'state', 'i18n'],
+    inject: ['fetch', 'hasFilters', 'i18n', 'state'],
 
     computed: {
         meta() {

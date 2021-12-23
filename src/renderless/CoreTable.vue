@@ -22,6 +22,10 @@ export default {
             default: null,
             type: Object,
         },
+        http: {
+            required: true,
+            type: Function,
+        },
         i18n: {
             default: v => v,
             type: Function,
@@ -153,6 +157,7 @@ export default {
             hasSelection: this.hasSelection,
             hiddenColspan: this.hiddenColspan,
             hiddenColumns: this.hiddenColumns,
+            http: this.http,
             i18n: this.i18n,
             id: this.id,
             init: this.init,
@@ -211,7 +216,7 @@ export default {
             return this.state.filterScenarios.find(({ active }) => active);
         },
         init() {
-            axios.get(this.path, { params: { params: this.initParams } })
+            this.http.get(this.path, { params: { params: this.initParams } })
                 .then(({ data }) => {
                     this.prepare(data);
                     this.$nextTick(() => {
@@ -292,16 +297,16 @@ export default {
                 this.ongoingRequest.cancel();
             }
 
-            this.ongoingRequest = axios.CancelToken.source();
+            this.ongoingRequest = this.http.CancelToken.source();
 
             return this.template.method === 'GET'
-                ? axios[this.template.method.toLowerCase()](
+                ? this.http[this.template.method.toLowerCase()](
                     this.template.readPath, {
                         ...this.readRequest(this.template.method),
                         cancelToken: this.ongoingRequest.token,
                     },
                 )
-                : axios[this.template.method.toLowerCase()](
+                : this.http[this.template.method.toLowerCase()](
                     this.template.readPath,
                     this.readRequest(this.template.method),
                     { cancelToken: this.ongoingRequest.token },
@@ -335,7 +340,7 @@ export default {
             }).catch(error => {
                 this.meta.loading = false;
 
-                if (!axios.isCancel(error)) {
+                if (!this.http.isCancel(error)) {
                     this.errorHandler(error);
                 }
             });
@@ -423,7 +428,7 @@ export default {
                 : this.template.align;
         },
         exportData({ path, postEvent }) {
-            axios[this.template.method.toLowerCase()](
+            this.http[this.template.method.toLowerCase()](
                 path, this.readRequest(this.template.method, true),
             ).then(({ data }) => {
                 if (postEvent) {
@@ -435,7 +440,7 @@ export default {
             });
         },
         ajax(method, path, postEvent) {
-            axios[method.toLowerCase()](path).then(({ data }) => {
+            this.http[method.toLowerCase()](path).then(({ data }) => {
                 this.fetch();
 
                 if (postEvent) {
@@ -451,7 +456,7 @@ export default {
         }) {
             this.meta.loading = true;
 
-            axios[method.toLowerCase()](path, this.readRequest(method, false, selection))
+            this.http[method.toLowerCase()](path, this.readRequest(method, false, selection))
                 .then(({ data }) => {
                     if (postEvent) {
                         this.$emit(postEvent, data);

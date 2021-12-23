@@ -31,7 +31,7 @@ export default {
 
     components: { CoreColumnVisibility, Fa, VueSelect },
 
-    inject: ['i18n', 'visibleColumns', 'invisibleColumns'],
+    inject: ['i18n', 'invisibleColumns', 'visibleColumns'],
 };
 </script>
 

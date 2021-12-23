@@ -64,8 +64,8 @@ export default {
     },
 
     inject: [
-        'bodySlots', 'controlSlots', 'hasContent', 'hasFooter', 'i18n',
-        'id', 'isEmpty', 'customTotals', 'state', 'visibleColumns',
+        'bodySlots', 'controlSlots', 'customTotals', 'hasContent',
+        'hasFooter', 'i18n', 'id', 'isEmpty', 'state', 'visibleColumns',
     ],
 
     computed: {

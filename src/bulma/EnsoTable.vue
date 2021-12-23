@@ -3,6 +3,7 @@
         :path="path"
         :error-handler="errorHandler"
         :router-error-handler="routerErrorHandler"
+        :http="http"
         :i18n="i18n"
         @ready="ready = true"
         ref="table">
@@ -22,7 +23,7 @@ export default {
 
     components: { VueTable },
 
-    inject: ['errorHandler', 'i18n', 'routerErrorHandler'],
+    inject: ['errorHandler', 'http', 'i18n', 'routerErrorHandler'],
 
     data: () => ({
         ready: false,
