@@ -101,7 +101,9 @@
                                             :class="button.class"
                                             v-bind="actionBindings(button, row)"
                                             :key="`action-${idx}`"
-                                            v-tooltip.left="button.tooltip ? i18n(button.tooltip) : null"
+                                            v-tooltip.left="button.tooltip
+                                                ? i18n(button.tooltip)
+                                                : null"
                                             v-on="actionEvents(button, row)"
                                             v-else>
                                             <span v-if="button.label">

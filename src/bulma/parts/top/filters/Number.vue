@@ -66,7 +66,8 @@ export default {
             const invalid = ['', null];
 
             return typeof this.filter.value === 'object' && this.filter.value !== null
-                ? !invalid.includes(this.filter.value.min) || !invalid.includes(this.filter.value.max)
+                ? !invalid.includes(this.filter.value.min)
+                    || !invalid.includes(this.filter.value.max)
                 : !invalid.includes(this.filter.value);
         },
     },

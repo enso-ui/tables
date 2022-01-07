@@ -7,6 +7,48 @@ export default {
 
     name: 'CoreTable',
 
+    provide() {
+        return {
+            action: this.action,
+            actionPath: this.actionPath,
+            activeScenario: this.activeScenario,
+            ajax: this.ajax,
+            bodySlots: this.bodySlots,
+            buttonAction: this.buttonAction,
+            closeConfirmation: this.closeConfirmation,
+            columnAlignment: this.columnAlignment,
+            controlSlots: this.controlSlots,
+            customTotals: this.customTotals,
+            doButtonAction: this.doButtonAction,
+            exportData: this.exportData,
+            fetch: this.fetch,
+            hasContent: this.hasContent,
+            hasEntries: this.hasEntries,
+            hasFilters: () => this.hasFilters ?? this.body.filters,
+            hasFooter: this.hasFooter,
+            hasSelection: this.hasSelection,
+            hiddenColspan: this.hiddenColspan,
+            hiddenColumns: this.hiddenColumns,
+            http: this.http,
+            i18n: this.i18n,
+            id: this.id,
+            init: this.init,
+            invisibleColumns: this.invisibleColumns,
+            isChild: this.isChild,
+            isEmpty: this.isEmpty,
+            isHighlighted: this.isHighlighted,
+            refreshPageSelected: this.refreshPageSelected,
+            reset: this.reset,
+            state: this.state,
+            togglePageSelect: this.togglePageSelect,
+            totalFormat: this.totalFormat,
+            visibleColumn: this.visibleColumn,
+            visibleColumns: this.visibleColumns,
+        };
+    },
+
+    inheritAttrs: false,
+
     props: {
         errorHandler: {
             default: error => {
@@ -58,9 +100,7 @@ export default {
         },
     },
 
-    emits: ['ready' ,'reset', 'fetching', 'fetched'],
-
-    inheritAttrs: false,
+    emits: ['ready', 'reset', 'fetching', 'fetched'],
 
     data: () => ({
         ongoingRequest: null,
@@ -133,46 +173,6 @@ export default {
         template() {
             return this.state.template;
         },
-    },
-
-    provide() {
-        return {
-            action: this.action,
-            actionPath: this.actionPath,
-            activeScenario: this.activeScenario,
-            ajax: this.ajax,
-            bodySlots: this.bodySlots,
-            buttonAction: this.buttonAction,
-            closeConfirmation: this.closeConfirmation,
-            columnAlignment: this.columnAlignment,
-            controlSlots: this.controlSlots,
-            customTotals: this.customTotals,
-            doButtonAction: this.doButtonAction,
-            exportData: this.exportData,
-            fetch: this.fetch,
-            hasContent: this.hasContent,
-            hasEntries: this.hasEntries,
-            hasFilters: () => this.hasFilters ?? this.body.filters,
-            hasFooter: this.hasFooter,
-            hasSelection: this.hasSelection,
-            hiddenColspan: this.hiddenColspan,
-            hiddenColumns: this.hiddenColumns,
-            http: this.http,
-            i18n: this.i18n,
-            id: this.id,
-            init: this.init,
-            invisibleColumns: this.invisibleColumns,
-            isChild: this.isChild,
-            isEmpty: this.isEmpty,
-            isHighlighted: this.isHighlighted,
-            refreshPageSelected: this.refreshPageSelected,
-            reset: this.reset,
-            state: this.state,
-            togglePageSelect: this.togglePageSelect,
-            totalFormat: this.totalFormat,
-            visibleColumn: this.visibleColumn,
-            visibleColumns: this.visibleColumns,
-        };
     },
 
     watch: {
@@ -380,7 +380,7 @@ export default {
                     meta.visible = column.meta.visible;
                 }
 
-                if (meta.hasOwnProperty('sort') || meta.hasOwnProperty('visible')) {
+                if (Object.hasOwn(meta, 'sort') || Object.hasOwn(meta, 'visible')) {
                     columns.push({ name: column.name, meta });
                 }
 

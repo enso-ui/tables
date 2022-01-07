@@ -38,9 +38,9 @@ library.add(faTimes);
 export default {
     name: 'FilterLabel',
 
-    inject: ['i18n', 'state'],
-
     components: { Fa },
+
+    inject: ['i18n', 'state'],
 
     props: {
         filter: {

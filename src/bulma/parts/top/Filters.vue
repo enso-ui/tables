@@ -1,5 +1,5 @@
 <template>
-    <div class="field is-grouped">
+    <div class="field is-grouped mb-0">
         <dropdown class="filters"
             :class="{ 'has-select': hasSelect, 'has-filter': filter }"
             manual
@@ -41,11 +41,11 @@
                         @vnode-mounted="ready = true"
                         ref="filter"/>
                 </div>
-                <dropdown-item v-for="filter in filters"
-                    :key="filter.name"
-                    @click.stop="select(filter)"
+                <dropdown-item v-for="item in filters"
+                    :key="item.name"
+                    @click.stop="select(item)"
                     v-else>
-                    {{ i18n(filter.label) }}
+                    {{ i18n(item.label) }}
                 </dropdown-item>
             </template>
         </dropdown>

@@ -7,6 +7,8 @@ export default {
         'hasSelection', 'i18n', 'reset', 'state',
     ],
 
+    inheritAttrs: false,
+
     computed: {
         meta() {
             return this.state.meta;

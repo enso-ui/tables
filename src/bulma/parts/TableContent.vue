@@ -1,5 +1,5 @@
 <template>
-    <top-controls>
+    <top-controls v-bind="$attrs">
         <template #[slot]="props"
             v-for="slot in controlSlots()">
             <slot :name="slot"
@@ -13,7 +13,7 @@
             :id="id"
             v-if="hasContent()">
             <table-header ref="header"/>
-            <table-body>
+            <table-body v-bind="$attrs">
                 <template #[slot]="props"
                     v-for="slot in bodySlots()">
                     <slot :name="slot"
@@ -30,7 +30,8 @@
         </table>
         <loader v-if="state.meta.loading === true"/>
     </div>
-    <bottom-controls     v-if="hasContent()"/>
+    <bottom-controls v-bind="$attrs"
+        v-if="hasContent()"/>
     <div class="has-text-centered no-records-found"
         v-if="isEmpty()">
         {{ i18n('No records were found') }}
@@ -67,6 +68,8 @@ export default {
         'bodySlots', 'controlSlots', 'customTotals', 'hasContent',
         'hasFooter', 'i18n', 'id', 'isEmpty', 'state', 'visibleColumns',
     ],
+
+    inheritAttrs: false,
 
     computed: {
         columns() {

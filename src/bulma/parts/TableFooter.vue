@@ -72,12 +72,12 @@ library.add(faChevronRight);
 export default {
     name: 'TableFooter',
 
+    components: { Fa },
+
     inject: [
         'columnAlignment', 'hiddenColspan', 'hiddenColumns', 'i18n', 'state',
         'totalFormat', 'visibleColumn', 'visibleColumns',
     ],
-
-    components: { Fa },
 
     data: () => ({
         isExpanded: false,

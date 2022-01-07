@@ -4,6 +4,8 @@ export default {
 
     inject: ['i18n', 'fetch', 'state'],
 
+    inheritAttrs: false,
+
     emits: ['page-changed'],
 
     computed: {

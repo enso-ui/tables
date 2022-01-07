@@ -1,10 +1,12 @@
 <template>
-    <div class="vue-table">
+    <div class="vue-table"
+        :class="$attrs.class">
         <core-table v-bind="$attrs"
             @ready="ready = true"
             ref="table">
             <template #default>
-                <table-content v-if="ready">
+                <table-content v-bind="$attrs"
+                    v-if="ready">
                     <template #[slot]="props"
                         v-for="slot in slots">
                         <slot :name="slot"
@@ -24,6 +26,8 @@ export default {
     name: 'VueTable',
 
     components: { CoreTable, TableContent },
+
+    inheritAttrs: false,
 
     data: () => ({
         ready: false,

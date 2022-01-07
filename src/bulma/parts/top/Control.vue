@@ -1,7 +1,6 @@
 <template>
     <a class="button"
-        :class="button.class"
-        v-bind="$attrs">
+        :class="button.class">
         <span class="is-hidden-mobile">
             {{ i18n(button.label) }}
         </span>
@@ -18,9 +17,9 @@ import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 export default {
     name: 'Control',
 
-    inject: ['i18n'],
-
     components: { Fa },
+
+    inject: ['i18n'],
 
     props: {
         button: {

@@ -8,7 +8,9 @@ export default {
         'state', 'visibleColumn',
     ],
 
-    emits: ['click'],
+    inheritAttrs: false,
+
+    emits: ['clicked'],
 
     data: () => ({
         row: null,
@@ -113,10 +115,7 @@ export default {
             cellEvents: (row, column) => ({
                 clicked: () => {
                     if (column.meta.clickable) {
-                        this.$emit('clicked', {
-                            column,
-                            row,
-                        });
+                        this.$emit('clicked', { column, row });
                     }
                 },
             }),
@@ -138,7 +137,8 @@ export default {
             selectEvents: row => ({
                 change: () => {
                     if (this.state.selected.includes(row[this.template.dtRowId])) {
-                        const index = this.state.selected.findIndex(id => id === row[this.template.dtRowId]);
+                        const index = this.state.selected
+                            .findIndex(id => id === row[this.template.dtRowId]);
                         this.state.selected.splice(index, 1);
                     } else {
                         this.state.selected.push(row[this.template.dtRowId]);

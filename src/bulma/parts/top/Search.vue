@@ -49,7 +49,9 @@ library.add(faSearch, faFilter);
 export default {
     name: 'Search',
 
-    components: { CoreSearch, Fa, Filters, SearchMode },
+    components: {
+        CoreSearch, Fa, Filters, SearchMode,
+    },
 };
 </script>
 

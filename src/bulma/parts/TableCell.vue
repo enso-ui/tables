@@ -29,9 +29,9 @@ import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 export default {
     name: 'TableCell',
 
-    inject: ['i18n'],
-
     components: { Fa },
+
+    inject: ['i18n'],
 
     props: {
         column: {

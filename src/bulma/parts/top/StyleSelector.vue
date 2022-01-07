@@ -29,7 +29,7 @@ library.add(faTable);
 export default {
     name: 'StyleSelector',
 
-    components: { CoreStyleSelector, Fa,VueSelect },
+    components: { CoreStyleSelector, Fa, VueSelect },
 };
 </script>
 

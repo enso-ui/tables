@@ -1,9 +1,9 @@
 <template>
     <div class="wrapper">
-        <core-controls>
+        <core-controls v-bind="$attrs">
             <template #default="{
                 controlBindings, controlEvents, filterLabels, filterScenarios,
-                forceInfoEvents, hasSelection,i18n, reloadEvents, resetEvents, state,
+                forceInfoEvents, hasSelection, reloadEvents, resetEvents, state,
             }">
                 <div class="top-controls has-background-light">
                     <div class="columns is-multiline is-mobile is-variable is-1">
@@ -36,7 +36,8 @@
                                 </span>
                             </a>
                         </div>
-                        <div class="column table-buttons is-narrow-desktop is-half-touch has-text-right"
+                        <div class="column table-buttons is-narrow-desktop
+                            is-half-touch has-text-right"
                             v-if="state.template.buttons">
                             <dropdown-actions v-if="state.template.buttons.dropdown.length > 0"/>
                             <template v-for="button in state.template.buttons.global">
@@ -106,6 +107,8 @@ export default {
         Search,
         StyleSelector,
     },
+
+    inheritAttrs: false,
 };
 </script>
 

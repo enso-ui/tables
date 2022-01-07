@@ -2,7 +2,7 @@
     <nav class="pagination is-small"
         role="navigation"
         aria-label="pagination">
-            <core-pagination>
+            <core-pagination v-bind="$attrs">
                 <template #default="{
                     disabledNext, disabledPrevious, fullRecordInfo, loading, atStart, atEnd,
                     i18n, jumpTo, middlePages, page, pages
@@ -67,6 +67,8 @@ export default {
     name: 'Pagination',
 
     components: { CorePagination },
+
+    inheritAttrs: false,
 };
 </script>
 

@@ -24,7 +24,8 @@ export default {
             this.state.template.style.push(this.styles[selected]);
         },
         deselect(deselected) {
-            const index = this.state.template.style.findIndex(style => style === this.styles[deselected]);
+            const index = this.state.template.style
+                .findIndex(style => style === this.styles[deselected]);
 
             this.state.template.style.splice(index, 1);
         },
