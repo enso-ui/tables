@@ -7,6 +7,48 @@ export default {
 
     name: 'CoreTable',
 
+    provide() {
+        return {
+            action: this.action,
+            actionPath: this.actionPath,
+            activeScenario: this.activeScenario,
+            ajax: this.ajax,
+            bodySlots: this.bodySlots,
+            buttonAction: this.buttonAction,
+            closeConfirmation: this.closeConfirmation,
+            columnAlignment: this.columnAlignment,
+            controlSlots: this.controlSlots,
+            customTotals: this.customTotals,
+            doButtonAction: this.doButtonAction,
+            exportData: this.exportData,
+            fetch: this.fetch,
+            hasContent: this.hasContent,
+            hasEntries: this.hasEntries,
+            hasFilters: () => this.hasFilters ?? this.body.filters,
+            hasFooter: this.hasFooter,
+            hasSelection: this.hasSelection,
+            hiddenColspan: this.hiddenColspan,
+            hiddenColumns: this.hiddenColumns,
+            http: this.http,
+            i18n: this.i18n,
+            id: this.id,
+            init: this.init,
+            invisibleColumns: this.invisibleColumns,
+            isChild: this.isChild,
+            isEmpty: this.isEmpty,
+            isHighlighted: this.isHighlighted,
+            refreshPageSelected: this.refreshPageSelected,
+            reset: this.reset,
+            state: this.state,
+            togglePageSelect: this.togglePageSelect,
+            totalFormat: this.totalFormat,
+            visibleColumn: this.visibleColumn,
+            visibleColumns: this.visibleColumns,
+        };
+    },
+
+    inheritAttrs: false,
+
     props: {
         errorHandler: {
             default: error => {
@@ -21,6 +63,10 @@ export default {
         filters: {
             default: null,
             type: Object,
+        },
+        http: {
+            required: true,
+            type: Function,
         },
         i18n: {
             default: v => v,
@@ -53,6 +99,8 @@ export default {
             type: Function,
         },
     },
+
+    emits: ['ready', 'reset', 'fetching', 'fetched'],
 
     data: () => ({
         ongoingRequest: null,
@@ -127,45 +175,6 @@ export default {
         },
     },
 
-    provide() {
-        return {
-            action: this.action,
-            actionPath: this.actionPath,
-            activeScenario: this.activeScenario,
-            ajax: this.ajax,
-            bodySlots: this.bodySlots,
-            buttonAction: this.buttonAction,
-            closeConfirmation: this.closeConfirmation,
-            columnAlignment: this.columnAlignment,
-            controlSlots: this.controlSlots,
-            customTotals: this.customTotals,
-            doButtonAction: this.doButtonAction,
-            exportData: this.exportData,
-            fetch: this.fetch,
-            hasContent: this.hasContent,
-            hasEntries: this.hasEntries,
-            hasFilters: () => this.hasFilters ?? this.body.filters,
-            hasFooter: this.hasFooter,
-            hasSelection: this.hasSelection,
-            hiddenColspan: this.hiddenColspan,
-            hiddenColumns: this.hiddenColumns,
-            i18n: this.i18n,
-            id: this.id,
-            init: this.init,
-            invisibleColumns: this.invisibleColumns,
-            isChild: this.isChild,
-            isEmpty: this.isEmpty,
-            isHighlighted: this.isHighlighted,
-            refreshPageSelected: this.refreshPageSelected,
-            reset: this.reset,
-            state: this.state,
-            togglePageSelect: this.togglePageSelect,
-            totalFormat: this.totalFormat,
-            visibleColumn: this.visibleColumn,
-            visibleColumns: this.visibleColumns,
-        };
-    },
-
     watch: {
         filters: {
             handler: 'filterUpdate',
@@ -196,7 +205,7 @@ export default {
         this.init();
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.ongoingRequest) {
             this.ongoingRequest.cancel();
         }
@@ -207,7 +216,7 @@ export default {
             return this.state.filterScenarios.find(({ active }) => active);
         },
         init() {
-            axios.get(this.path, { params: { params: this.initParams } })
+            this.http.get(this.path, { params: { params: this.initParams } })
                 .then(({ data }) => {
                     this.prepare(data);
                     this.$nextTick(() => {
@@ -250,7 +259,7 @@ export default {
         },
         matchProperties(source, dest) {
             Object.keys(source).forEach(key => {
-                this.$set(dest, key, source[key]);
+                dest.key = source[key];
             });
         },
         userPreferences() {
@@ -288,16 +297,16 @@ export default {
                 this.ongoingRequest.cancel();
             }
 
-            this.ongoingRequest = axios.CancelToken.source();
+            this.ongoingRequest = this.http.CancelToken.source();
 
             return this.template.method === 'GET'
-                ? axios[this.template.method.toLowerCase()](
+                ? this.http[this.template.method.toLowerCase()](
                     this.template.readPath, {
                         ...this.readRequest(this.template.method),
                         cancelToken: this.ongoingRequest.token,
                     },
                 )
-                : axios[this.template.method.toLowerCase()](
+                : this.http[this.template.method.toLowerCase()](
                     this.template.readPath,
                     this.readRequest(this.template.method),
                     { cancelToken: this.ongoingRequest.token },
@@ -331,7 +340,7 @@ export default {
             }).catch(error => {
                 this.meta.loading = false;
 
-                if (!axios.isCancel(error)) {
+                if (!this.http.isCancel(error)) {
                     this.errorHandler(error);
                 }
             });
@@ -371,7 +380,7 @@ export default {
                     meta.visible = column.meta.visible;
                 }
 
-                if (meta.hasOwnProperty('sort') || meta.hasOwnProperty('visible')) {
+                if (Object.hasOwn(meta, 'sort') || Object.hasOwn(meta, 'visible')) {
                     columns.push({ name: column.name, meta });
                 }
 
@@ -419,7 +428,7 @@ export default {
                 : this.template.align;
         },
         exportData({ path, postEvent }) {
-            axios[this.template.method.toLowerCase()](
+            this.http[this.template.method.toLowerCase()](
                 path, this.readRequest(this.template.method, true),
             ).then(({ data }) => {
                 if (postEvent) {
@@ -431,7 +440,7 @@ export default {
             });
         },
         ajax(method, path, postEvent) {
-            axios[method.toLowerCase()](path).then(({ data }) => {
+            this.http[method.toLowerCase()](path).then(({ data }) => {
                 this.fetch();
 
                 if (postEvent) {
@@ -447,7 +456,7 @@ export default {
         }) {
             this.meta.loading = true;
 
-            axios[method.toLowerCase()](path, this.readRequest(method, false, selection))
+            this.http[method.toLowerCase()](path, this.readRequest(method, false, selection))
                 .then(({ data }) => {
                     if (postEvent) {
                         this.$emit(postEvent, data);
@@ -643,7 +652,7 @@ export default {
     },
 
     render() {
-        return this.$slots.default;
+        return this.$slots.default();
     },
 };
 </script>

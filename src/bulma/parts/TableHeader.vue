@@ -1,11 +1,11 @@
 <template>
-    <core-table-header>
-        <template v-slot:default="{
+    <thead>
+        <core-table-header>
+            <template #default="{
                 actions, actionsLabel, clearSortEvents, columns, crtNo, crtNoLabel,
                 hiddenColumns, i18n, preview, selectBindings, selectEvents,
                 selectable, sortEvents, style, visibleColumn,
-            }">
-            <thead>
+                }">
                 <tr class="has-background-light"
                     :class="style">
                     <th class="table-header has-text-centered"
@@ -66,13 +66,15 @@
                         {{ i18n(actionsLabel) }}
                     </th>
                 </tr>
-            </thead>
-        </template>
-    </core-table-header>
+            </template>
+        </core-table-header>
+    </thead>
 </template>
 
 <script>
+import 'v-tooltip/dist/v-tooltip.css';
 import { VTooltip } from 'v-tooltip';
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faSort, faSortUp, faSortDown, faPlus, faFileExcel, faInfo,
@@ -86,7 +88,7 @@ export default {
 
     directives: { tooltip: VTooltip },
 
-    components: { CoreTableHeader },
+    components: { CoreTableHeader, Fa },
 };
 </script>
 

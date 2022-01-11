@@ -1,7 +1,8 @@
 <template>
     <core-length-menu>
-        <template v-slot:default="{ bindings, events }">
+        <template #default="{ bindings, events }">
             <vue-select class="length-menu"
+                :class="$attrs.class"
                 v-bind="bindings"
                 v-on="events"/>
         </template>
@@ -16,11 +17,13 @@ export default {
     name: 'LengthMenu',
 
     components: { CoreLengthMenu, VueSelect },
+
+    inject: ['http'],
 };
 </script>
 
 <style lang="scss">
-    .vue-table .length-menu.dropdown {
+    .vue-table .length-menu .dropdown {
         width: unset;
     }
 </style>

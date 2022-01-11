@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 export default {
     name: 'CoreSearch',
 
-    inject: ['fetch', 'hasFilters', 'state', 'i18n'],
+    inject: ['fetch', 'hasFilters', 'i18n', 'state'],
 
     computed: {
         meta() {
@@ -29,12 +29,12 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             clearEvents: {
                 click: () => {
                     this.meta.search = '';
                     this.fetchData();
-                    this.$el.querySelector('input').focus();
+                    this.$parent.$el.querySelector('input').focus();
                 },
             },
             filterable: this.meta.filterable,
@@ -43,13 +43,13 @@ export default {
             modeBindings: {
                 modes: this.template.searchModes,
                 query: this.meta.search,
-                value: this.meta.searchMode,
+                modelValue: this.meta.searchMode,
             },
             modeEvents: {
-                input: event => (this.state.meta.searchMode = event),
+                'update:modelValue': event => (this.state.meta.searchMode = event),
                 change: () => {
                     this.fetchData();
-                    this.$el.querySelector('input').focus();
+                    this.$parent.$el.querySelector('input').focus();
                 },
             },
             modeSelector: this.modeSelector,

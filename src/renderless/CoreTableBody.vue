@@ -8,6 +8,10 @@ export default {
         'state', 'visibleColumn',
     ],
 
+    inheritAttrs: false,
+
+    emits: ['clicked'],
+
     data: () => ({
         row: null,
     }),
@@ -97,7 +101,7 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             actionBindings: (button, row) => ({
                 href: button.action === 'href' ? this.actionPath(button, row[this.template.dtRowId]) : null,
             }),
@@ -106,15 +110,12 @@ export default {
             }),
             cellBindings: (row, column) => ({
                 column,
-                value: this.cellValue(row, column),
+                modelValue: this.cellValue(row, column),
             }),
             cellEvents: (row, column) => ({
                 clicked: () => {
                     if (column.meta.clickable) {
-                        this.$emit('clicked', {
-                            column,
-                            row,
-                        });
+                        this.$emit('clicked', { column, row });
                     }
                 },
             }),
@@ -136,7 +137,8 @@ export default {
             selectEvents: row => ({
                 change: () => {
                     if (this.state.selected.includes(row[this.template.dtRowId])) {
-                        const index = this.state.selected.findIndex(id => id === row[this.template.dtRowId]);
+                        const index = this.state.selected
+                            .findIndex(id => id === row[this.template.dtRowId]);
                         this.state.selected.splice(index, 1);
                     } else {
                         this.state.selected.push(row[this.template.dtRowId]);

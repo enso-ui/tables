@@ -36,7 +36,7 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             actions: this.state.template.actions,
             actionsLabel: this.state.template.labels.actions,
             clearSortEvents: column => ({

@@ -1,6 +1,6 @@
 <template>
-    <core-table-body v-on="$listeners">
-        <template v-slot:default="{
+    <core-table-body>
+        <template #default="{
                 actionBindings, actionEvents, cellBindings, cellEvents, hiddenColspan, hiddenCount,
                 isExpanded, shouldRender, rowCrtNo, selectEvents, hiddenEvents, isHighlighted,
                 selectBindings, columnAlignment, isChild, i18n, visibleColumn, state,
@@ -23,9 +23,9 @@
                                     <b>{{ i18n(cell.column.label) }}</b>:
                                     <table-cell :i18n="i18n"
                                         :column="cell.column"
-                                        :value="cell.value"
+                                        :model-value="cell.value"
                                         v-on="cellEvents(state.body.data[index - 1], cell.column)">
-                                        <template v-slot:[cell.column.name]
+                                        <template #[cell.column.name]
                                             v-if="cell.column.meta.slot">
                                             <slot :name="cell.column.name"
                                                 :row="state.body.data[cell.rowCrtNo]"
@@ -73,7 +73,7 @@
                                 ]" v-if="visibleColumn(column)">
                                 <table-cell v-bind="cellBindings(row, column)"
                                     v-on="cellEvents(row, column)">
-                                    <template v-slot:[column.name]
+                                    <template #[column.name]
                                         v-if="column.meta.slot">
                                         <slot :name="column.name"
                                             :row="row"
@@ -101,7 +101,9 @@
                                             :class="button.class"
                                             v-bind="actionBindings(button, row)"
                                             :key="`action-${idx}`"
-                                            v-tooltip.left="button.tooltip ? i18n(button.tooltip) : null"
+                                            v-tooltip.left="button.tooltip
+                                                ? i18n(button.tooltip)
+                                                : null"
                                             v-on="actionEvents(button, row)"
                                             v-else>
                                             <span v-if="button.label">
@@ -124,7 +126,9 @@
 </template>
 
 <script>
+import 'v-tooltip/dist/v-tooltip.css';
 import { VTooltip } from 'v-tooltip';
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faChevronRight, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
@@ -141,10 +145,10 @@ export default {
 
     directives: { tooltip: VTooltip },
 
-    components: { CoreTableBody, TableCell },
+    components: { CoreTableBody, Fa, TableCell },
 
     inject: [
-        'state', 'i18n', 'visibleColumn', 'columnAlignment', 'isChild',
+        'columnAlignment', 'i18n', 'isChild', 'state', 'visibleColumn',
     ],
 };
 </script>

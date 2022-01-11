@@ -1,13 +1,13 @@
 <template>
-    <vue-table v-bind="$attrs"
+    <vue-table
         :path="path"
-        v-on="$listeners"
         :error-handler="errorHandler"
         :router-error-handler="routerErrorHandler"
+        :http="http"
         :i18n="i18n"
         @ready="ready = true"
         ref="table">
-        <template v-slot:[slot]="props"
+        <template #[slot]="props"
             v-for="slot in slots">
             <slot :name="slot"
                 v-bind="props"/>
@@ -21,19 +21,9 @@ import VueTable from './VueTable.vue';
 export default {
     name: 'EnsoTable',
 
-    inject: ['errorHandler', 'i18n', 'routerErrorHandler'],
-
     components: { VueTable },
 
-    props: {
-        path: {
-            type: String,
-            default() {
-                return `/${`api/${this.$route.path}/initTable`
-                    .split('/').filter(v => v).join('/')}`;
-            },
-        },
-    },
+    inject: ['errorHandler', 'http', 'i18n', 'routerErrorHandler'],
 
     data: () => ({
         ready: false,
@@ -44,6 +34,11 @@ export default {
             return this.ready
                 ? this.$refs.table.body
                 : null;
+        },
+        path() {
+            return this.$attrs.path
+                ?? `/${`api/${this.$route.path}/initTable`
+                    .split('/').filter(v => v).join('/')}`;
         },
         slots() {
             return this.ready

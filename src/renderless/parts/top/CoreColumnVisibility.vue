@@ -11,7 +11,7 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             bindings: {
                 disableClear: true,
                 i18n: this.i18n,
@@ -21,7 +21,7 @@ export default {
                 options: this.visibleColumns(),
                 trackBy: 'name',
                 translated: true,
-                value: this.selection,
+                modelValue: this.selection,
             },
             events: {
                 select: column => (column.meta.visible = true),

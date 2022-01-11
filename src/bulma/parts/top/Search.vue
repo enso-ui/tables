@@ -1,10 +1,10 @@
 <template>
-    <core-search>
-        <template v-slot:default="{
+    <div class="field has-addons">
+        <core-search>
+            <template #default="{
                 clearEvents, hasFilters, filterable, modeBindings, modeEvents, i18n,
                 modeSelector, search, searchable, searchBindings, searchEvents,
             }">
-            <div class="field has-addons">
                 <filters v-if="filterable"/>
                 <p class="control is-expanded has-icons-left has-icons-right"
                     v-if="searchable">
@@ -31,12 +31,13 @@
                         v-on="modeEvents"
                         v-if="modeSelector"/>
                 </p>
-            </div>
-        </template>
-    </core-search>
+            </template>
+        </core-search>
+    </div>
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSearch, faFilter } from '@fortawesome/free-solid-svg-icons';
 import SearchMode from '@enso-ui/search-mode/bulma';
@@ -48,7 +49,9 @@ library.add(faSearch, faFilter);
 export default {
     name: 'Search',
 
-    components: { CoreSearch, Filters, SearchMode },
+    components: {
+        CoreSearch, Fa, Filters, SearchMode,
+    },
 };
 </script>
 

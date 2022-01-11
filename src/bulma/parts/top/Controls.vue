@@ -1,10 +1,10 @@
 <template>
-    <core-controls>
-        <template v-slot:default="{
+    <div class="wrapper">
+        <core-controls v-bind="$attrs">
+            <template #default="{
                 controlBindings, controlEvents, filterLabels, filterScenarios,
-                forceInfoEvents, hasSelection,i18n, reloadEvents, resetEvents, state,
+                forceInfoEvents, hasSelection, reloadEvents, resetEvents, state,
             }">
-            <div class="wrapper">
                 <div class="top-controls has-background-light">
                     <div class="columns is-multiline is-mobile is-variable is-1">
                         <div class="column table-controls is-narrow-desktop is-half-touch">
@@ -36,7 +36,8 @@
                                 </span>
                             </a>
                         </div>
-                        <div class="column table-buttons is-narrow-desktop is-half-touch has-text-right"
+                        <div class="column table-buttons is-narrow-desktop
+                            is-half-touch has-text-right"
                             v-if="state.template.buttons">
                             <dropdown-actions v-if="state.template.buttons.dropdown.length > 0"/>
                             <template v-for="button in state.template.buttons.global">
@@ -68,12 +69,13 @@
                     v-if="filterScenarios"/>
                 <labels class="px-2"
                     v-if="filterLabels"/>
-            </div>
-        </template>
-    </core-controls>
+            </template>
+        </core-controls>
+    </div>
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faSync, faUndo, faSearch, faInfoCircle,
@@ -95,15 +97,18 @@ export default {
 
     components: {
         CoreControls,
-        LengthMenu,
         ColumnVisibility,
         Control,
-        StyleSelector,
-        Search,
-        Labels,
         DropdownActions,
+        Fa,
+        LengthMenu,
+        Labels,
         Scenarios,
+        Search,
+        StyleSelector,
     },
+
+    inheritAttrs: false,
 };
 </script>
 
@@ -120,6 +125,7 @@ export default {
 
                 @media screen and (min-width: 1024px) {
                     .table-controls {
+                        display: flex;
                         order: 1;
                     }
 
@@ -133,7 +139,7 @@ export default {
                 }
             }
 
-            .is-flex is-align-items-center {
+            .is-flex .is-align-items-center {
                 display:flex;
                 align-items: center;
             }

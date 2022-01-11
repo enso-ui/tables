@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import Boolean from './Labels/Boolean';
@@ -37,6 +38,8 @@ library.add(faTimes);
 export default {
     name: 'FilterLabel',
 
+    components: { Fa },
+
     inject: ['i18n', 'state'],
 
     props: {
@@ -45,6 +48,9 @@ export default {
             required: true,
         },
     },
+
+    emits: ['delete', 'select'],
+
     computed: {
         formatter() {
             if (!Types[this.filter.type]) {

@@ -1,28 +1,35 @@
 <template>
+    <slot v-if="meta.slot"
+        :name="column.name">
+        <span>
+            {{ modelValue }}
+        </span>
+    </slot>
     <span :class="cssClass"
-        @click="meta.clickable ? $emit('clicked') : null">
-        <slot v-if="meta.slot"
-            :name="column.name">
-            {{ value }}
-        </slot>
-        <fa :icon="value ? 'check' : 'times'"
+        @click="meta.clickable ? $emit('clicked') : null"
+        v-else>
+        <fa :icon="modelValue ? 'check' : 'times'"
             size="sm"
-            v-else-if="meta.boolean"/>
-        <fa :icon="value"
-            v-else-if="meta.icon && value"/>
+            v-if="meta.boolean"/>
+        <fa :icon="modelValue"
+            v-else-if="meta.icon && modelValue"/>
         <template v-else-if="column.enum">
-            {{ column.enum._get(value) }}
+            {{ column.enum._get(modelValue) }}
         </template>
         <template v-else-if="meta.translatable">
-            {{ i18n(value) }}
+            {{ i18n(modelValue) }}
         </template>
-        <template v-else>{{ value }}</template>
+        <template v-else>{{ modelValue }}</template>
     </span>
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
+
 export default {
     name: 'TableCell',
+
+    components: { Fa },
 
     inject: ['i18n'],
 
@@ -35,11 +42,13 @@ export default {
             default: false,
             type: Boolean,
         },
-        value: {
+        modelValue: {
             required: true,
             type: null,
         },
     },
+
+    emits: ['clicked'],
 
     computed: {
         cssClass() {
@@ -48,7 +57,7 @@ export default {
         },
         boolean() {
             return this.meta.boolean && !this.meta.slot
-                ? ['tag is-table-tag icon', this.value ? 'is-success' : 'is-danger']
+                ? ['tag is-table-tag icon', this.modelValue ? 'is-success' : 'is-danger']
                     .join(' ')
                 : null;
         },

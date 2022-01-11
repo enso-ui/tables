@@ -1,19 +1,21 @@
 <template>
-    <core-table v-bind="$attrs"
-        v-on="$listeners"
-        @ready="ready = true"
-        ref="table">
-        <template v-slot:default
-            v-if="ready">
-            <table-content v-on="$listeners">
-                <template v-slot:[slot]="props"
-                    v-for="slot in slots">
-                    <slot :name="slot"
-                        v-bind="props"/>
-                </template>
-            </table-content>
-        </template>
-    </core-table>
+    <div class="vue-table"
+        :class="$attrs.class">
+        <core-table v-bind="$attrs"
+            @ready="ready = true"
+            ref="table">
+            <template #default>
+                <table-content v-bind="$attrs"
+                    v-if="ready">
+                    <template #[slot]="props"
+                        v-for="slot in slots">
+                        <slot :name="slot"
+                            v-bind="props"/>
+                    </template>
+                </table-content>
+            </template>
+        </core-table>
+    </div>
 </template>
 
 <script>
@@ -24,6 +26,8 @@ export default {
     name: 'VueTable',
 
     components: { CoreTable, TableContent },
+
+    inheritAttrs: false,
 
     data: () => ({
         ready: false,

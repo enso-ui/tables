@@ -7,12 +7,11 @@ export default {
         'hasSelection', 'i18n', 'reset', 'state',
     ],
 
+    inheritAttrs: false,
+
     computed: {
         meta() {
             return this.state.meta;
-        },
-        activeScenario() {
-            return this.state.filterScenarios.find(({ active }) => active);
         },
         filterLabels() {
             return this.activeScenario() && this.activeScenario().edit;
@@ -23,7 +22,7 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             controlBindings: button => ({
                 href: button.action === 'href'
                     ? button.path

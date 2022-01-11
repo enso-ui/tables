@@ -1,16 +1,16 @@
 <template>
-    <div class="field is-grouped">
+    <div class="field is-grouped mb-0">
         <dropdown class="filters"
             :class="{ 'has-select': hasSelect, 'has-filter': filter }"
             manual
             @hide="close"
             ref="dropdown">
-            <template v-slot:label>
+            <template #label>
                 <span class="icon">
                     <fa icon="filter"/>
                 </span>
             </template>
-            <template v-slot:controls>
+            <template #controls>
                 <template v-if="filter">
                     <div class="level is-marginless">
                         <div class="level-item">
@@ -20,12 +20,12 @@
                         </div>
                         <div class="level-item">
                             <a class="button is-small is-bold"
-                                @click.stop="filter = null;">
+                                @click.stop="filter = null; ready = false;">
                                 {{ i18n('Clear') }}
                             </a>
                             <a class="button is-small is-bold"
                                 @click.stop="apply"
-                                v-if="$refs.filter && $refs.filter.applicable">
+                                v-if="ready && $refs.filter.applicable">
                                 {{ i18n('Apply') }}
                             </a>
                         </div>
@@ -33,18 +33,19 @@
                     <hr class="is-dropdown-divider m-2">
                 </template>
             </template>
-            <template v-slot:items>
+            <template #items>
                 <div class="p-2"
                     v-if="filter">
                     <component :is="filter.component"
                         :filter="filter"
+                        @vnode-mounted="ready = true"
                         ref="filter"/>
                 </div>
-                <dropdown-item v-for="filter in filters"
-                    :key="filter.name"
-                    @click.native.stop="select(filter)"
+                <dropdown-item v-for="item in filters"
+                    :key="item.name"
+                    @click.stop="select(item)"
                     v-else>
-                    {{ i18n(filter.label) }}
+                    {{ i18n(item.label) }}
                 </dropdown-item>
             </template>
         </dropdown>
@@ -52,6 +53,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown, DropdownItem } from '@enso-ui/dropdown/bulma';
@@ -68,12 +70,21 @@ export default {
     name: 'Filters',
 
     components: {
-        Dropdown, DropdownItem, Boolean, String, Enum, Number, Date, CustomSelect,
+        Boolean,
+        CustomSelect,
+        Date,
+        Dropdown,
+        DropdownItem,
+        Enum,
+        Fa,
+        Number,
+        String,
     },
 
     inject: ['activeScenario', 'i18n', 'state'],
 
     data: () => ({
+        ready: false,
         filter: null,
     }),
 
@@ -169,6 +180,7 @@ export default {
         },
         close() {
             this.$refs.dropdown.hide();
+            this.ready = false;
             this.filter = null;
             this.filters
                 .forEach(filter => (filter.value = Array.isArray(filter.value) ? [] : null));

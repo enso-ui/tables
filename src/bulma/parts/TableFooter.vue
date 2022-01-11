@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -71,9 +72,11 @@ library.add(faChevronRight);
 export default {
     name: 'TableFooter',
 
+    components: { Fa },
+
     inject: [
-        'hiddenColspan', 'hiddenColumns', 'i18n', 'totalFormat',
-        'visibleColumn', 'visibleColumns', 'columnAlignment', 'state',
+        'columnAlignment', 'hiddenColspan', 'hiddenColumns', 'i18n', 'state',
+        'totalFormat', 'visibleColumn', 'visibleColumns',
     ],
 
     data: () => ({

@@ -4,7 +4,7 @@
             <records-info/>
         </div>
         <div class="column is-narrow has-text-right">
-            <pagination v-on="$listeners"
+            <pagination v-bind="$attrs"
                 v-if="hasEntries()"/>
         </div>
     </div>
@@ -20,6 +20,8 @@ export default {
     components: { RecordsInfo, Pagination },
 
     inject: ['hasEntries'],
+
+    inheritAttrs: false,
 };
 </script>
 

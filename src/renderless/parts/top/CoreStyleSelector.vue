@@ -24,14 +24,15 @@ export default {
             this.state.template.style.push(this.styles[selected]);
         },
         deselect(deselected) {
-            const index = this.state.template.style.findIndex(style => style === this.styles[deselected]);
+            const index = this.state.template.style
+                .findIndex(style => style === this.styles[deselected]);
 
             this.state.template.style.splice(index, 1);
         },
     },
 
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             bindings: {
                 disableClear: true,
                 i18n: this.i18n,
@@ -40,7 +41,7 @@ export default {
                 options: this.options,
                 trackBy: 'value',
                 translated: true,
-                value: this.selection,
+                modelValue: this.selection,
             },
             events: {
                 select: this.select,

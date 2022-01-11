@@ -7,7 +7,7 @@
                     @click="all">
                     {{ i18n('all') }}
                 </a>
-            </div>    
+            </div>
         </div>
         <div class="control"
             v-for="(scenario, index) in state.filterScenarios"
@@ -66,8 +66,11 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSave, faTrashAlt, faPencilAlt, faBan, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+    faSave, faTrashAlt, faPencilAlt, faBan, faCheck, faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { focus, selectOnFocus, resize } from '@enso-ui/directives';
 
 library.add(faSave, faTrashAlt, faPencilAlt, faBan, faCheck, faTimes);
@@ -76,6 +79,8 @@ export default {
     name: 'Scenarios',
 
     directives: { focus, selectOnFocus, resize },
+
+    components: { Fa },
 
     inject: ['activeScenario', 'i18n', 'state'],
 
@@ -130,9 +135,9 @@ export default {
                 this.remove();
             }
         },
-        select({ name, filters }) {
+        select({ name }) {
             this.state.filterScenarios
-                .forEach(scenario => scenario.active = scenario.name === name);
+                .forEach(scenario => (scenario.active = scenario.name === name));
         },
         snapshot() {
             return JSON.parse(JSON.stringify(this.activeScenario()));

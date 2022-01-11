@@ -1,10 +1,11 @@
 <template>
     <core-style-selector>
-        <template v-slot:default="{ bindings, events }">
+        <template #default="{ bindings, events }">
             <vue-select class="style-selector"
+                :class="$attrs.class"
                 v-bind="bindings"
                 v-on="events">
-                <template v-slot:selection>
+                <template #selection>
                     <div class="is-flex is-align-items-center">
                         <span class="icon">
                             <fa icon="table"/>
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTable } from '@fortawesome/free-solid-svg-icons';
 import { VueSelect } from '@enso-ui/select/bulma';
@@ -27,12 +29,12 @@ library.add(faTable);
 export default {
     name: 'StyleSelector',
 
-    components: { CoreStyleSelector, VueSelect },
+    components: { CoreStyleSelector, Fa, VueSelect },
 };
 </script>
 
 <style lang="scss">
-    .vue-table .style-selector.dropdown {
+    .vue-table .style-selector .dropdown {
         width: unset;
 
         .icon:first-child:last-child {
@@ -45,7 +47,7 @@ export default {
         }
     }
 
-    .dropdown.vue-select .dropdown-trigger .button.input {
+    .dropdown.vue-dropdown .dropdown-trigger .button.input {
         min-height: 34px;
     }
 </style>
