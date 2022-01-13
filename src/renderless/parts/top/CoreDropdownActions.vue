@@ -2,7 +2,7 @@
 export default {
     name: 'CoreDropdownActions',
 
-    inject: ['buttonAction', 'i18n', 'state'],
+    inject: ['buttonAction', 'hasSelection', 'i18n', 'state'],
 
     render() {
         return this.$slots.default({
