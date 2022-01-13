@@ -21,7 +21,7 @@
                                     :key="cell.column.label"
                                     v-if="!cell.column.meta.rogue">
                                     <b>{{ i18n(cell.column.label) }}</b>:
-                                    <table-cell :i18n="i18n"
+                                    <table-cell
                                         :column="cell.column"
                                         :model-value="cell.value"
                                         v-on="cellEvents(state.body.data[index - 1], cell.column)">
