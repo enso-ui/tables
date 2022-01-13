@@ -79,9 +79,12 @@ export default {
     created() {
         if (this.edit) {
             const { value } = this.filter;
-            this.filter.mode = value && (value.min || value.max) ? 'interval' : 'value';
+            this.filter.mode = value && (value.min || value.max)
+                ? 'interval'
+                : 'value';
         } else {
             this.filter.type = 'date';
+            this.filter.mode = 'date';
         }
     },
 
