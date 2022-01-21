@@ -259,7 +259,7 @@ export default {
         },
         matchProperties(source, dest) {
             Object.keys(source).forEach(key => {
-                dest.key = source[key];
+                dest[key] = source[key];
             });
         },
         userPreferences() {
