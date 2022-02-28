@@ -63,6 +63,9 @@ export default {
         removeHighlight(dtRowId) {
             return this.ready && this.$refs.table.removeHighlight(dtRowId);
         },
+        reset() {
+            return this.ready && this.$refs.table.reset();
+        },
         toggleHighlight(dtRowId) {
             return this.ready && this.$refs.table.toggleHighlight(dtRowId);
         },
