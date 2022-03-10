@@ -11,15 +11,11 @@ class NumberFormatter {
     }
 
     replace(column) {
-        this.vm.body.data = this.vm.body.data.map((row, index) => {
-            this.segments.reduce((row, segment, segmentIndex) => {
-                if(segmentIndex + 1 === this.segments.length) {
-                    return row[segment] = column[index];
-                }
-                return row[segment] = row[segment]
-            }, row)
-
-            return row;
+        const { length } = this.segments;
+        this.vm.body.data.forEach((row, index) => {
+        this.segments.forEach((segment, idx) => idx + 1 === length
+            ? (row[segment] = column[index])
+            : row = row[segment])
         });
 
         if (this.totals) {
