@@ -2,6 +2,7 @@ class NumberFormatter {
     constructor(vm, column) {
         this.vm = vm;
         this.column = column;
+        this.segments = column.name.split('.');
         this.totals = this.hasTotal();
     }
 
@@ -10,9 +11,11 @@ class NumberFormatter {
     }
 
     replace(column) {
-        this.vm.body.data = this.vm.body.data.map((row, index) => {
-            row[this.column.name] = column[index];
-            return row;
+        const { length } = this.segments;
+        this.vm.body.data.forEach((row, index) => {
+        this.segments.forEach((segment, idx) => idx + 1 === length
+            ? (row[segment] = column[index])
+            : row = row[segment])
         });
 
         if (this.totals) {
@@ -32,7 +35,8 @@ class NumberFormatter {
     }
 
     numbers() {
-        const column = this.vm.body.data.map(row => row[this.column.name]);
+        const column = this.vm.body.data
+            .map(row => this.segments.reduce((row, segment) => row[segment], row));
 
         if (this.totals) {
             column.push(this.vm.body.total[this.column.name]);
