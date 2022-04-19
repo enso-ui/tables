@@ -448,6 +448,7 @@ export default {
                 }
             }).catch(error => {
                 this.meta.loading = false;
+                this.$emit('ajax-error', error);
                 this.errorHandler(error);
             });
         },
@@ -461,8 +462,10 @@ export default {
                     if (postEvent) {
                         this.$emit(postEvent, data);
                     }
-                }).catch(this.errorHandler)
-                .finally(() => (this.meta.loading = false));
+                }).catch(error => {
+                    this.$emit('action-error', { postEvent, error });
+                    this.errorHandler(error);
+                }).finally(() => (this.meta.loading = false));
         },
         filterUpdate() {
             if (this.state.ready) {
