@@ -64,6 +64,10 @@ export default {
             default: null,
             type: Object,
         },
+        filterVersion: {
+            default: 1.0,
+            type: Number,
+        },
         http: {
             required: true,
             type: Function,
@@ -100,7 +104,10 @@ export default {
         },
     },
 
-    emits: ['ready', 'reset', 'fetching', 'fetched'],
+    emits: [
+        'ready', 'reset', 'fetching', 'fetched', 'update:filters',
+        'update:intervals', 'update:params',
+    ],
 
     data: () => ({
         ongoingRequest: null,
@@ -158,12 +165,19 @@ export default {
                             },
                         });
                         return collector;
-                    }, []),
+                }, []),
+                filterVersion: this.filterVersion,
+                filters: this.filters,
+                intervals: this.intervals,
+                params: this.params,
                 filterScenarios: this.state.filterScenarios,
             };
         },
+        filterBackupKey() {
+            return `vue-table-${this.id}-filters`;
+        },
         preferencesKey() {
-            return `VueTable_${this.id}_preferences`;
+            return `vue-table-${this.id}-preferences`;
         },
         slots() {
             return this.bodySlots()
@@ -240,22 +254,41 @@ export default {
         loadPreferences() {
             const preferences = this.userPreferences();
 
+            if (!preferences) {
+                return;
+            }
+
             if (this.invalidPreferences(preferences)) {
                 this.clearPreferences();
                 return;
             }
 
             this.matchProperties(preferences.meta, this.meta);
-
             this.matchProperties(preferences.template, this.template);
 
-            preferences.columns.forEach(source => {
-                const dest = this.template.columns
-                    .find(({ name }) => name === source.name);
-                this.matchProperties(source.meta, dest.meta);
-            });
+            const destinationMeta = name => this.template.columns
+                .find(column => column.name === name).meta;
 
-            this.state.filterScenarios = preferences.filterScenarios;
+            preferences.columns.forEach(source => this
+                .matchProperties(source.meta, destinationMeta(source.name)));
+
+            this.loadFilters(preferences);
+        },
+        loadFilters(preferences) {
+             this.state.filterScenarios = preferences.filterScenarios;
+
+            if (this.filterVersion === preferences.filterVersion) {
+                this.updateFilters(preferences);
+            } else {
+                this.backupFilters();
+            }
+        },
+        updateFilters(configuration) {
+            const { filters, intervals, params } = configuration;
+
+            this.$emit('update:filters',filters);
+            this.$emit('update:intervals',intervals);
+            this.$emit('update:params',params);
         },
         matchProperties(source, dest) {
             Object.keys(source).forEach(key => {
@@ -267,9 +300,13 @@ export default {
                 ? JSON.parse(localStorage.getItem(this.preferencesKey))
                 : null;
         },
+        filtersBackup() {
+            return localStorage.getItem(this.filterBackupKey)
+                ? JSON.parse(localStorage.getItem(this.filterBackupKey))
+                : null;
+        },
         invalidPreferences(preferences) {
-            return !preferences
-                || preferences.apiVersion !== this.state.apiVersion
+            return preferences.apiVersion !== this.state.apiVersion
                 || preferences.columns.length !== this.template.columns.length
                 || preferences.columns
                     .some(({ name }) => !this.template.columns
@@ -277,9 +314,6 @@ export default {
         },
         savePreferences() {
             localStorage.setItem(this.preferencesKey, JSON.stringify(this.preferences));
-        },
-        clearPreferences() {
-            localStorage.removeItem(this.preferencesKey);
         },
         reset() {
             this.$emit('reset');
@@ -290,7 +324,21 @@ export default {
                 this.activeScenario().active = false;
             }
 
+            const backup = this.filtersBackup();
+
+            if (backup !== null) {
+                this.updateFilters(backup);
+            }
+
             this.init();
+        },
+        clearPreferences() {
+            localStorage.removeItem(this.preferencesKey);
+        },
+        backupFilters() {
+            const { filters, intervals, params } =  this;
+            const backup = { filters, intervals, params };
+            localStorage.setItem(this.filterBackupKey, JSON.stringify(backup));
         },
         request() {
             if (this.ongoingRequest) {
