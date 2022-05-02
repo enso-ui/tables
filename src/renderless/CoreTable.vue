@@ -255,6 +255,7 @@ export default {
             const preferences = this.userPreferences();
 
             if (!preferences) {
+                this.backupFilters();
                 return;
             }
 
