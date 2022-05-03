@@ -254,12 +254,8 @@ export default {
         loadPreferences() {
             const preferences = this.userPreferences();
 
-            if (!preferences) {
-                this.backupFilters();
-                return;
-            }
-
             if (this.invalidPreferences(preferences)) {
+                this.backupFilters();
                 this.clearPreferences();
                 return;
             }
@@ -273,16 +269,9 @@ export default {
             preferences.columns.forEach(source => this
                 .matchProperties(source.meta, destinationMeta(source.name)));
 
-            this.loadFilters(preferences);
-        },
-        loadFilters(preferences) {
-             this.state.filterScenarios = preferences.filterScenarios;
+            this.state.filterScenarios = preferences.filterScenarios;
 
-            if (this.filterVersion === preferences.filterVersion) {
-                this.updateFilters(preferences);
-            } else {
-                this.backupFilters();
-            }
+            this.updateFilters(preferences);
         },
         updateFilters(configuration) {
             const { filters, intervals, params } = configuration;
@@ -307,7 +296,9 @@ export default {
                 : null;
         },
         invalidPreferences(preferences) {
-            return preferences.apiVersion !== this.state.apiVersion
+            return !preferences
+                || preferences.apiVersion !== this.state.apiVersion
+                || preferences.filterVersion !== this.filterVersion
                 || preferences.columns.length !== this.template.columns.length
                 || preferences.columns
                     .some(({ name }) => !this.template.columns
