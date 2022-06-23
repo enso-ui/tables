@@ -8,16 +8,19 @@
             <tbody>
                 <tr v-for="(row, index) in state.body.data"
                     :key="row[state.template.dtRowId]"
-                    :class="{
-                        [state.template.highlight]: isHighlighted(row[state.template.dtRowId])
-                    }">
+                    :class="[
+                        {[state.template.highlight]: isHighlighted(row[state.template.dtRowId])},
+                        ...cssClasses(row)
+                    ]">
                     <td v-if="isChild(row)"
                         :colspan="hiddenColspan()"
-                        :class="state.template.align">
+                        :class="[
+                            state.template.align, ...cssClasses(row),
+                        ]">
                         <ul>
                             <template v-for="cell in row">
                                 <li class="child-row"
-                                    :class="cell.column.class"
+                                    :class="[cell.column.class, state.body.data[cell.rowCrtNo]._style]"
                                     :key="cell.column.label"
                                     v-if="!cell.column.meta.rogue">
                                     <b>{{ i18n(cell.column.label) }}</b>:
@@ -115,7 +118,6 @@
                                         </a>
                                     </template>
                                 </template>
-
                             </span>
                         </td>
                     </template>
@@ -150,6 +152,14 @@ export default {
     inject: [
         'columnAlignment', 'i18n', 'isChild', 'state', 'visibleColumn',
     ],
+
+    methods: {
+        cssClasses(row) {
+            return row._cssClasses
+                ? row._cssClasses
+                : []
+        }
+    },
 };
 </script>
 
