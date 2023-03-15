@@ -7,7 +7,7 @@
             }">
                 <div class="top-controls has-background-light">
                     <div class="columns is-multiline is-mobile is-variable is-1">
-                        <div class="column table-controls is-narrow-desktop is-half-touch">
+                        <div class="column table-controls is-narrow-desktop is-half-touch is-flex">
                             <length-menu class="mr-1"
                                 v-if="state.template.controls.includes('length')"/>
                             <column-visibility class="mr-1"
