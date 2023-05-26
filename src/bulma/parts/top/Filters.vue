@@ -38,7 +38,7 @@
                     v-if="filter">
                     <component :is="filter.component"
                         :filter="filter"
-                        @vnode-mounted="ready = true"
+                        @vue:mounted="ready = true"
                         ref="filter"/>
                 </div>
                 <dropdown-item v-for="item in filters"
