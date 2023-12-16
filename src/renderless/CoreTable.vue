@@ -513,6 +513,10 @@ export default {
                 this.fetch();
             }
         },
+        selectable(state = true) {
+            this.state.template.selectable = state;
+            this.clearSelected();
+        },
         togglePageSelect() {
             this.body.data.forEach(row => this.toggleRowSelect(row));
 
