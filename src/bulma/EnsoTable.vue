@@ -75,6 +75,9 @@ export default {
         selected() {
             return this.ready && this.$refs.table.selected();
         },
+        selectable(state = true) {
+            return this.ready && this.$refs.table.selectable(state);
+        },
     },
 };
 </script>
