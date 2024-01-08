@@ -9,7 +9,7 @@
                     {{ fromInfo }}
                 </span>
                 <span v-if="hasSelected">
-                    {{ selectedInfo }}
+                    {{ ` ${selectedInfo}` }}
                 </span>
             </template>
         </core-records-info>
