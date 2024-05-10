@@ -230,15 +230,19 @@ export default {
             return this.state.filterScenarios.find(({ active }) => active);
         },
         init() {
+            this.meta.loading = true;
+
             this.http.get(this.path, { params: { params: this.initParams } })
                 .then(({ data }) => {
                     this.prepare(data);
-                    this.$nextTick(() => {
-                        this.state.ready = true;
-                        this.$emit('ready');
-                        this.fetch();
-                    });
-                }).catch(this.errorHandler);
+                    this.meta.loading = false;
+                    this.state.ready = true;
+                    this.$emit('ready');
+                    this.fetch();
+                }).catch(error => {
+                    this.meta.loading = false;
+                    this.errorHandler(error);
+                });
         },
         prepare({ apiVersion, template, meta }) {
             this.state.apiVersion = apiVersion;
@@ -305,7 +309,9 @@ export default {
                         .some(column => name === column.name));
         },
         savePreferences() {
-            localStorage.setItem(this.preferencesKey, JSON.stringify(this.preferences));
+            if (!this.meta.loading) {
+                localStorage.setItem(this.preferencesKey, JSON.stringify(this.preferences));
+            }
         },
         reset() {
             this.$emit('reset');
