@@ -232,13 +232,15 @@ export default {
         init() {
             this.meta.loading = true;
 
-            this.http.get(this.path, { params: { params: this.initParams } })
+            return this.http.get(this.path, { params: { params: this.initParams } })
                 .then(({ data }) => {
                     this.prepare(data);
                     this.meta.loading = false;
-                    this.state.ready = true;
-                    this.$emit('ready');
-                    this.fetch();
+                    this.$nextTick(() => {
+                        this.state.ready = true;
+                        this.$emit('ready');
+                        this.fetch();
+                    });
                 }).catch(error => {
                     this.meta.loading = false;
                     this.errorHandler(error);
@@ -309,9 +311,7 @@ export default {
                         .some(column => name === column.name));
         },
         savePreferences() {
-            if (!this.meta.loading) {
-                localStorage.setItem(this.preferencesKey, JSON.stringify(this.preferences));
-            }
+            localStorage.setItem(this.preferencesKey, JSON.stringify(this.preferences));
         },
         reset() {
             this.$emit('reset');
@@ -324,11 +324,11 @@ export default {
 
             const backup = this.filtersBackup();
 
-            if (backup !== null) {
-                this.updateFilters(backup);
-            }
+            const init = this.init();
 
-            this.init();
+            if (backup !== null) {
+                init.then(() => this.updateFilters(backup));
+            }
         },
         clearPreferences() {
             localStorage.removeItem(this.preferencesKey);
