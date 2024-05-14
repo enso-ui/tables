@@ -327,7 +327,10 @@ export default {
             const init = this.init();
 
             if (backup !== null) {
-                init.then(() => this.updateFilters(backup));
+                init.then(() => {
+                    this.updateFilters(backup);
+                    this.$nextTick(this.backupFilters);
+                });
             }
         },
         clearPreferences() {
