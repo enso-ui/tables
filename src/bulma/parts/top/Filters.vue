@@ -1,29 +1,29 @@
 <template>
     <div class="field is-grouped mb-0">
-        <dropdown class="filters"
+        <dropdown class="filters table-filters table-compact-dropdown"
             :class="{ 'has-select': hasSelect, 'has-filter': filter }"
             manual
             @hide="close"
             ref="dropdown">
             <template #label>
                 <span class="icon">
-                    <fa icon="filter"/>
+                    <fa :icon="faFilter"/>
                 </span>
             </template>
             <template #controls>
                 <template v-if="filter">
-                    <div class="level is-marginless">
+                    <div class="level m-0">
                         <div class="level-item">
                             <span class="tag is-bold is-info">
                                 {{ i18n('Filter') }}: {{ i18n(filter.label) }}
                             </span>
                         </div>
                         <div class="level-item">
-                            <a class="button is-small is-bold"
+                            <a class="button is-small has-text-weight-bold table-filter-action"
                                 @click.stop="filter = null; ready = false;">
                                 {{ i18n('Clear') }}
                             </a>
-                            <a class="button is-small is-bold"
+                            <a class="button is-small has-text-weight-bold table-filter-action"
                                 @click.stop="apply"
                                 v-if="ready && $refs.filter.applicable">
                                 {{ i18n('Apply') }}
@@ -34,7 +34,7 @@
                 </template>
             </template>
             <template #items>
-                <div class="p-2"
+                <div class="p-2 table-filters__surface"
                     v-if="filter">
                     <component :is="filter.component"
                         :filter="filter"
@@ -54,7 +54,6 @@
 
 <script>
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown, DropdownItem } from '@enso-ui/dropdown/bulma';
 import Boolean from './filters/Boolean.vue';
@@ -63,8 +62,6 @@ import Enum from './filters/Enum.vue';
 import Number from './filters/Number.vue';
 import Date from './filters/Date.vue';
 import CustomSelect from './filters/CustomSelect.vue';
-
-library.add(faFilter);
 
 export default {
     name: 'Filters',
@@ -84,6 +81,7 @@ export default {
     inject: ['activeScenario', 'i18n', 'state'],
 
     data: () => ({
+        faFilter,
         ready: false,
         filter: null,
     }),
@@ -188,32 +186,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-    .vue-table .filters.dropdown {
-        > .dropdown-menu > .dropdown-content {
-            width: 12em;
-
-            ul.filters > li {
-                padding: 0.2em 0.4em;
-            }
-
-            .items {
-                max-height: 250px;
-                overflow: scroll;
-
-                .dropdown-item {
-                    padding: .5em .8em;
-                }
-            }
-        }
-
-        &.has-filter > .dropdown-menu > .dropdown-content {
-            width: 24em;
-        }
-
-        &.has-select > .dropdown-menu > .dropdown-content > .items {
-            overflow: visible;
-        }
-    }
-</style>

@@ -7,7 +7,7 @@ export default {
     computed: {
         options() {
             return Object.keys(this.styles)
-                .map(key => ({ value: key, label: this.i18n(this.styles[key]) }));
+                .map(key => ({ value: key, label: this.i18n(key) }));
         },
         selection() {
             return this.state.template.style

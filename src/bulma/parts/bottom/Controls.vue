@@ -1,5 +1,5 @@
 <template>
-    <div class="columns is-gapless has-background-light bottom-controls">
+    <div class="columns is-gapless bottom-controls">
         <div class="column">
             <records-info/>
         </div>
@@ -24,10 +24,3 @@ export default {
     inheritAttrs: false,
 };
 </script>
-
-<style lang="scss">
-    .vue-table .bottom-controls {
-        border-bottom-left-radius: inherit;
-        border-bottom-right-radius: inherit;
-    }
-</style>

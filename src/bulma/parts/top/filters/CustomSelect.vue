@@ -1,6 +1,7 @@
 <template>
     <p class="control">
-        <vue-select v-model="filter.value"
+        <vue-select class="table-filter-select"
+            v-model="filter.value"
             objects
             :http="http"
             :i18n="i18n"

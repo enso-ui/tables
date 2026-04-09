@@ -1,5 +1,5 @@
 <template>
-    <div class="labels field is-grouped is-grouped-multiline has-background-light">
+    <div class="labels table-filter-labels-surface field is-grouped is-grouped-multiline">
         <div class="control"
             v-for="(filter, index) in activeScenario().filters"
             :key="`${filter.type}-${index}`"
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { clickOutside } from '@enso-ui/directives';
 import Boolean from './Boolean.vue';
 import String from './String.vue';
@@ -29,8 +27,6 @@ import Number from './Number.vue';
 import Date from './Date.vue';
 import FilterLabel from './FilterLabel.vue';
 import CustomSelect from './CustomSelect.vue';
-
-library.add(faTimes);
 
 export default {
     name: 'Labels',
@@ -88,20 +84,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-    .labels {
-        a.tag:hover {
-            text-decoration: none;
-        }
-
-        .filter-container {
-            position: absolute;
-            top: 1.7em;
-            z-index: 100;
-            min-width: 18em;
-            max-width: 24em;
-            width: 100%;
-        }
-    }
-</style>

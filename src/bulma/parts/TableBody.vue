@@ -59,7 +59,7 @@
                             <span class="icon is-small hidden-control"
                                 :aria-visible="isExpanded(row)"
                                 v-on="hiddenEvents(row, index)">
-                                <fa icon="chevron-right"/>
+                                <fa :icon="faChevronRight"/>
                             </span>
                         </td>
                         <td :class="state.template.align"
@@ -131,16 +131,9 @@
 import 'v-tooltip/dist/v-tooltip.css';
 import { VTooltip } from 'v-tooltip';
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-    faChevronRight, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
-} from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import CoreTableBody from '../../renderless/CoreTableBody.vue';
 import TableCell from './TableCell.vue';
-
-library.add([
-    faChevronRight, faEye, faPencilAlt, faTrashAlt, faCloudDownloadAlt,
-]);
 
 export default {
     name: 'TableBody',
@@ -153,78 +146,16 @@ export default {
         'columnAlignment', 'i18n', 'isChild', 'state', 'visibleColumn',
     ],
 
+    data: () => ({
+        faChevronRight,
+    }),
+
     methods: {
         cssClasses(row) {
             return row._cssClasses
                 ? row._cssClasses
-                : []
-        }
+                : [];
+        },
     },
 };
 </script>
-
-<style lang="scss">
-    .vue-table {
-        .hidden-control {
-            cursor: pointer;
-            margin-left: auto;
-            margin-top: 0.1em;
-        }
-
-        tbody {
-            overflow-y: hidden;
-        }
-
-        td .icon.hidden-control {
-            &[aria-visible="true"] {
-                transform: rotate(90deg);
-            }
-
-            transition: transform .300s ease;
-        }
-
-        td.table-actions {
-            padding: .35em .5em;
-
-            span.action-buttons {
-                display: inline-flex;
-            }
-
-            .button.is-small {
-                &.is-table-button {
-                    height: 1.6em;
-                    padding: 0.4em;
-                    font-size: .9em;
-                }
-
-                &.is-row-button {
-                    background: 0;
-                    border: none;
-                    opacity: 0.6;
-                    transition: opacity ease 0.3s;
-
-                    &:focus {
-                        box-shadow: unset;
-                    }
-
-                    &:hover {
-                        opacity: 1;
-                    }
-                }
-            }
-        }
-
-        li.child-row:not(:last-child) {
-            border-bottom: 1px solid #efefef;
-        }
-
-        li.child-row {
-            padding: 0.5em 0;
-        }
-
-        .is-number {
-            white-space: pre;
-            font-family: monospace;
-        }
-    }
-</style>

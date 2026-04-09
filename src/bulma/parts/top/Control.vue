@@ -1,13 +1,12 @@
 <template>
-    <a class="button"
+    <a class="button table-action-control"
         :class="button.class">
-        <span class="is-hidden-mobile">
+        <span class="dropdown-action-label">
             {{ i18n(button.label) }}
         </span>
-            <span class="icon is-small">
+        <span class="icon is-small dropdown-action-icon">
             <fa :icon="button.icon"/>
         </span>
-        <span class="is-hidden-mobile"/>
     </a>
 </template>
 

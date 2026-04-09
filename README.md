@@ -32,20 +32,22 @@ Issues not conforming to the guidelines may be closed immediately.
 
 ## Depends on
 
+- `@enso-ui/date`,
+- `@enso-ui/datepicker`,
 - `@enso-ui/directives`,
 - `@enso-ui/dropdown`,
+- `@enso-ui/enums`,
 - `@enso-ui/loader`,
 - `@enso-ui/modal`,
-- `@fortawesome/fontawesome-free`,
+- `@enso-ui/search-mode`,
+- `@enso-ui/select`,
+- `@enso-ui/switch`,
 - `@fortawesome/fontawesome-svg-core`,
 - `@fortawesome/free-solid-svg-icons`,
 - `@fortawesome/vue-fontawesome`,
-- `accounting-js`,
-- `css-element-queries`,
 - `lodash`,
 - `v-tooltip`,
-- `vue`,
-- `vuex`,
+- `vue`
 
 ## Contributions
 
@@ -55,4 +57,4 @@ Thank you to all the people who already contributed to Enso!
 
 ## License
 
-[ISC](https://opensource.org/licenses/ISC)
+[MIT](https://opensource.org/licenses/MIT)

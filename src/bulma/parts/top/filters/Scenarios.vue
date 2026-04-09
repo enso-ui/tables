@@ -1,5 +1,5 @@
 <template>
-    <div class="scenarios field is-grouped is-grouped-multiline has-background-light">
+    <div class="scenarios table-filter-scenarios-surface field is-grouped is-grouped-multiline">
         <div class="control">
             <div class="tags has-addons">
                 <a class="tag is-bold"
@@ -35,13 +35,13 @@
                         <a class="tag is-info"
                             @click="cancel">
                             <span class="icon is-small">
-                                <fa icon="ban"/>
+                                <fa :icon="faBan"/>
                             </span>
                         </a>
                         <a class="tag is-info has-text-white"
                             @click="save">
                             <span class="icon is-small">
-                                <fa icon="check"/>
+                                <fa :icon="faCheck"/>
                             </span>
                         </a>
                     </template>
@@ -49,13 +49,13 @@
                         <a class="tag is-info"
                             @click="edit">
                             <span class="icon is-small">
-                                <fa icon="pencil-alt"/>
+                                <fa :icon="faPen"/>
                             </span>
                         </a>
                         <a class="tag is-info has-text-white"
                             @click="remove">
                             <span class="icon is-small">
-                                <fa icon="times"/>
+                                <fa :icon="faXmark"/>
                             </span>
                         </a>
                     </template>
@@ -67,13 +67,10 @@
 
 <script>
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faSave, faTrashAlt, faPencilAlt, faBan, faCheck, faTimes,
+    faBan, faCheck, faPen, faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { focus, selectOnFocus, resize } from '@enso-ui/directives';
-
-library.add(faSave, faTrashAlt, faPencilAlt, faBan, faCheck, faTimes);
 
 export default {
     name: 'Scenarios',
@@ -85,6 +82,10 @@ export default {
     inject: ['activeScenario', 'i18n', 'state'],
 
     data: () => ({
+        faBan,
+        faCheck,
+        faPen,
+        faXmark,
         original: null,
     }),
 
@@ -145,15 +146,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-    .scenarios {
-        a.tag:hover {
-            text-decoration: none;
-        }
-
-        input.input.is-small {
-            height: 20px;
-        }
-    }
-</style>

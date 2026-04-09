@@ -1,12 +1,12 @@
 <template>
     <div class="number-filter">
         <div class="has-text-centered">
-            <a class="button is-small is-bold"
+            <a class="button is-small has-text-weight-bold"
                 :class="{ 'is-success': filter.mode !== 'interval'}"
                 @click="filter.mode = null; filter.value = null">
                 {{ i18n('Value') }}
             </a>
-            <a class="button is-small is-bold ml-2"
+            <a class="button is-small ml-2 has-text-weight-bold"
                 :class="{ 'is-success': filter.mode === 'interval'}"
                 @click="filter.mode = 'interval'; filter.value = interval()">
                 {{ i18n('Interval') }}

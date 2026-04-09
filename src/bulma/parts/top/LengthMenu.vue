@@ -1,10 +1,16 @@
 <template>
     <core-length-menu>
         <template #default="{ bindings, events }">
-            <vue-select class="length-menu"
+            <vue-select class="length-menu table-control-select"
                 :class="$attrs.class"
                 v-bind="bindings"
-                v-on="events"/>
+                v-on="events">
+                <template #selection="{ selection }">
+                    <span class="selection-label">
+                        {{ selection ? selection.value : bindings.modelValue }}
+                    </span>
+                </template>
+            </vue-select>
         </template>
     </core-length-menu>
 </template>
@@ -21,9 +27,3 @@ export default {
     inject: ['http'],
 };
 </script>
-
-<style lang="scss">
-    .vue-table .length-menu .dropdown {
-        width: unset;
-    }
-</style>

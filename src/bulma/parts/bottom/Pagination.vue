@@ -21,7 +21,7 @@
                     v-if="fullRecordInfo">
                     <li>
                         <a class="pagination-link"
-                            :class="{ 'is-current': page === 1 }"
+                            :class="{ 'is-current': page === 1, 'is-primary': page === 1 }"
                             :disabled="loading || null"
                             @click="jumpTo(1)">
                             1
@@ -35,7 +35,7 @@
                     <li v-for="i in middlePages"
                         :key="i">
                         <a class="pagination-link"
-                            :class="{ 'is-current': page === i }"
+                            :class="{ 'is-current': page === i, 'is-primary': page === i }"
                             :disabled="loading || null"
                             @click="jumpTo(i)">
                             {{ i }}
@@ -48,7 +48,7 @@
                     </li>
                     <li v-if="pages > 1">
                         <a class="pagination-link"
-                            :class="{ 'is-current': page === pages }"
+                            :class="{ 'is-current': page === pages, 'is-primary': page === pages }"
                             :disabled="loading || null"
                             @click="jumpTo(pages)">
                             {{ pages }}
@@ -71,10 +71,3 @@ export default {
     inheritAttrs: false,
 };
 </script>
-
-<style lang="scss">
-    .vue-table .pagination {
-        padding: 0.75em;
-        margin: 0;
-    }
-</style>

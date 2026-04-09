@@ -8,7 +8,7 @@
     <span :class="cssClass"
         @click="meta.clickable ? $emit('clicked') : null"
         v-else>
-        <fa :icon="modelValue ? 'check' : 'times'"
+        <fa :icon="modelValue ? faCheck : faXmark"
             size="sm"
             v-if="meta.boolean"/>
         <fa :icon="modelValue"
@@ -25,6 +25,7 @@
 
 <script>
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
+import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 export default {
     name: 'TableCell',
@@ -32,6 +33,11 @@ export default {
     components: { Fa },
 
     inject: ['i18n'],
+
+    data: () => ({
+        faCheck,
+        faXmark,
+    }),
 
     props: {
         column: {
@@ -57,7 +63,7 @@ export default {
         },
         boolean() {
             return this.meta.boolean && !this.meta.slot
-                ? ['tag is-table-tag icon', this.modelValue ? 'is-success' : 'is-danger']
+                ? ['tag icon', this.modelValue ? 'is-success' : 'is-danger']
                     .join(' ')
                 : null;
         },
@@ -77,18 +83,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-    .is-clickable {
-        cursor: pointer;
-    }
-
-    .tag.is-table-tag {
-        padding: 0 5px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        height: 1.4em;
-        -webkit-box-shadow: 0 1px 1px rgba(10, 10, 10, 0.2);
-        box-shadow: 0 1px 1px rgba(10, 10, 10, 0.2);
-    }
-</style>

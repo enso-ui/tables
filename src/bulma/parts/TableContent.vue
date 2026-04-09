@@ -8,7 +8,7 @@
     </top-controls>
     <div class="table-responsive"
         v-responsive="state.template.responsive">
-        <table class="table is-fullwidth is-marginless"
+        <table class="table is-fullwidth m-0"
             :class="state.template.style"
             :id="id"
             v-if="hasContent()">
@@ -78,29 +78,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-    .vue-table {
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -ms-overflow-style: none;
-
-            overflow: -moz-scrollbars-none;
-
-            &::-webkit-scrollbar {
-                display: none;
-            }
-
-            .table {
-                font-size: 0.9em;
-                td, th {
-                    vertical-align: middle;
-                }
-            }
-        }
-        .no-records-found {
-            padding: 1em;
-        }
-    }
-</style>

@@ -25,10 +25,3 @@ export default {
     components: { CoreRecordsInfo },
 };
 </script>
-
-<style lang="scss" scoped>
-    .vue-table .records-info {
-        font-size: 0.9em;
-        padding: 1em;
-    }
-</style>

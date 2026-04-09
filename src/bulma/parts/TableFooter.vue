@@ -7,7 +7,7 @@
                     :aria-visible="isExpanded"
                     @click="isExpanded = !isExpanded"
                     v-if="hiddenTotals.length">
-                    <fa icon="chevron-right"/>
+                    <fa :icon="faChevronRight"/>
                 </span>
             </td>
             <td v-if="state.template.crtNo"/>
@@ -64,10 +64,7 @@
 
 <script>
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-
-library.add(faChevronRight);
 
 export default {
     name: 'TableFooter',
@@ -80,6 +77,7 @@ export default {
     ],
 
     data: () => ({
+        faChevronRight,
         isExpanded: false,
     }),
 

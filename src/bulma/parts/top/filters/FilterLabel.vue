@@ -7,7 +7,7 @@
         <a class="tag has-background-warning"
            @click="$emit('delete')">
             <span class="icon is-small">
-                <fa icon="times"/>
+                <fa :icon="faXmark"/>
             </span>
         </a>
     </div>
@@ -15,8 +15,7 @@
 
 <script>
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Boolean from './Labels/Boolean';
 import Enum from './Labels/Enum';
 import String from './Labels/String';
@@ -33,14 +32,16 @@ const Types = {
     date: Date,
 };
 
-library.add(faTimes);
-
 export default {
     name: 'FilterLabel',
 
     components: { Fa },
 
     inject: ['i18n', 'state'],
+
+    data: () => ({
+        faXmark,
+    }),
 
     props: {
         filter: {

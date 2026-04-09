@@ -1,6 +1,6 @@
 <template>
     <p class="control is-expanded has-icons-right">
-        <input class="input"
+        <input class="input table-filter-input"
             :placeholder="i18n('Filter')"
             v-focus
             v-model="filter.value"
