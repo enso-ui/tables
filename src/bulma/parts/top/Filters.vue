@@ -1,5 +1,5 @@
 <template>
-    <div class="field is-grouped mb-0">
+    <div class="control">
         <dropdown class="filters table-filters table-compact-dropdown"
             :class="{ 'has-select': hasSelect, 'has-filter': filter }"
             manual
