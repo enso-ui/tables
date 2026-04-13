@@ -59,7 +59,8 @@
                             <span class="icon is-small hidden-control"
                                 :aria-visible="isExpanded(row)"
                                 v-on="hiddenEvents(row, index)">
-                                <fa :icon="faChevronRight"/>
+                                <fa :icon="faChevronRight"
+                                    size="sm"/>
                             </span>
                         </td>
                         <td :class="state.template.align"
@@ -113,7 +114,8 @@
                                                 {{ i18n(button.label) }}
                                             </span>
                                             <span class="icon is-small">
-                                                <fa :icon="button.icon"/>
+                                                <fa :icon="button.icon"
+                                                    size="sm"/>
                                             </span>
                                         </a>
                                     </template>

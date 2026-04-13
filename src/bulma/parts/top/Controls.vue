@@ -46,13 +46,13 @@
                                     :label="button.label"
                                     :css-class="button.class"
                                     v-if="button.slot"/>
-                                <control class="ml-1 table-toolbar-action"
+                                <control class="ml-1"
                                     v-bind="controlBindings(button)"
                                     :key="`${button.label}-${button.icon}`"
                                     :button="button"
                                     v-on="controlEvents(button)"
                                     v-else-if="!button.selection"/>
-                                <control class="ml-1 table-toolbar-action"
+                                <control class="ml-1"
                                     v-bind="controlBindings(button)"
                                     :key="`${button.label}-${button.icon}`"
                                     :button="button"
