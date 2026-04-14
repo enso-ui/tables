@@ -615,6 +615,12 @@
                 letter-spacing: 0;
                 color: var(--bulma-label-color);
             }
+
+            td .tags.has-addons {
+                display: inline-flex;
+                flex-wrap: nowrap;
+                white-space: nowrap;
+            }
         }
     }
 
