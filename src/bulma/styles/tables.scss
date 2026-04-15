@@ -536,14 +536,6 @@
         color: var(--bulma-text-strong);
     }
 
-    .bottom-controls .pagination-link.is-current,
-    .pagination .pagination-link.is-current {
-        font-weight: 600;
-        background-color: var(--bulma-dark) !important;
-        border-color: var(--bulma-dark) !important;
-        color: var(--bulma-dark-invert) !important;
-    }
-
     .pagination-ellipsis,
     .table-header,
     .table-header .sorter,
