@@ -29,7 +29,7 @@
             </table-footer>
         </table>
         <skeleton type="table"
-            :columns="state.template.columns.length"
+            :columns="Math.min(8, state.template.columns.length)"
             :rows="state.meta.length"
             v-if="skeleton"/>
         <overlay v-else-if="showOverlay"/>
