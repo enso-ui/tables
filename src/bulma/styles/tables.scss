@@ -536,6 +536,13 @@
         color: var(--bulma-text-strong);
     }
 
+    .pagination-link.is-current,
+    .pagination-link.is-selected {
+        background-color: var(--bulma-dark);
+        border-color: var(--bulma-dark);
+        color: var(--bulma-dark-invert);
+    }
+
     .pagination-ellipsis,
     .table-header,
     .table-header .sorter,
