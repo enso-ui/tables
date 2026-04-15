@@ -28,19 +28,23 @@
                 </template>
             </table-footer>
         </table>
-        <loader v-if="state.meta.loading === true"/>
+        <skeleton type="table"
+            :columns="state.template.columns.length"
+            :rows="state.meta.length"
+            v-if="skeleton"/>
+        <overlay v-else-if="showOverlay"/>
     </div>
     <bottom-controls v-bind="$attrs"
         v-if="hasContent()"/>
     <div class="has-text-centered no-records-found"
-        v-if="isEmpty()">
+        v-else-if="!skeleton">
         {{ i18n('No records were found') }}
     </div>
     <confirmation v-if="state.confirmation"/>
 </template>
 
 <script>
-import Loader from '@enso-ui/loader/bulma';
+import { Overlay, Skeleton } from '@enso-ui/loader/bulma';
 import TopControls from './top/Controls.vue';
 import TableHeader from './TableHeader.vue';
 import TableBody from './TableBody.vue';
@@ -59,21 +63,25 @@ export default {
         TableHeader,
         TableBody,
         TableFooter,
-        Loader,
+        Overlay,
+        Skeleton,
         BottomControls,
         Confirmation,
     },
 
     inject: [
         'bodySlots', 'controlSlots', 'customTotals', 'hasContent',
-        'hasFooter', 'i18n', 'id', 'isEmpty', 'state', 'visibleColumns',
+        'hasFooter', 'hiddenColumns', 'i18n', 'id', 'isEmpty', 'state', 'visibleColumn',
     ],
 
     inheritAttrs: false,
 
     computed: {
-        columns() {
-            return this.visibleColumns();
+        showOverlay() {
+            return this.state.meta.loading && this.hasContent();
+        },
+        skeleton() {
+            return this.state.meta.loading && !this.hasContent();
         },
     },
 };

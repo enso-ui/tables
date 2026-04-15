@@ -15,6 +15,7 @@
                             <style-selector class="is-hidden-mobile mr-1"
                                 v-if="state.template.controls.includes('style')"/>
                             <a class="button table-toolbar-button mr-1"
+                                :class="{ 'is-loading': state.meta.loading }"
                                 v-on="reloadEvents"
                                 v-if="state.template.controls.includes('reload')">
                                 <span class="icon is-small">
