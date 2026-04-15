@@ -61,7 +61,7 @@
                             </span>
                         </th>
                     </template>
-                    <th class="table-header has-text-centered"
+                    <th class="table-header table-actions has-text-centered"
                         v-if="actions">
                         {{ i18n(actionsLabel) }}
                     </th>

@@ -34,7 +34,8 @@
                         v-else-if="columns[i].meta.customTotal"/>
                 </td>
             </template>
-            <td v-if="state.template.actions"/>
+            <td class="table-actions"
+                v-if="state.template.actions"/>
         </tr>
         <tr v-if="isExpanded">
             <td class="has-text-right"

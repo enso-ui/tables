@@ -644,6 +644,13 @@
         }
     }
 
+    th.table-actions,
+    td.table-actions {
+        width: 1%;
+        min-width: 5.625rem;
+        white-space: nowrap;
+    }
+
     td.table-actions {
         span.action-buttons {
             display: inline-flex;
