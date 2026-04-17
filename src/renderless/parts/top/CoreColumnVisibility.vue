@@ -4,13 +4,9 @@ export default {
 
     inject: ['fetch', 'i18n', 'state', 'visibleColumns'],
 
-    computed: {
-        selection() {
-            return this.visibleColumns().filter(({ meta }) => meta.visible);
-        },
-    },
-
     render() {
+        const options = this.visibleColumns();
+
         return this.$slots.default({
             bindings: {
                 disableClear: true,
@@ -18,10 +14,10 @@ export default {
                 label: 'label',
                 multiple: true,
                 objects: true,
-                options: this.visibleColumns(),
+                options,
                 trackBy: 'name',
                 translated: true,
-                modelValue: this.selection,
+                modelValue: options.filter(({ meta }) => meta.visible),
             },
             events: {
                 select: column => (column.meta.visible = true),

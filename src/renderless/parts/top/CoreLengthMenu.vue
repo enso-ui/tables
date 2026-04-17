@@ -4,31 +4,23 @@ export default {
 
     inject: ['fetch', 'i18n', 'state'],
 
-    computed: {
-        options() {
-            return this.state.template.lengthMenu.map(value => ({ value }));
-        },
-    },
-
-    methods: {
-        update(value) {
-            this.state.meta.length = value;
-            this.fetch();
-        },
-    },
-
     render() {
+        const { meta, template } = this.state;
+
         return this.$slots.default({
             bindings: {
                 disableClear: true,
                 i18n: this.i18n,
                 label: 'value',
-                options: this.options,
+                options: template.lengthMenu.map(value => ({ value })),
                 trackBy: 'value',
-                modelValue: this.state.meta.length,
+                modelValue: meta.length,
             },
             events: {
-                'update:modelValue': this.update,
+                'update:modelValue': value => {
+                    meta.length = value;
+                    this.fetch();
+                },
             },
         });
     },
