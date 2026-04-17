@@ -6,26 +6,24 @@ export default {
 
     computed: {
         options() {
-            return Object.keys(this.styles)
-                .map(key => ({ value: key, label: this.i18n(key) }));
+            return Object.keys(this.state.template.styles)
+                .map(value => ({ value, label: this.i18n(value) }));
         },
         selection() {
-            return this.state.template.style
-                .map(style => Object.keys(this.styles)
-                    .find(key => this.styles[key] === style));
-        },
-        styles() {
-            return this.state.template.styles;
+            const { style, styles } = this.state.template;
+
+            return style.map(current => Object.keys(styles)
+                .find(value => styles[value] === current));
         },
     },
 
     methods: {
         select(selected) {
-            this.state.template.style.push(this.styles[selected]);
+            this.state.template.style.push(this.state.template.styles[selected]);
         },
         deselect(deselected) {
             const index = this.state.template.style
-                .findIndex(style => style === this.styles[deselected]);
+                .findIndex(style => style === this.state.template.styles[deselected]);
 
             this.state.template.style.splice(index, 1);
         },
