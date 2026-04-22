@@ -1,6 +1,6 @@
 {
   "name": "@enso-ui/tables",
-  "version": "4.1.16",
+  "version": "4.1.17",
   "description": "Backend-driven data table engine for Enso UI",
   "main": "index.js",
   "scripts": {
