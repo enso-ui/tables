@@ -553,24 +553,13 @@
     }
 
     .table-header {
-        white-space: nowrap;
-        font-size: var(--bulma-size-small);
-        font-weight: var(--bulma-label-weight);
-        line-height: normal;
-        letter-spacing: 0;
-        color: var(--bulma-label-color);
-
         .is-clickable,
         .sorter {
             cursor: pointer;
         }
 
-        .table-header-controls .sorter {
-            opacity: 0.5;
-
-            &:hover {
-                opacity: 1;
-            }
+        .label {
+            white-space: nowrap;
         }
     }
 

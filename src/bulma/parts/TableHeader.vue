@@ -19,21 +19,24 @@
                     <th v-if="hiddenColumns || preview"/>
                     <th class="table-header has-text-centered"
                         v-if="crtNo">
-                        {{ i18n(crtNoLabel) }}
+                        <span class="label mb-0">
+                            {{ i18n(crtNoLabel) }}
+                        </span>
                     </th>
                     <template v-for="column in columns">
                         <th class="table-header has-text-centered"
                             :key="`${column.label}-${column.name}`"
                             v-if="visibleColumn(column)">
-                            <span class="is-clickable"
-                                v-on="sortEvents(column)"
-                                v-if="column.meta.sortable">
-                                {{ i18n(column.label) }}
-                            </span>
-                            <span v-else>
-                                {{ i18n(column.label) }}
-                            </span>
-                            <span class="table-header-controls">
+                            <div class="is-flex is-align-items-center is-justify-content-center is-flex-wrap-nowrap">
+                                <span class="is-clickable label mb-0"
+                                    v-on="sortEvents(column)"
+                                    v-if="column.meta.sortable">
+                                    {{ i18n(column.label) }}
+                                </span>
+                                <span class="label mb-0"
+                                    v-else>
+                                    {{ i18n(column.label) }}
+                                </span>
                                 <span class="icon is-small has-text-info"
                                     v-if="column.tooltip"
                                     v-tooltip="i18n(column.tooltip)">
@@ -58,12 +61,14 @@
                                 <a class="delete is-small"
                                     v-on="clearSortEvents(column)"
                                     v-if="column.meta.sort"/>
-                            </span>
+                            </div>
                         </th>
                     </template>
                     <th class="table-header table-actions has-text-centered"
                         v-if="actions">
-                        {{ i18n(actionsLabel) }}
+                        <span class="label mb-0">
+                            {{ i18n(actionsLabel) }}
+                        </span>
                     </th>
                 </tr>
             </template>
