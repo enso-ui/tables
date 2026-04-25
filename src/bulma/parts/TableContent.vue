@@ -32,7 +32,8 @@
             :columns="Math.min(8, state.template.columns.length)"
             :rows="state.meta.length"
             v-if="skeleton"/>
-        <loader v-else-if="showOverlay"/>
+        <loader class="is-dark"
+            v-else-if="showOverlay"/>
     </div>
     <bottom-controls v-bind="$attrs"
         v-if="hasContent()"/>

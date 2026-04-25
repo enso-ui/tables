@@ -1,9 +1,8 @@
 <template>
     <core-column-visibility>
         <template #default="{ bindings, events }">
-            <vue-select class="table-select"
+            <vue-select class="table-select column-visibility"
                 :class="$attrs.class"
-                style="--table-menu-width: fit-content; --table-menu-min-width: 10.5rem; --table-menu-max-width: 13rem;"
                 v-bind="bindings"
                 v-on="events">
                 <template #selection>
@@ -36,3 +35,11 @@ export default {
     }),
 };
 </script>
+
+<style lang="scss">
+    .column-visibility {
+        --table-menu-width: fit-content;
+        --table-menu-min-width: 10.5rem;
+        --table-menu-max-width: 13rem;
+    }
+</style>

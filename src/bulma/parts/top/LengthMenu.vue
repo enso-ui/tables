@@ -1,9 +1,8 @@
 <template>
     <core-length-menu>
         <template #default="{ bindings, events }">
-            <vue-select class="table-select"
+            <vue-select class="table-select length-menu"
                 :class="$attrs.class"
-                style="--table-menu-width: 4.5rem; --table-menu-min-width: 4.5rem; --table-menu-max-width: 4.5rem;"
                 v-bind="bindings"
                 v-on="events">
                 <template #selection="{ selection }">
@@ -28,3 +27,11 @@ export default {
     inject: ['http'],
 };
 </script>
+
+<style lang="scss">
+    .length-menu {
+        --table-menu-width: 4.5rem;
+        --table-menu-min-width: 4.5rem;
+        --table-menu-max-width: 4.5rem;
+    }
+</style>

@@ -1,9 +1,8 @@
 <template>
     <core-style-selector>
         <template #default="{ bindings, events }">
-            <vue-select class="table-select"
+            <vue-select class="table-select style-selector"
                 :class="$attrs.class"
-                style="--table-menu-width: 8rem; --table-menu-min-width: 8rem; --table-menu-max-width: 8rem;"
                 v-bind="bindings"
                 v-on="events">
                 <template #selection>
@@ -34,3 +33,11 @@ export default {
     }),
 };
 </script>
+
+<style lang="scss">
+    .style-selector {
+        --table-menu-width: 8rem;
+        --table-menu-min-width: 8rem;
+        --table-menu-max-width: 8rem;
+    }
+</style>
