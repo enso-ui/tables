@@ -17,11 +17,11 @@
                         v-if="hasFilters()">
                         <fa :icon="faFilter"/>
                     </span>
-                    <span class="icon is-small is-left has-text-muted"
+                    <span class="icon is-small is-left"
                         v-else>
                         <fa :icon="faSearch"/>
                     </span>
-                    <span class="is-right icon is-small has-text-muted is-clickable"
+                    <span class="is-right icon is-small is-clickable"
                         v-if="search">
                         <a class="delete is-small"
                             v-on="clearEvents"/>
