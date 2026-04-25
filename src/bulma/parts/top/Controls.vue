@@ -32,7 +32,7 @@
                             <a class="button"
                                 v-on="forceInfoEvents"
                                 v-if="!state.body.fullRecordInfo">
-                                <span class="icon is-small has-text-info">
+                                <span class="icon is-small has-text-dark">
                                     <fa :icon="faCircleInfo"/>
                                 </span>
                             </a>

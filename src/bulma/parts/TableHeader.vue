@@ -37,7 +37,7 @@
                                     v-else>
                                     {{ i18n(column.label) }}
                                 </span>
-                                <span class="icon is-small has-text-info"
+                                <span class="icon is-small has-text-dark"
                                     v-if="column.tooltip"
                                     v-tooltip="i18n(column.tooltip)">
                                     <fa :icon="faCircleInfo"

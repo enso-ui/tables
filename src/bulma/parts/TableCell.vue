@@ -69,7 +69,7 @@ export default {
         },
         clickable() {
             return this.meta.clickable
-                ? 'is-clickable has-text-info'
+                ? 'is-clickable has-text-link'
                 : null;
         },
         icon() {

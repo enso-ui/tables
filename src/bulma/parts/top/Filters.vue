@@ -200,6 +200,17 @@ export default {
 
 <style lang="scss">
 .filters.dropdown {
+    .field.has-addons > .control:first-child:not(:only-child) & {
+        .dropdown-menu {
+            .button.input,
+            .input,
+            .select select {
+                border-start-end-radius: var(--bulma-radius);
+                border-end-end-radius: var(--bulma-radius);
+            }
+        }
+    }
+
     > .dropdown-menu > .dropdown-content {
         width: 12em;
 
@@ -224,9 +235,10 @@ export default {
     &.has-select > .dropdown-menu > .dropdown-content > .items {
         overflow: visible;
     }
+
     .dropdown-menu {
         .button.input,
-        .input  {
+        .input {
             border-radius: var(--bulma-radius);
         }
     }

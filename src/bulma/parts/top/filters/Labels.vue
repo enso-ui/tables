@@ -1,5 +1,5 @@
 <template>
-    <div class="labels table-filter-labels-surface field is-grouped is-grouped-multiline">
+    <div class="labels field is-grouped is-grouped-multiline">
         <div class="control"
             v-for="(filter, index) in activeScenario().filters"
             :key="`${filter.type}-${index}`"
