@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <scenarios class="px-2"
+                <scenarios class="p-1"
                     v-if="filterScenarios"/>
                 <labels class="px-2"
                     v-if="filterLabels"/>

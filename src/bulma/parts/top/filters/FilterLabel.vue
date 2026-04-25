@@ -1,10 +1,10 @@
 <template>
     <div class="tags has-addons">
-        <a class="tag is-warning"
+        <a class="tag"
            @click="$emit('select')">
-            {{ label }} {{ preposition }}: {{ value }}
+            {{ label }} {{ preposition }}&nbsp;<span class="has-text-weight-bold">{{ value }}</span>
         </a>
-        <a class="tag has-background-warning"
+        <a class="tag"
            @click="$emit('delete')">
             <span class="icon is-small">
                 <fa :icon="faXmark"/>

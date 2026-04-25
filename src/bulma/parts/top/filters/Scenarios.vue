@@ -1,9 +1,9 @@
 <template>
-    <div class="scenarios table-filter-scenarios-surface field is-grouped is-grouped-multiline">
+    <div class="scenarios field is-grouped is-grouped-multiline">
         <div class="control">
             <div class="tags has-addons">
-                <a class="tag is-bold"
-                    :class="none ? 'is-info' : 'is-warning'"
+                <a class="tag"
+                    :class="{ 'is-warning' : activeScenario() }"
                     @click="all">
                     {{ i18n('all') }}
                 </a>
@@ -13,32 +13,31 @@
             v-for="(scenario, index) in state.filterScenarios"
             :key="index">
             <div class="tags has-addons">
-                <a class="tag is-bold"
-                    :class="scenario.active ? 'is-info' : 'is-warning'"
+                <a class="tag"
                     v-if="scenario.edit && scenario.active">
-                    <input class="input is-small has-background-info has-text-white is-bold"
-                        :class="{ 'has-background-danger': duplicate }"
+                    <input class="input is-small"
+                        :class="{ 'has-text-danger': duplicate }"
                         v-model="scenario.name"
                         v-resize
                         v-focus
                         v-select-on-focus
                         @keydown.enter="save">
                 </a>
-                <a class="tag is-bold"
-                    :class="scenario.active ? 'is-info' : 'is-warning'"
+                <a class="tag"
+                    :class="{ 'is-dark': scenario.active }"
                     @click="select(scenario)"
                     v-else>
                     {{ scenario.name }}
                 </a>
                 <template v-if="scenario.active">
                     <template v-if="scenario.edit">
-                        <a class="tag is-info"
+                        <a class="tag"
                             @click="cancel">
                             <span class="icon is-small">
                                 <fa :icon="faBan"/>
                             </span>
                         </a>
-                        <a class="tag is-info has-text-white"
+                        <a class="tag"
                             @click="save">
                             <span class="icon is-small">
                                 <fa :icon="faCheck"/>
@@ -46,13 +45,14 @@
                         </a>
                     </template>
                     <template v-else>
-                        <a class="tag is-info"
+                        <a class="tag"
                             @click="edit">
                             <span class="icon is-small">
-                                <fa :icon="faPen"/>
+                                <fa :icon="faPen"
+                                    size="sm"/>
                             </span>
                         </a>
-                        <a class="tag is-info has-text-white"
+                        <a class="tag"
                             @click="remove">
                             <span class="icon is-small">
                                 <fa :icon="faXmark"/>
@@ -96,9 +96,6 @@ export default {
         duplicate() {
             return this.state.filterScenarios
                 .filter(({ name }) => name === this.activeScenario()?.name).length > 1;
-        },
-        none() {
-            return !this.activeScenario();
         },
     },
 
