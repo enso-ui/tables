@@ -13,7 +13,7 @@
                         type="text"
                         v-on="searchEvents"
                         :placeholder="i18n('Search')">
-                    <span class="icon is-small is-left has-text-muted has-active-filters"
+                    <span class="icon is-small is-left has-text-danger has-active-filters"
                         v-if="hasFilters()">
                         <fa :icon="faFilter"/>
                     </span>
@@ -26,7 +26,7 @@
                         <a class="delete is-small"
                             v-on="clearEvents"/>
                     </span>
-                    <search-mode class="is-right is-small has-text-muted search-mode"
+                    <search-mode class="is-right is-small is-clickable search-mode"
                         v-bind="modeBindings"
                         v-on="modeEvents"
                         v-if="modeSelector"/>
@@ -75,23 +75,17 @@ export default {
     pointer-events: all;
 
     &.search-mode {
-        top: 1px;
-        bottom: 1px;
         width: 2.7rem;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        border-left: 1px solid var(--bulma-border);
-        color: var(--bulma-text-light);
 
         [dir='ltr'] & {
-            right: 0.05rem;
+            right: 1.5rem;
         }
 
         [dir='rtl'] & {
-            left: 0.05rem;
-            border-left: 0;
-            border-right: 1px solid var(--bulma-border);
+            left: 1.5rem;
         }
 
         .icon {
