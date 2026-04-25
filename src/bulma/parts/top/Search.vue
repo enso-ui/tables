@@ -26,7 +26,7 @@
                         <a class="delete is-small"
                             v-on="clearEvents"/>
                     </span>
-                    <search-mode class="is-right is-small has-text-muted global-search-mode"
+                    <search-mode class="is-right is-small has-text-muted search-mode"
                         v-bind="modeBindings"
                         v-on="modeEvents"
                         v-if="modeSelector"/>
@@ -56,3 +56,47 @@ export default {
     }),
 };
 </script>
+
+<style lang="scss">
+.table-search-input {
+    color: var(--bulma-input-color);
+    padding-inline-end: 4.8rem;
+
+    &::placeholder {
+        color: var(--bulma-text-light);
+    }
+}
+
+.has-active-filters {
+    color: var(--bulma-warning);
+}
+
+.is-right.icon {
+    pointer-events: all;
+
+    &.search-mode {
+        top: 1px;
+        bottom: 1px;
+        width: 2.7rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-left: 1px solid var(--bulma-border);
+        color: var(--bulma-text-light);
+
+        [dir='ltr'] & {
+            right: 0.05rem;
+        }
+
+        [dir='rtl'] & {
+            left: 0.05rem;
+            border-left: 0;
+            border-right: 1px solid var(--bulma-border);
+        }
+
+        .icon {
+            margin: 0;
+        }
+    }
+}
+</style>

@@ -32,7 +32,7 @@
             :columns="Math.min(8, state.template.columns.length)"
             :rows="state.meta.length"
             v-if="skeleton"/>
-        <overlay v-else-if="showOverlay"/>
+        <loader v-else-if="showOverlay"/>
     </div>
     <bottom-controls v-bind="$attrs"
         v-if="hasContent()"/>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { Overlay, Skeleton } from '@enso-ui/loader/bulma';
+import { Loader, Skeleton } from '@enso-ui/loader/bulma';
 import TopControls from './top/Controls.vue';
 import TableHeader from './TableHeader.vue';
 import TableBody from './TableBody.vue';
@@ -63,7 +63,7 @@ export default {
         TableHeader,
         TableBody,
         TableFooter,
-        Overlay,
+        Loader,
         Skeleton,
         BottomControls,
         Confirmation,

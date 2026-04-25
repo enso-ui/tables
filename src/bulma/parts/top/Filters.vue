@@ -1,6 +1,6 @@
 <template>
     <div class="control">
-        <dropdown class="filters table-filters table-compact-dropdown"
+        <dropdown class="filters table-filters table-dropdown"
             :class="{ 'has-select': hasSelect, 'has-filter': filter }"
             manual
             @hide="close"
@@ -12,29 +12,40 @@
             </template>
             <template #controls>
                 <template v-if="filter">
-                    <div class="level m-0">
-                        <div class="level-item">
-                            <span class="tag is-bold is-info">
-                                {{ i18n('Filter') }}: {{ i18n(filter.label) }}
-                            </span>
+                    <div class="level mb-0">
+                        <div class="level-left">
+                            <div class="level-item mx-2">
+                                <span class="tag">
+                                    {{ i18n('Filter') }}: {{ i18n(filter.label) }}
+                                </span>
+                            </div>
                         </div>
-                        <div class="level-item">
-                            <a class="button is-small has-text-weight-bold table-filter-action"
-                                @click.stop="filter = null; ready = false;">
-                                {{ i18n('Clear') }}
-                            </a>
-                            <a class="button is-small has-text-weight-bold table-filter-action"
-                                @click.stop="apply"
-                                v-if="ready && $refs.filter.applicable">
-                                {{ i18n('Apply') }}
-                            </a>
+                        <div class="level-right">
+                            <div class="level-item"
+                                v-if="ready">
+                                <a class="button is-small is-naked"
+                                    @click.stop="apply"
+                                    v-if="$refs.filter.applicable">
+                                    <span class="icon">
+                                        <fa icon="check"/>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="level-item">
+                                <a class="button is-naked is-small"
+                                    @click.stop="filter = null; ready = false;">
+                                    <span class="icon">
+                                        <fa icon="xmark"/>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <hr class="is-dropdown-divider m-2">
                 </template>
             </template>
             <template #items>
-                <div class="p-2 table-filters__surface"
+                <div class="p-2"
                     v-if="filter">
                     <component :is="filter.component"
                         :filter="filter"
@@ -54,7 +65,7 @@
 
 <script>
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
-import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faFilter, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown, DropdownItem } from '@enso-ui/dropdown/bulma';
 import Boolean from './filters/Boolean.vue';
 import String from './filters/String.vue';
@@ -186,3 +197,38 @@ export default {
     },
 };
 </script>
+
+<style lang="scss">
+.filters.dropdown {
+    > .dropdown-menu > .dropdown-content {
+        width: 12em;
+
+        ul.filters > li {
+            padding: 0.2em 0.4em;
+        }
+
+        .items {
+            max-height: 250px;
+            overflow: scroll;
+
+            .dropdown-item {
+                padding: 0.5em 0.8em;
+            }
+        }
+    }
+
+    &.has-filter > .dropdown-menu > .dropdown-content {
+        width: 24em;
+    }
+
+    &.has-select > .dropdown-menu > .dropdown-content > .items {
+        overflow: visible;
+    }
+    .dropdown-menu {
+        .button.input,
+        .input  {
+            border-radius: var(--bulma-radius);
+        }
+    }
+}
+</style>

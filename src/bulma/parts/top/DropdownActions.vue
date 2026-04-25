@@ -2,7 +2,7 @@
     <core-dropdown-actions>
         <template #default="{ buttons, disabled, controlBindings,
             controlEvents, hasSelection }">
-             <dropdown class="dropdown-actions table-compact-dropdown is-right"
+             <dropdown class="dropdown-actions table-dropdown is-right"
                 ref="dropdown"
                 :disabled="disabled">
                 <template #label>
@@ -56,3 +56,63 @@ export default {
     }),
 };
 </script>
+
+<style lang="scss">
+.dropdown.dropdown-actions {
+    width: unset;
+
+    .dropdown-menu {
+        width: unset;
+    }
+
+    .dropdown-content {
+        background: var(--bulma-scheme-main);
+        border: 1px solid var(--bulma-border);
+        border-radius: var(--bulma-radius);
+        overflow: hidden;
+    }
+
+    .dropdown-item {
+        padding: 0;
+        background: transparent !important;
+        border-bottom: 1px solid color-mix(in srgb, var(--bulma-border) 40%, transparent);
+    }
+
+    .dropdown-item:last-child {
+        border-bottom: 0;
+    }
+
+    .dropdown-action-control.button {
+        width: 100%;
+        min-height: unset;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.6rem 0.85rem;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        color: var(--bulma-dropdown-item-color) !important;
+        font-weight: 500;
+    }
+
+    .dropdown-action-control.button.is-dark,
+    .dropdown-action-control.button.is-black,
+    .dropdown-action-control.button.has-background-dark,
+    .dropdown-action-control.button.has-background-black {
+        background: transparent !important;
+        background-color: transparent !important;
+        color: var(--bulma-dropdown-item-color) !important;
+    }
+
+    .dropdown-action-control.button:hover,
+    .dropdown-action-control.button:focus,
+    .dropdown-item.is-active .dropdown-action-control.button,
+    .dropdown-item.is-current .dropdown-action-control.button {
+        background: var(--bulma-scheme-main-ter) !important;
+        color: var(--bulma-text-strong) !important;
+    }
+}
+</style>

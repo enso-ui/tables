@@ -5,7 +5,7 @@
                 controlBindings, controlEvents, filterLabels, filterScenarios,
                 forceInfoEvents, hasSelection, reloadEvents, resetEvents, state,
             }">
-                <div class="top-controls table-top-controls-surface">
+                <div class="top-controls">
                     <div class="columns is-multiline is-mobile is-variable is-1">
                         <div class="column table-controls is-narrow-desktop is-half-touch is-flex">
                             <length-menu class="mr-1"
@@ -14,7 +14,7 @@
                                 v-if="state.template.controls.includes('columns')"/>
                             <style-selector class="is-hidden-mobile mr-1"
                                 v-if="state.template.controls.includes('style')"/>
-                            <a class="button table-toolbar-button mr-1"
+                            <a class="button mr-1"
                                 :class="{ 'is-loading': state.meta.loading }"
                                 v-on="reloadEvents"
                                 v-if="state.template.controls.includes('reload')">
@@ -22,14 +22,14 @@
                                     <fa :icon="faArrowsRotate"/>
                                 </span>
                             </a>
-                            <a class="button table-toolbar-button mr-1"
+                            <a class="button mr-1"
                                 v-on="resetEvents"
                                 v-if="state.template.controls.includes('reset')">
                                 <span class="icon is-small">
                                     <fa :icon="faRotateLeft"/>
                                 </span>
                             </a>
-                            <a class="button table-toolbar-button"
+                            <a class="button"
                                 v-on="forceInfoEvents"
                                 v-if="!state.body.fullRecordInfo">
                                 <span class="icon is-small has-text-info">

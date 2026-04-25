@@ -1,61 +1,3 @@
-@mixin table-compact-trigger {
-    min-height: var(--bulma-control-height);
-    height: var(--bulma-control-height);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding-block: 0;
-    padding-inline-start: 0.65rem;
-    padding-inline-end: 1.55rem;
-}
-
-@mixin table-compact-leading-icon {
-    margin: 0;
-    width: 1.25rem;
-    height: 1.25rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
-    line-height: 1;
-}
-
-@mixin table-compact-indicator-offset {
-    [dir='ltr'] & {
-        right: 0.64rem;
-    }
-
-    [dir='rtl'] & {
-        left: 0.64rem;
-    }
-}
-
-@mixin table-icon-select-item {
-    display: flex;
-    position: relative;
-    width: 100%;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    margin: 0;
-    padding: 0.5rem 1.15rem 0.5rem 0.75rem;
-    text-align: left;
-    white-space: nowrap;
-
-    > span:not(.icon) {
-        display: block;
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-
-    .icon.selected {
-        position: static;
-        flex: 0 0 auto;
-        margin: 0;
-    }
-}
-
 .vue-table {
     .wrapper {
         border-top-left-radius: inherit;
@@ -91,132 +33,20 @@
         }
     }
 
-    .top-controls,
-    .labels,
-    .scenarios,
-    .bottom-controls,
-    thead tr,
-    tfoot tr {
-        background-color: var(--enso-table-toolbar-surface);
-        color: var(--bulma-text-strong);
+    .table-select,
+    .table-dropdown {
+        --table-trigger-width: 4.5rem;
     }
 
-    .top-controls,
-    .labels,
-    .scenarios,
-    .bottom-controls {
-        border-color: var(--enso-surface-border);
-    }
+    .table-select {
+        --table-menu-width: auto;
+        --table-menu-min-width: 100%;
+        --table-menu-max-width: none;
 
-    .top-controls .dropdown:not(.dropdown-actions) .button,
-    .labels .filter-container,
-    .scenarios .dropdown-content {
-        border-color: var(--enso-surface-border);
-        color: var(--bulma-input-color);
-        box-shadow: none;
-    }
-
-    .top-controls .dropdown:not(.dropdown-actions) .button:hover,
-    .top-controls .dropdown:not(.dropdown-actions) .button:focus {
-        border-color: var(--bulma-input-hover-border-color);
-        color: var(--bulma-text-strong);
-    }
-
-    .top-controls .table-search-input,
-    .filters.dropdown .table-filter-input {
-        color: var(--bulma-input-color);
-
-        &::placeholder {
-            color: var(--bulma-text-light);
-        }
-    }
-
-    .top-controls .table-toolbar-button,
-    .top-controls .table-action-control,
-    .filters.dropdown .table-filter-action,
-    .filters.dropdown .table-filter-mode-button {
-        color: var(--bulma-text-strong);
-
-        &:hover,
-        &:focus {
-            background-color: var(--enso-filter-surface);
-            color: var(--bulma-text-strong);
-        }
-    }
-
-    .top-controls .search .icon.is-left.has-active-filters {
-        color: var(--bulma-warning);
-    }
-
-    .top-controls .table-toolbar-action.button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        min-height: var(--bulma-control-height);
-        padding-inline: 0.9rem;
-    }
-
-    .top-controls .table-toolbar-action .dropdown-action-label {
-        display: block;
-        flex: 0 1 auto;
-        min-width: 0;
-        white-space: nowrap;
-    }
-
-    .top-controls .table-toolbar-action .dropdown-action-icon {
-        display: inline-flex;
-        flex: 0 0 auto;
-        align-items: center;
-        justify-content: center;
-        margin: 0;
-    }
-
-    .top-controls .search .input {
-        padding-inline-end: 4.8rem;
-    }
-
-    .top-controls .is-right.icon {
-        pointer-events: all;
-
-        &.global-search-mode {
-            top: 1px;
-            bottom: 1px;
-            width: 2.7rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-left: 1px solid var(--bulma-border);
-            color: var(--bulma-text-light);
-
-            [dir='ltr'] & {
-                right: 0.05rem;
-            }
-
-            [dir='rtl'] & {
-                left: 0.05rem;
-                border-left: 0;
-                border-right: 1px solid var(--bulma-border);
-            }
-
-            .icon {
-                margin: 0;
-            }
-        }
-    }
-
-    .top-controls .table-control-select {
-        --enso-select-width: auto;
-        --enso-select-trigger-container-width: auto;
-        --enso-select-trigger-surface: var(--bulma-scheme-main);
-        --enso-select-trigger-border: var(--bulma-border);
-        --enso-select-dropdown-width: auto;
-        --enso-select-dropdown-min-width: 100%;
-        --enso-select-dropdown-surface: var(--bulma-scheme-main-bis);
-        --enso-select-dropdown-border: var(--bulma-border);
-        --enso-select-dropdown-radius: var(--bulma-radius);
-        --enso-select-item-color: var(--bulma-dropdown-item-color);
-        --enso-select-item-hover-surface: var(--bulma-scheme-main-ter);
-        --enso-select-item-hover-color: var(--bulma-text-strong);
+        --enso-select-width: var(--table-trigger-width);
+        --enso-select-dropdown-width: var(--table-menu-width);
+        --enso-select-dropdown-min-width: var(--table-menu-min-width);
+        --enso-select-dropdown-max-width: var(--table-menu-max-width);
 
         .dropdown.vue-dropdown .dropdown-content {
             overflow: hidden;
@@ -227,256 +57,33 @@
             }
         }
 
-        .dropdown.vue-dropdown .dropdown-trigger {
-            display: flex;
-            align-items: center;
-        }
-
         .dropdown.vue-dropdown .dropdown-trigger .button.input {
-            @include table-compact-trigger;
-        }
-
-        .dropdown.vue-dropdown .dropdown-trigger .button.input .icon:first-child,
-        .dropdown.vue-dropdown .dropdown-trigger .button.input .image:first-child {
-            @include table-compact-leading-icon;
-        }
-
-        .dropdown.vue-dropdown .dropdown-trigger .button.input .dropdown-indicator {
-            @include table-compact-indicator-offset;
+            width: var(--table-trigger-width);
+            min-width: var(--table-trigger-width);
+            padding-inline-start: 0.65rem;
+            padding-inline-end: 1.55rem;
         }
     }
 
-    .top-controls .table-compact-dropdown > .dropdown-trigger {
-        display: flex;
-        align-items: center;
-    }
-
-    .top-controls .table-compact-dropdown > .dropdown-trigger .button.input {
-        @include table-compact-trigger;
-        justify-content: center;
-    }
-
-    .top-controls .table-compact-dropdown > .dropdown-trigger .button.input > .icon:first-child {
-        @include table-compact-leading-icon;
-    }
-
-    .top-controls .table-compact-dropdown > .dropdown-trigger .button.input > .dropdown-indicator {
-        @include table-compact-indicator-offset;
-    }
-
-    .top-controls .table-control-select:not(.table-icon-select) {
-        .dropdown.vue-dropdown .dropdown-content .dropdown-item {
-            justify-content: flex-start;
-            padding: 0.45rem 0.75rem;
-            gap: 0.5rem;
-        }
-    }
-
-    .top-controls .length-menu.table-control-select {
-        --enso-select-dropdown-width: 4.5rem;
-        --enso-select-dropdown-min-width: 4.5rem;
-        --enso-select-dropdown-max-width: 4.5rem;
-    }
-
-    .top-controls .table-icon-select {
-        --enso-select-dropdown-width: fit-content;
-        --enso-select-dropdown-min-width: 10.5rem;
-        --enso-select-dropdown-max-width: 13rem;
-
-        .dropdown {
-            width: unset;
-
-            .icon:first-child:last-child {
-                margin-left: unset;
-                margin-right: unset;
-            }
-
-            .dropdown-menu {
-                width: unset;
-            }
-        }
-
-        .dropdown.vue-dropdown .dropdown-content .dropdown-item {
-            @include table-icon-select-item;
-        }
-    }
-
-    .top-controls .style-selector.table-icon-select {
-        --enso-select-dropdown-width: 8rem;
-        --enso-select-dropdown-min-width: 8rem;
-        --enso-select-dropdown-max-width: 8rem;
-
-        .dropdown.vue-dropdown .dropdown-content {
-            .items {
-                width: 100%;
-            }
-
-            .dropdown-item {
-                display: block;
-                width: 100%;
-                box-sizing: border-box;
-                padding: 0.5rem 2rem 0.5rem 0.75rem;
-            }
-
-            .dropdown-item .icon.selected {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-
-                [dir='ltr'] & {
-                    right: 0.75rem;
-                }
-
-                [dir='rtl'] & {
-                    left: 0.75rem;
-                }
-            }
-        }
-    }
-
-    .dropdown.dropdown-actions {
+    .table-dropdown {
         width: unset;
 
-        .dropdown-menu {
+        > .dropdown-trigger .button.input {
+            width: var(--table-trigger-width);
+            min-width: var(--table-trigger-width);
+            padding-inline-start: 0.65rem;
+            padding-inline-end: 1.55rem;
+        }
+
+        > .dropdown-menu {
             width: unset;
         }
-
-        .dropdown-content {
-            min-width: 9.9rem;
-            background: var(--bulma-scheme-main);
-            border: 1px solid var(--bulma-border);
-            border-radius: var(--bulma-radius);
-            overflow: hidden;
-        }
-
-        .dropdown-item {
-            padding: 0;
-            background: transparent !important;
-            border-bottom: 1px solid color-mix(in srgb, var(--bulma-border) 40%, transparent);
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: 0;
-        }
-
-        .dropdown-action-control.button {
-            width: 100%;
-            min-height: unset;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.5rem;
-            padding: 0.6rem 0.85rem;
-            border: 0 !important;
-            border-radius: 0 !important;
-            box-shadow: none !important;
-            background: transparent !important;
-            color: var(--bulma-dropdown-item-color) !important;
-            font-weight: 500;
-        }
-
-        .dropdown-action-control.button.is-dark,
-        .dropdown-action-control.button.is-black,
-        .dropdown-action-control.button.has-background-dark,
-        .dropdown-action-control.button.has-background-black {
-            background: transparent !important;
-            background-color: transparent !important;
-            color: var(--bulma-dropdown-item-color) !important;
-        }
-
-        .dropdown-action-control.button:hover,
-        .dropdown-action-control.button:focus,
-        .dropdown-item.is-active .dropdown-action-control.button,
-        .dropdown-item.is-current .dropdown-action-control.button {
-            background: var(--bulma-scheme-main-ter) !important;
-            color: var(--bulma-text-strong) !important;
-        }
-
-        .dropdown-action-label {
-            flex: 1 1 auto;
-            min-width: 0;
-            text-align: left;
-            white-space: nowrap;
-        }
-
-        .dropdown-action-icon {
-            flex: 0 0 1.25rem;
-            width: 1.25rem;
-            justify-content: center;
-            margin-left: auto;
-        }
     }
 
-    .filters.dropdown {
-        .table-filter-action,
-        .table-filter-mode-button {
-            box-shadow: none;
-        }
-
-        > .dropdown-menu > .dropdown-content {
-            width: 12em;
-            background-color: var(--enso-table-toolbar-surface);
-            border: 1px solid var(--enso-surface-border);
-            box-shadow: none;
-
-            ul.filters > li {
-                padding: 0.2em 0.4em;
-            }
-
-            .items {
-                max-height: 250px;
-                overflow: scroll;
-
-                .dropdown-item {
-                    padding: 0.5em 0.8em;
-                }
-            }
-        }
-
-        &.has-filter > .dropdown-menu > .dropdown-content {
-            width: 24em;
-        }
-
-        &.has-select > .dropdown-menu > .dropdown-content > .items {
-            overflow: visible;
-        }
-
-        .flatpickr-input,
-        .input {
-            border-color: var(--enso-surface-border);
-            box-shadow: none;
-            color: var(--bulma-text-strong);
-        }
-
-        .table-filters__surface {
-            background-color: var(--enso-filter-surface);
-        }
-
-        .vue-select {
-            --enso-select-trigger-surface: var(--enso-filter-control-surface);
-            --enso-select-trigger-border: var(--enso-surface-border);
-            --enso-select-trigger-color: var(--bulma-text-strong);
-        }
-    }
-
-    .labels,
-    .scenarios {
-        a.tag:hover {
-            text-decoration: none;
-        }
-    }
-
-    .labels .filter-container {
-        position: absolute;
-        top: 1.7em;
-        z-index: 100;
-        min-width: 18em;
-        max-width: 24em;
-        width: 100%;
-    }
-
-    .scenarios input.input.is-small {
-        height: 20px;
+    .scenarios .input.is-small {
+        font-size: 0.9rem;
+        height: 1.2rem;
+        min-height: 1.2rem;
     }
 
     .bottom-controls {
@@ -520,38 +127,6 @@
         vertical-align: middle;
     }
 
-    .pagination-link,
-    .pagination-previous,
-    .pagination-next {
-        height: 1.75rem;
-        background-color: var(--bulma-input-background-color);
-        border-color: var(--bulma-pagination-border-color);
-        color: var(--bulma-pagination-color);
-    }
-
-    .pagination-link:hover,
-    .pagination-previous:hover,
-    .pagination-next:hover {
-        border-color: var(--bulma-input-hover-border-color);
-        color: var(--bulma-text-strong);
-    }
-
-    .pagination-link.is-current,
-    .pagination-link.is-selected {
-        background-color: var(--bulma-dark);
-        border-color: var(--bulma-dark);
-        color: var(--bulma-dark-invert);
-    }
-
-    .pagination-ellipsis,
-    .table-header,
-    .table-header .sorter,
-    .table-header .icon,
-    .bottom-controls,
-    .bottom-controls .records-info {
-        color: var(--bulma-text-light);
-    }
-
     .table-header {
         .is-clickable,
         .sorter {
@@ -581,24 +156,13 @@
         }
 
         .table {
-            thead tr {
-                border-bottom: 1px solid var(--enso-surface-border);
-            }
-
-            tfoot tr:first-child {
-                border-top: 1px solid var(--bulma-border);
-            }
-
             td,
             th {
                 vertical-align: middle;
             }
 
             th {
-                padding: 0.5em;
-                font-weight: var(--bulma-label-weight);
-                line-height: normal;
-                letter-spacing: 0;
+                padding: 0.4em;
                 color: var(--bulma-label-color);
             }
 
