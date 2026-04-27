@@ -2,7 +2,7 @@
     <core-dropdown-actions>
         <template #default="{ buttons, disabled, controlBindings,
             controlEvents, hasSelection }">
-             <dropdown class="table-dropdown"
+             <dropdown class="table-dropdown dropdown-actions"
                 ref="dropdown"
                 :disabled="disabled">
                 <template #label>
@@ -14,7 +14,7 @@
                     <dropdown-item v-for="button in buttons"
                         :key="button.name"
                         @mouseup="$refs.dropdown.hide()">
-                        <control class="is-fullwidth dropdown-action-control"
+                        <control class="is-fullwidth"
                             v-bind="controlBindings(button)"
                             :key="`${button.label}-${button.icon}`"
                             :button="button"
@@ -74,45 +74,13 @@ export default {
 
     .dropdown-item {
         padding: 0;
+        padding-inline-end: 0;
         background: transparent !important;
         border-bottom: 1px solid color-mix(in srgb, var(--bulma-border) 40%, transparent);
-    }
 
-    .dropdown-item:last-child {
-        border-bottom: 0;
-    }
-
-    .dropdown-action-control.button {
-        width: 100%;
-        min-height: unset;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.5rem;
-        padding: 0.6rem 0.85rem;
-        border: 0 !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        background: transparent !important;
-        color: var(--bulma-dropdown-item-color) !important;
-        font-weight: 500;
-    }
-
-    .dropdown-action-control.button.is-dark,
-    .dropdown-action-control.button.is-black,
-    .dropdown-action-control.button.has-background-dark,
-    .dropdown-action-control.button.has-background-black {
-        background: transparent !important;
-        background-color: transparent !important;
-        color: var(--bulma-dropdown-item-color) !important;
-    }
-
-    .dropdown-action-control.button:hover,
-    .dropdown-action-control.button:focus,
-    .dropdown-item.is-active .dropdown-action-control.button,
-    .dropdown-item.is-current .dropdown-action-control.button {
-        background: var(--bulma-scheme-main-ter) !important;
-        color: var(--bulma-text-strong) !important;
+        .button {
+            border:0;
+        }
     }
 }
 </style>
