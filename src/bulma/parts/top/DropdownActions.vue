@@ -2,11 +2,11 @@
     <core-dropdown-actions>
         <template #default="{ buttons, disabled, controlBindings,
             controlEvents, hasSelection }">
-             <dropdown class="dropdown-actions table-dropdown is-right"
+             <dropdown class="table-dropdown"
                 ref="dropdown"
                 :disabled="disabled">
                 <template #label>
-                    <span class="icon is-small">
+                    <span class="icon">
                         <fa :icon="faGears"/>
                     </span>
                 </template>

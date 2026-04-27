@@ -27,12 +27,17 @@
         }
     }
 
-    .table-select,
-    .table-dropdown {
-        --table-trigger-width: 3.3rem;
+    .table-dropdown, .dropdown-trigger .button.input {
+        width: 3.3rem;
+
+        .icon:not(.dropdown-indicator) {
+            margin-inline-start: unset;
+            margin-inline-end: unset;
+        }
     }
 
     .table-select {
+        --table-trigger-width: 3.3rem;
         --table-menu-width: auto;
         --table-menu-min-width: 100%;
         --table-menu-max-width: none;
@@ -42,35 +47,13 @@
         --enso-select-dropdown-min-width: var(--table-menu-min-width);
         --enso-select-dropdown-max-width: var(--table-menu-max-width);
 
-        .dropdown.vue-dropdown .dropdown-content {
-            overflow: hidden;
-
-            .items {
-                width: 100%;
-                overflow-x: hidden;
-            }
-        }
-
         .dropdown.vue-dropdown .dropdown-trigger .button.input {
             width: var(--table-trigger-width);
             min-width: var(--table-trigger-width);
-            .icon {
-                margin-left: -0.2rem;
+            .icon:not(.dropdown-indicator) {
+                margin-inline-start: unset;
+                margin-inline-end: unset;
             }
-        }
-    }
-
-
-    .table-dropdown {
-        width: unset;
-
-        > .dropdown-trigger .button.input {
-            width: var(--table-trigger-width);
-            min-width: var(--table-trigger-width);
-        }
-
-        > .dropdown-menu {
-            width: unset;
         }
     }
 
