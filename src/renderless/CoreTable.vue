@@ -1,5 +1,5 @@
 <script>
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import Enum from '@enso-ui/enums';
 import NumberFormatter from './services/NumberFormatter';
 
