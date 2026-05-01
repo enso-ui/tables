@@ -5,13 +5,14 @@
             {{ i18n(button.label) }}
         </span>
         <span class="icon is-small">
-            <fa :icon="button.icon"/>
+            <fa :icon="icon(button.icon)"/>
         </span>
     </a>
 </template>
 
 <script>
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
+import { icon } from '../icon';
 
 export default {
     name: 'Control',
@@ -25,6 +26,10 @@ export default {
             type: Object,
             required: true,
         },
+    },
+
+    methods: {
+        icon,
     },
 };
 </script>

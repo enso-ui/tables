@@ -27,7 +27,7 @@
                                     @click.stop="apply"
                                     v-if="$refs.filter.applicable">
                                     <span class="icon">
-                                        <fa icon="check"/>
+                                        <fa :icon="faCheck"/>
                                     </span>
                                 </a>
                             </div>
@@ -35,7 +35,7 @@
                                 <a class="button is-naked is-small"
                                     @click.stop="filter = null; ready = false;">
                                     <span class="icon">
-                                        <fa icon="xmark"/>
+                                        <fa :icon="faXmark"/>
                                     </span>
                                 </a>
                             </div>
@@ -92,7 +92,9 @@ export default {
     inject: ['activeScenario', 'i18n', 'state'],
 
     data: () => ({
+        faCheck,
         faFilter,
+        faXmark,
         ready: false,
         filter: null,
     }),

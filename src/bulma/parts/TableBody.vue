@@ -114,7 +114,7 @@
                                                 {{ i18n(button.label) }}
                                             </span>
                                             <span class="icon is-small">
-                                                <fa :icon="button.icon"
+                                                <fa :icon="icon(button.icon)"
                                                     size="sm"/>
                                             </span>
                                         </a>
@@ -136,6 +136,7 @@ import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import CoreTableBody from '../../renderless/CoreTableBody.vue';
 import TableCell from './TableCell.vue';
+import { icon } from './icon';
 
 export default {
     name: 'TableBody',
@@ -153,6 +154,7 @@ export default {
     }),
 
     methods: {
+        icon,
         cssClasses(row) {
             return row._cssClasses
                 ? row._cssClasses
