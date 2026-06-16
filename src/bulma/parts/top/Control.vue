@@ -1,7 +1,7 @@
 <template>
     <a class="button"
         :class="button.class">
-        <span class="is-hidden-mobile">
+        <span v-if="button.label" class="is-hidden-mobile">
             {{ i18n(button.label) }}
         </span>
         <span class="icon is-small">
