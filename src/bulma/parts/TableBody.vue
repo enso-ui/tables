@@ -102,7 +102,6 @@
                                             :row="row"
                                             v-if="button.slot"/>
                                         <a class="button is-small is-table-button ml-1"
-                                            :class="button.class"
                                             v-bind="actionBindings(button, row)"
                                             :key="`action-${idx}`"
                                             v-tooltip.left="button.tooltip
@@ -113,7 +112,8 @@
                                             <span v-if="button.label">
                                                 {{ i18n(button.label) }}
                                             </span>
-                                            <span class="icon is-small">
+                                            <span class="icon is-small"
+                                                :class="button.class">
                                                 <fa :icon="icon(button.icon)"
                                                     size="sm"/>
                                             </span>
