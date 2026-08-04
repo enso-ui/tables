@@ -60,18 +60,21 @@ export default {
 <style lang="scss">
 .table-search-input {
     color: var(--bulma-input-color);
-    padding-inline-end: 4.8rem;
 
     &::placeholder {
         color: var(--bulma-text-light);
     }
 }
 
+.control.has-icons-right .input.table-search-input {
+    padding-inline-end: calc(var(--bulma-input-height) + 2.7rem);
+}
+
 .has-active-filters {
     color: var(--bulma-warning);
 }
 
-.is-right.icon {
+.control.has-icons-right > .is-right.icon {
     pointer-events: all;
 
     &.search-mode {
@@ -81,11 +84,11 @@ export default {
         justify-content: center;
 
         [dir='ltr'] & {
-            right: 1.5rem;
+            right: var(--bulma-input-height);
         }
 
         [dir='rtl'] & {
-            left: 1.5rem;
+            left: var(--bulma-input-height);
         }
 
         .icon {
