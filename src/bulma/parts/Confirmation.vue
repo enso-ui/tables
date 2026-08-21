@@ -18,7 +18,7 @@
                             </button>
                             <button class="button is-dark ml-1"
                                 @click="doButtonAction(); close();">
-                                {{ i18n("Delete") }}
+                                {{ i18n("Confirm") }}
                             </button>
                         </div>
                     </div>
